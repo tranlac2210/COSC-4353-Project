@@ -1,0 +1,23 @@
+{
+    "name": "cosc-4353-project",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "concurrently \"cd server && npm run dev\" \"cd client && npm start\" "
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/tranlac2210/Movies-Website.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/tranlac2210/Movies-Website/issues"
+    },
+    "homepage": "https://github.com/tranlac2210/Movies-Website#readme",
+    "dependencies": {
+        "concurrently": "^7.3.0"
+    }
+}
