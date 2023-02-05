@@ -9,14 +9,14 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/tranlac2210/Movies-Website.git"
+        "url": "git+https://github.com/tranlac2210/COSC-4353-Project.git"
     },
     "author": "",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/tranlac2210/Movies-Website/issues"
+        "url": "https://github.com/tranlac2210/COSC-4353-Project/issues"
     },
-    "homepage": "https://github.com/tranlac2210/Movies-Website#readme",
+    "homepage": "https://github.com/tranlac2210/COSC-4353-Project#readme",
     "dependencies": {
         "concurrently": "^7.3.0"
     }
