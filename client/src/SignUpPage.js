@@ -4,7 +4,7 @@ import './SignUpPage.css';
 
 function SignUpPage() {
 
-  const [email, setEmail] = useState('');
+  const [username, setusername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -15,19 +15,21 @@ function SignUpPage() {
       return;
     }
     // Perform sign up action, for example by calling an API
-    console.log(`Signing up with email: ${email} and password: ${password}`);
+    console.log(`Signing up with username: ${username} and password: ${password}`);
   };
 
   return (
+    <div>
+      <h1>Welcome to Sign up Page</h1>
     <form className='signup_form' onSubmit={handleSubmit}>
       <h2>Sign Up</h2>
       <div>
-        <label className='signup_label_email' htmlFor="email">Email:</label>
+        <label className='signup_label_username' htmlFor="username">username:</label>
         <input className='signup_input'
-          type="email"
-          id="email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
+          type="username"
+          id="username"
+          value={username}
+          onChange={(event) => setusername(event.target.value)}
           required
         />
       </div>
@@ -53,6 +55,7 @@ function SignUpPage() {
       </div>
       <button className='signup_button' type="submit">Sign Up</button>
     </form>
+    </div>
   );
 };
 

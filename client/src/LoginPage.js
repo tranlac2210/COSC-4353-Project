@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import {Link, useHistory} from 'react-router-dom';
 import './LoginPage.css';
+import ClientPage from './ClientPage';
+
 
 function LoginPage(){
 
@@ -14,6 +16,7 @@ function LoginPage(){
   };
 
   return (
+    <div><h1>Welcome to the Login Page</h1>
     <form className="login_form" onSubmit={handleSubmit}>
       <h2>Log in</h2>
       <div  >
@@ -35,7 +38,10 @@ function LoginPage(){
         />
       </div>
       <button className="login_button" type="submit">Submit</button>
+      <Link className="demo" to="/ClientPage">Demo</Link>
+      
     </form>
+    </div>
   );
 };
 
