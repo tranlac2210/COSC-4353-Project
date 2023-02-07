@@ -14,7 +14,7 @@
     margin-bottom: 30px;
   }
   
-  .signup_label_email,.signup_label_pass,.signup_label_conpass {
+  .signup_label_username,.signup_label_pass,.signup_label_conpass {
     display: flex;
     margin-top: 10px;
     margin-bottom: 5px;
