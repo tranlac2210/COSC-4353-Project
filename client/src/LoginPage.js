@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import {Link, useHistory} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom';
+import './LoginPage.css';
 
 function LoginPage(){
 
@@ -13,10 +14,11 @@ function LoginPage(){
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="username">Username:</label>
-        <input
+    <form className="login_form" onSubmit={handleSubmit}>
+      <h2>Log in</h2>
+      <div  >
+        <label className="login_username" htmlFor="username">Username:</label>
+        <input className="login_input"
           type="text"
           id="username"
           value={username}
@@ -24,15 +26,15 @@ function LoginPage(){
         />
       </div>
       <div>
-        <label htmlFor="password">Password:</label>
-        <input
+        <label className="login_pass" htmlFor="password">Password:</label>
+        <input className="login_input"
           type="password"
           id="password"
           value={password}
           onChange={event => setPassword(event.target.value)}
         />
       </div>
-      <button type="submit">Submit</button>
+      <button className="login_button" type="submit">Submit</button>
     </form>
   );
 };

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import './SignUpPage.css';
+
 
 function SignUpPage() {
 
@@ -17,11 +19,11 @@ function SignUpPage() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className='signup_form' onSubmit={handleSubmit}>
       <h2>Sign Up</h2>
       <div>
-        <label htmlFor="email">Email:</label>
-        <input
+        <label className='signup_label_email' htmlFor="email">Email:</label>
+        <input className='signup_input'
           type="email"
           id="email"
           value={email}
@@ -30,8 +32,8 @@ function SignUpPage() {
         />
       </div>
       <div>
-        <label htmlFor="password">Password:</label>
-        <input
+        <label className='signup_label_pass' htmlFor="password">Password:</label>
+        <input className='signup_input'
           type="password"
           id="password"
           value={password}
@@ -40,8 +42,8 @@ function SignUpPage() {
         />
       </div>
       <div>
-        <label htmlFor="confirmPassword">Confirm Password:</label>
-        <input
+        <label className='signup_label_conpass' htmlFor="confirmPassword">Confirm Password:</label>
+        <input className='signup_input'
           type="password"
           id="confirmPassword"
           value={confirmPassword}
@@ -49,7 +51,7 @@ function SignUpPage() {
           required
         />
       </div>
-      <button type="submit">Sign Up</button>
+      <button className='signup_button' type="submit">Sign Up</button>
     </form>
   );
 };
