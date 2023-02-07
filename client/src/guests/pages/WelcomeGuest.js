@@ -9,8 +9,7 @@ WelcomeGuest.propTypes = {
 function WelcomeGuest(props) {
     return (
         <div className='container'>
-            <button>Sign up</button>
-            <button>Log in</button>
+            <h1>Group 9 Project</h1>
         </div>
     );
 }
