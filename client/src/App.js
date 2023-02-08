@@ -1,28 +1,27 @@
 import React from 'react';
 import { BrowserRouter as Router, Route,Routes , Link } from 'react-router-dom';
-import LoginPage from "./LoginPage";
-import HomePage from "./HomePage";
-import SignUpPage from "./SignUpPage";
-import ClientPage from './ClientPage';
-import ClientProfilePage from './ClientProfilePage';
+import { LoginPage } from './pages';
+import { HomePage } from './pages';
+import { SignUpPage } from './pages';
+import { ClientPage } from './pages';
+import { ClientProfilePage } from './pages';
 import './App.css';
 
 function App() {
   return (
-    <Router>
+    <>
+      <Router>
         <div>
-      
-      <Routes>
-      <Route path="/LoginPage" element={<LoginPage/>} />
-      
-      <Route path="/" element={<HomePage/>} />
-      <Route path="/SignUpPage" element={<SignUpPage/>} />
-      <Route path="/ClientPage" element={<ClientPage/>} />
-      <Route path="/ClientProfilePage" element={<ClientProfilePage/>} />
-      </Routes>
-      
-      </div>
-    </Router>
+          <Routes>
+            <Route path="/" element={<HomePage/>} />
+            <Route path="/LoginPage" element={<LoginPage/>} />
+            <Route path="/SignUpPage" element={<SignUpPage/>} />
+            <Route path="/ClientPage" element={<ClientPage/>} />
+            <Route path="/ClientProfilePage" element={<ClientProfilePage/>} />
+          </Routes>
+        </div>
+      </Router>
+    </>
   );
 }
 
