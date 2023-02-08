@@ -19,4 +19,8 @@ function ClientPage() {
   );
 }
 
+<style>
+
+</style>
+
 export default ClientPage;
