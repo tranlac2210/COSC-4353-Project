@@ -1,3 +1,5 @@
 Working Space
-- Lac Tran: + Homepage.js -- active     
-            + Navbar.js   -- active
+- Lac Tran:         
+     + Homepage.js -- active     
+     + Navbar.js   -- active
+-------------------------------
