@@ -180,6 +180,7 @@ const Wrapper = styled.div`
   .login_button:hover {
     background-color: #3e8e41;
   }
+
 `;
 
 export default ClientProfilePage;

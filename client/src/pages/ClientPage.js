@@ -7,6 +7,7 @@ import {Link, useHistory} from 'react-router-dom';
 function ClientPage() {
   return (
     <div>
+      <h2> testing </h2>
       <h2>Welcome, Client!</h2>
       <p>Here you can access your account information, view your recent transactions, and manage your personal information.</p>
       <ul>
