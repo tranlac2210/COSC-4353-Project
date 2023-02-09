@@ -19,7 +19,7 @@ function LoginPage(){
     <Wrapper>
       <div><h1>Welcome to the Login Page</h1>
       <form className="login_form" onSubmit={handleSubmit}>
-        <h2>Log in</h2>
+        <h3>Log in</h3>
         <div  >
           <label className="login_username" htmlFor="username">Username:</label>
           <input className="login_input"
@@ -38,8 +38,16 @@ function LoginPage(){
             onChange={event => setPassword(event.target.value)}
           />
         </div>
-        <button className="login_button" type="submit">Submit</button>
-        <Link className="demo" to="/ClientPage">Demo</Link>
+        <button className="login_button" type="submit"><h4>Submit</h4></button>
+        
+        
+        
+        
+        <div className="already-have-account">
+        Not a member? 
+        <a className="signup_now" href="/SignupPage">Create New Account</a>
+      </div>
+        <Link className="demo" to="/ClientPage">Continue as Guest</Link>
 
       </form>
       </div>
@@ -48,7 +56,26 @@ function LoginPage(){
 };
 
 const Wrapper = styled.div`
+
+  .login_h4{
+    margin-top:20px;
+  }
+
+  .signup_now {
+    
+    padding: 5px;
+    text-decoration: none;
+    color: inherit;
+    margin-top:20px;
+    color: purple;
+    cursor: pointer;
+    }
+
+    .signup_now:hover {
+      color: #3e8e41;
+    }
   .login_form {
+    background: linear-gradient(to right, #fa709a 0%, #fee140 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -56,7 +83,7 @@ const Wrapper = styled.div`
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    width: 50%;
+    width: 30%;
     margin: auto;
   }
   
@@ -67,13 +94,13 @@ const Wrapper = styled.div`
   } 
 
 
-  .login_form h2 {
-    font-size: 40px;
+  .login_form h3 {
+    font-size: 30px;
     margin-bottom: 30px;
   }
 
   .login_username,.login_pass {
-    font-size: 24px;
+    font-size: 20px;
     margin-bottom: 10px;
     margin-right: 20px;
   }
@@ -83,17 +110,18 @@ const Wrapper = styled.div`
     height: 40px;
     padding: 10px;
     margin-bottom: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
     border: none;
     font-size: 16px;
   }
   
   .login_button {
+    margin-bottom:10px;
     margin-top: 20px;
     width: 300px;
     height: 40px;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 30px;
     border: none;
     font-size: 16px;
     background-color: #4CAF50;
@@ -105,7 +133,7 @@ const Wrapper = styled.div`
     margin-top: 20px;
 
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 20px;
     border: none;
     font-size: 16px;
     background-color: #4CAF50;
@@ -116,7 +144,7 @@ const Wrapper = styled.div`
     background-color: #3e8e41;
   }
   
-  .login_button:hover {
+  .login_button:hover,.signup_link:hover{
     background-color: #3e8e41;
   }
 `;
