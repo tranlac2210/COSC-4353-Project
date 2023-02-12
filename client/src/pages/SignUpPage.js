@@ -8,13 +8,25 @@ function SignUpPage() {
   const [username, setusername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showLabel, setshowLabel] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (password !== confirmPassword) {
       alert("Passwords don't match");
+      setshowLabel(true);
+      setshowLabel('Password and Confirm Password not match!!! ');
+      setusername('');
+      setPassword('');
+      setConfirmPassword('');
+      
       return;
     }
+    setshowLabel(false);
+    alert("Account successfully created!");
+    setusername('');
+    setPassword('');
+    setConfirmPassword('');
     // Perform sign up action, for example by calling an API
     console.log(`Signing up with username: ${username} and password: ${password}`);
   };
@@ -55,6 +67,9 @@ function SignUpPage() {
             required
           />
         </div>
+        {showLabel && (
+        <label className="show-label">{showLabel}</label>
+      )}
         <button className='signup_button' type="submit">CREATE ACCOUNT</button>
         <div className="already-have-account">
         Already have an account? 
@@ -68,7 +83,10 @@ function SignUpPage() {
 
 const Wrapper = styled.div`
  
-
+.show-label{
+  color:red;
+  margin-bottom:10px;
+}
   .already-have-account {
     text-align: center;
     margin-top: 1rem;
