@@ -8,9 +8,13 @@ function LoginPage(){
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [ErrorLabel, setErrorLabel] = useState(false);
 
   const handleSubmit = event => {
     event.preventDefault();
+    alert('Incorrect Password or Username!!');
+    setErrorLabel(true);
+    setErrorLabel('Incorrect Password or Username!!');
     console.log("Username: ", username);
     console.log("Password: ", password);
   };
@@ -38,6 +42,8 @@ function LoginPage(){
             onChange={event => setPassword(event.target.value)}
           />
         </div>
+        {ErrorLabel && (<label className="error-label"> {ErrorLabel}</label>)}
+
         <button className="login_button" type="submit"><h4>Submit</h4></button>
         
         
@@ -56,7 +62,9 @@ function LoginPage(){
 };
 
 const Wrapper = styled.div`
-
+.error-label{
+  color:red;
+}
   .login_h4{
     margin-top:20px;
   }
