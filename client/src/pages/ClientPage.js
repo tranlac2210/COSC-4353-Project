@@ -7,8 +7,10 @@ import styled from 'styled-components';
 
 function ClientPage() {
   return (
+
     <Wrapper>
     <div className='div_clientpage'>
+
       
       <h2>Welcome, Client!</h2>
       <p>Here you can access your account information, view your recent transactions, and manage your personal information.</p>
