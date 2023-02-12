@@ -3,21 +3,16 @@ import React, { useState } from 'react';
 import styled from "styled-components";
 
 function ClientProfilePage() {
-  const [fullName, setFullName] = useState('');
-  const [address1, setAddress1] = useState('');
+  const [fullName, setFullName] = useState('Client Name');
+  const [address1, setAddress1] = useState('address');
   const [address2, setAddress2] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
-  const [zipcode, setZipcode] = useState('');
+  const [city, setCity] = useState('Houston');
+  const [state, setState] = useState('alabama');
+  const [zipcode, setZipcode] = useState('77204');
 
   const handleSubmit = (event) => {
     event.preventDefault();    
-    setFullName('');
-    setAddress1('');
-    setAddress2('');
-    setCity('');
-    setState('');
-    setZipcode('');
+    
     alert('Your changes have been successfully saved!');
     console.log('Full Name: ', fullName);
     console.log('Address 1: ', address1);
@@ -29,7 +24,7 @@ function ClientProfilePage() {
 
   return (
     <Wrapper>
-      <div><h1 className='profileh1'>Edit information</h1>
+      <div><h1 className='profileh1'>Client information</h1>
         <form className="login_form" onSubmit={handleSubmit}>
           <div>
             <label className="login_username" htmlFor="fullName">Full Name:</label>
@@ -82,7 +77,8 @@ function ClientProfilePage() {
               onChange={(event) => setState(event.target.value)}
               required
             >
-              <option value="">Select State</option>
+              {/* <option value="">Select State</option> */}
+              <option value="TX">Texas</option>
               <option value="AL">Alabama</option>
               <option value="AK">Alaska</option>
 

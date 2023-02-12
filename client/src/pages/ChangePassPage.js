@@ -103,10 +103,10 @@ const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     background-color: #f2f2f2;
-    padding: 30px;
+    padding: 70px;
     border-radius: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    width: 30%;
+    width: 40%;
     margin: auto;
   }
   
@@ -129,6 +129,7 @@ const Wrapper = styled.div`
   }
   
   .change_pass_input {
+    
     width: 300px;
     height: 40px;
     padding: 10px;
