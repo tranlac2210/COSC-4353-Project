@@ -13,6 +13,7 @@ function ClientPage() {
       <ul>
         <li><a href="#">View Account Information</a></li>
         <li><a href="#">View Recent Transactions</a></li>
+        <li><Link to="/ChangePassPage">Change Password</Link></li>
         <li><Link to="/ClientProfilePage">Manage Personal Information</Link></li>
         
       </ul>

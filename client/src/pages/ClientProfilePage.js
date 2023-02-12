@@ -11,7 +11,14 @@ function ClientProfilePage() {
   const [zipcode, setZipcode] = useState('');
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault();    
+    setFullName('');
+    setAddress1('');
+    setAddress2('');
+    setCity('');
+    setState('');
+    setZipcode('');
+    alert('Your changes have been successfully saved!');
     console.log('Full Name: ', fullName);
     console.log('Address 1: ', address1);
     console.log('Address 2: ', address2);
@@ -110,14 +117,15 @@ const Wrapper = styled.div`
     margin-bottom: 15px;
   }
   .login_form {
+    background: linear-gradient(to right, #fa709a 0%, #fee140 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #f2f2f2;
     padding: 30px;
-    border-radius: 10px;
+    border-radius: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    width: 50%;
+    width: 30%;
     margin: auto;
   }
   
@@ -144,7 +152,7 @@ const Wrapper = styled.div`
     height: 40px;
     padding: 10px;
     margin-bottom: 20px;
-    border-radius: 5px;
+    border-radius: 25px;
     border: none;
     font-size: 16px;
   }
@@ -154,7 +162,7 @@ const Wrapper = styled.div`
     width: 300px;
     height: 40px;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 25px;
     border: none;
     font-size: 16px;
     background-color: #4CAF50;
