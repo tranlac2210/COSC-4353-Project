@@ -8,6 +8,8 @@ import { ClientProfilePage } from './pages';
 import { ChangePassPage } from './pages';
 
 import './App.css';
+import ClientList from './admins/pages/ClientList';
+import ClientEdit from './admins/pages/ClientEdit';
 
 function App() {
   return (
@@ -20,7 +22,11 @@ function App() {
             <Route path="/SignUpPage" element={<SignUpPage/>} />
             <Route path="/ClientPage" element={<ClientPage/>} />
             <Route path="/ClientProfilePage" element={<ClientProfilePage/>} />
+
+            <Route path="/admin/ClientList" element={<ClientList/>}></Route>
+            <Route path="/admin/ClientList/edit" element={<ClientEdit/>}></Route>
             <Route path="/ChangePassPage" element={<ChangePassPage/>} />
+
           </Routes>
         </div>
       </Router>
