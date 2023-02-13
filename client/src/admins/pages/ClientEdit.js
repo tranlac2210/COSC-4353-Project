@@ -25,9 +25,10 @@ function ClientEdit(props) {
         // console.log(id);
         // console.log(first);
         // console.log(localStorage.getItem("ID"));
+        // console.log(id);
         var a = clients[id];
 
-        console.log(a);
+        // console.log(a);
 
         a.first = first;
         a.last = last;
@@ -45,7 +46,7 @@ function ClientEdit(props) {
      
     return (
         <Fragment>
-            <div className='border boder-dark b-spacing'>
+            <div className='border border-dark b-spacing-2'>
                 <div className="input-group mb-3">
                     <span className="input-group-text">First</span>
                     <input type="text" className="form-control" placeholder="First" value={first} aria-label="Username" required onChange={(e) => setFirst(e.target.value)}/>
@@ -56,7 +57,7 @@ function ClientEdit(props) {
                 <span className="input-group-text" id="inputGroup-sizing-default">Address</span>
                     <input type="text" className="form-control" value={address} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required onChange={(e) => setAddress(e.target.value)}/>
                 </div>
-                <button type="submit" className="btn btn-success" onClick={() => handleSubmit()}>MODIFY</button>
+                <button type="submit" className="btn btn-success btn-outline-dark bn-color" onClick={() => handleSubmit()}><b>Save</b></button>
             </div>
         </Fragment>
         

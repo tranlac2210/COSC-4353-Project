@@ -1,16 +1,19 @@
-import React, { Fragment } from 'react';
-import "./ClientList.css"
+import React, { Fragment, useEffect, useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css"
+import "./ClientList.css"
 import clients from './clients';
 import {Link, useNavigate} from 'react-router-dom'
+import Modal from '../components/Modal/Modal';
  
 
 
 function ClientList() {
+    const [openModal, setOpenModal] = useState(false);
+    const [deletedID, setdeletedId] = useState(-1)
 
     let history = useNavigate();
 
-    const handleDelete = (id) => {
+    const handleDeactivate = (id) => {
         var index = clients.map(client => {
             return client.id;
         }).indexOf(id);
@@ -20,7 +23,14 @@ function ClientList() {
     
         clients[index].active = 0;
 
-        history("/admin/ClientList")
+        setOpenModal(false);
+
+        // history("/admin/ClientList")
+    }
+
+    const handleOpenDeactivate = (id) => {
+        setdeletedId(id);
+        setOpenModal(true);
     }
 
     const handleModify = (id, first, last, address) => {
@@ -30,14 +40,25 @@ function ClientList() {
         localStorage.setItem("Address", address);
     }
 
+    useEffect(() => {
+        if (openModal) {
+            document.body.style.overflow = 'hidden';
+        }
+        else {
+            document.body.style.overflow = 'unset';
+        }
+    }, [openModal])
+
     return (
         <Fragment>
             <div className="border border-dark b-spacing">
-                <h1>Client List</h1>
+                <h2>Clients</h2>
+                <div className='line'></div>
                 <table className='table table-striped table-bordered table-responsive table-hover table-med align-middle' >
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th>Username</th>
                             <th>First</th>
                             <th>Last</th>
                             <th>Address</th>
@@ -53,6 +74,7 @@ function ClientList() {
                                     client.active === 1 && (
                                     <tr key={client.id}>
                                         <td>{client.id}</td>
+                                        <td>Username</td>
                                         <td>{client.first}</td>
                                         <td>{client.last}</td>
                                         <td>{client.address}</td>
@@ -63,7 +85,7 @@ function ClientList() {
                                             &nbsp;
                                             <button type="button" className="btn btn-success" onClick={() => alert(client.active)}>ORDERS</button>
                                             &nbsp;
-                                            <button type="button" className="btn btn-danger" onClick={() => handleDelete(client.id)}>DELETE</button>
+                                            <button type="button" className="btn btn-danger" onClick={() => handleOpenDeactivate(client.id)}>DEACTIVATE</button>
 
                                         </td>
                                     </tr>
@@ -74,9 +96,9 @@ function ClientList() {
                         }
                     </tbody>
                 </table>
-                <br></br>
-                <Link ></Link>
             </div>
+            {openModal && <Modal onClose={() => setOpenModal(false)} onDelete={() => handleDeactivate(deletedID)}/>}
+            
         </Fragment>
         
     );
