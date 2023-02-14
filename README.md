@@ -6,4 +6,6 @@ Working Space
 - Phat Tran:         
      + LoginPage.js -- active     
      + SignupPage.js   -- active
+     + ClientProfilePage.js -- active
+     + ChangePassPage.js -- active
 -------------------------------
