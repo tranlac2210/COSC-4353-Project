@@ -9,12 +9,31 @@ import { AppProvider } from '../components';
 function HomePage() {
   return (
     <>
-        <AppProvider>
+       <AppProvider>
           <Navbar/>
           <Background/>
           <Sidebar/>
           <Submenu/>
         </AppProvider>
+      
+      
+      <div>
+        <h1>Welcome to the Home Page</h1>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/LoginPage">Login</Link>
+            </li>
+            <li>
+              <Link to="/SignUpPage">Sign Up</Link>
+            </li>
+          </ul>
+        </nav>
+        </div>
+      
     </>
   );
 }
