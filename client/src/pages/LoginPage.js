@@ -4,6 +4,12 @@ import {Link, useHistory} from 'react-router-dom';
 import ClientPage from './ClientPage';
 import styled from "styled-components";
 
+import { Navbar } from '../components'
+import { Background } from '../components'
+import { Sidebar } from '../components'
+import { Submenu } from '../components'
+import { AppProvider } from '../components';
+
 function LoginPage(){
 
   const [username, setUsername] = useState("");
@@ -20,8 +26,16 @@ function LoginPage(){
   };
 
   return (
+   
+          
+          
+          
+         
+       
+    
     <Wrapper>
-      <div><h1>Welcome to the Login Page</h1>
+      
+      <div className="wholeloginpage"> <AppProvider></AppProvider>
       <form className="login_form" onSubmit={handleSubmit}>
         <h3>Log in</h3>
         <div  >
@@ -58,14 +72,23 @@ function LoginPage(){
       </form>
       </div>
     </Wrapper>
+    
   );
 };
 
 const Wrapper = styled.div`
+.wholeloginpage{
+  background-color: #111;
+  height: 100vh;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
 .error-label{
   color:red;
 }
   .login_h4{
+    background-image: linear-gradient(to right, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%); 
     margin-top:20px;
   }
 
@@ -83,7 +106,7 @@ const Wrapper = styled.div`
       color: #3e8e41;
     }
   .login_form {
-    background: linear-gradient(to right, #fa709a 0%, #fee140 100%);
+    background-image: linear-gradient(to right, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%); 
     display: flex;
     flex-direction: column;
     align-items: center;
