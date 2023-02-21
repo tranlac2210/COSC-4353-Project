@@ -1,9 +1,10 @@
-import HomePage from './Homepage';
+import HomePage from './HomePage';
 import ClientPage from './ClientPage';
 import ClientProfilePage from './ClientProfilePage';
 import LoginPage from './LoginPage';
 import SignUpPage from './SignUpPage';
 import ChangePassPage from './ChangePassPage';
+import AdminLoginPage from './AdminLoginPage';
 
 export { 
   HomePage, 
@@ -12,4 +13,5 @@ export {
   LoginPage,
   SignUpPage,
   ChangePassPage,
+  AdminLoginPage,
 };

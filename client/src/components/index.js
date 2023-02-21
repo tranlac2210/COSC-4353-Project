@@ -1,4 +1,4 @@
-import Navbar from './Navbar'
+import Navbar from './NavBar'
 import AppProvider from './context'
 import Background from './Background'
 import Sidebar from './Sidebar'

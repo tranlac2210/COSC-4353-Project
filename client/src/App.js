@@ -6,6 +6,7 @@ import { SignUpPage } from './pages';
 import { ClientPage } from './pages';
 import { ClientProfilePage } from './pages';
 import { ChangePassPage } from './pages';
+import { AdminLoginPage } from './pages';
 
 import './App.css';
 import ClientList from './admins/pages/ClientList';
@@ -26,6 +27,7 @@ function App() {
             <Route path="/admin/ClientList" element={<ClientList/>}></Route>
             <Route path="/admin/ClientList/edit" element={<ClientEdit/>}></Route>
             <Route path="/ChangePassPage" element={<ChangePassPage/>} />
+            <Route path="/AdminLoginPage" element={<AdminLoginPage/>} />
 
           </Routes>
         </div>
