@@ -5,6 +5,7 @@ import { HomePage } from './pages';
 import { SignUpPage } from './pages';
 import { ClientPage } from './pages';
 import { ClientProfilePage } from './pages';
+import { FuelQuoteForm } from './pages';
 import './App.css';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
             <Route path="/SignUpPage" element={<SignUpPage/>} />
             <Route path="/ClientPage" element={<ClientPage/>} />
             <Route path="/ClientProfilePage" element={<ClientProfilePage/>} />
+            <Route path="/FuelQuoteForm" element={<FuelQuoteForm/>} />
           </Routes>
         </div>
       </Router>
