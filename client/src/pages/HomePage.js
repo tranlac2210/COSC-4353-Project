@@ -1,13 +1,22 @@
 import React from 'react';
 import { BrowserRouter as Router, Route,Routes , Link } from 'react-router-dom';
-import styled from "styled-components";
-import { NavBar } from '../components'
+import { Navbar } from '../components'
+import { Background } from '../components'
+import { Sidebar } from '../components'
+import { Submenu } from '../components'
+import { AppProvider } from '../components';
 
 function HomePage() {
   return (
     <>
-      <NavBar/>
-      <Wrapper>
+       <AppProvider>
+          <Navbar/>
+          <Background/>
+          <Sidebar/>
+          <Submenu/>
+        </AppProvider>
+      
+      
       <div>
         <h1>Welcome to the Home Page</h1>
         <nav>
@@ -27,13 +36,9 @@ function HomePage() {
           </ul>
         </nav>
         </div>
-      </Wrapper>
+      
     </>
   );
 }
-
-const Wrapper = styled.div`
-
-`;
 
 export default HomePage;
