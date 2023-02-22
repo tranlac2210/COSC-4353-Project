@@ -2,6 +2,7 @@ import React from 'react';
 import logo from '../image/logo.svg';
 import { FaBars } from 'react-icons/fa';
 import { useGlobalContext } from './context';
+import "bootstrap/dist/css/bootstrap.min.css"
 import '../styles/navbar.css'
 
 const Navbar = () => {
@@ -44,7 +45,7 @@ const Navbar = () => {
             </button>
           </li>
         </ul>
-        <button className='btn signin-btn'>Sign in</button>
+        <button className='btn btn-dark signin-btn'>Sign in</button>
       </div>
     </nav>
   );
