@@ -28,10 +28,10 @@
     margin: auto;
   }
   
-  h2 {
+  .change_h2 {
     text-align: center;
-    margin-top: 10px;
-    margin-bottom: 30px;
+    margin-top: 1px;
+    margin-bottom: 50px;
   } 
 
 

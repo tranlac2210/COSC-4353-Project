@@ -20,6 +20,7 @@ function FuelQuoteForm() {
   return (
     <>
     <div><h1 className='profiletest'></h1>
+    <div className='empty'></div>
       <form className='fuelinput' onSubmit={handleSubmit}>
       <h2>Fuel Quote Form</h2>
         <div>

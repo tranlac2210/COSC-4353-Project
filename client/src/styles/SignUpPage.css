@@ -66,6 +66,7 @@
   }
 
   .signup_form {
+    position: relative;
     /* background: linear-gradient(to right, #fa709a 0%, #fee140 100%); */
     background-image: linear-gradient(to right,#ffffff 0%, #ffffff 50%,#ff8177 50%, #ff8177 100%);   
     display: flex;    
