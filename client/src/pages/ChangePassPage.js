@@ -36,6 +36,7 @@ function ChangePassPage()
     <>
     <h2 className='empty'></h2>
     <form className='change_pass_form' onSubmit={handleSubmit}>
+    <h2 className='empty'></h2>
       <h2 className='change_h2'>Change Password</h2>
       <div>
         <label className='change_pass_label' htmlFor="password">New Password:</label>
@@ -64,6 +65,7 @@ function ChangePassPage()
         <label className="error-label">{SuccessLabel}</label>
       )}
       <button className='change_pass_button' type="submit">Change Password</button>
+      <h2 className='empty'></h2>
     </form>
     </>
   );

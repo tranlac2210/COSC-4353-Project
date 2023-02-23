@@ -23,8 +23,11 @@ function ClientProfilePage() {
 
   return (
     <>
-      <div><h1 className='profileh1'>Client information</h1>
+      <div>
+      <div className='empty'></div>
         <form className="cp_login_form" onSubmit={handleSubmit}>
+        <h1 className='profileh1'>Client information</h1>
+        <div className='empty'></div>
           <div>
             <label className="login_username" htmlFor="fullName">Full Name:</label>
             <input className='login_input'
