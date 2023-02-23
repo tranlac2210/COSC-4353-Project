@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-// import './ClientProfilePage.css';
-import styled from "styled-components";
+import "../styles/ClientProfilePage.css";
 
 function ClientProfilePage() {
   const [fullName, setFullName] = useState('Client Name');
@@ -23,7 +22,7 @@ function ClientProfilePage() {
   };
 
   return (
-    <Wrapper>
+    <>
       <div><h1 className='profileh1'>Client information</h1>
         <form className="login_form" onSubmit={handleSubmit}>
           <div>
@@ -99,92 +98,8 @@ function ClientProfilePage() {
           <button className="login_button" type="submit">Save</button>
         </form>
       </div>
-    </Wrapper>      
+    </>      
   );
 }
-
-const Wrapper = styled.div`
-  .select_box{
-    margin-bottom: 20px;
-  }
-
-  .profileh1{
-    text-align: center;
-    margin-bottom: 15px;
-  }
-  .login_form {
-    background: linear-gradient(to right, #fa709a 0%, #fee140 100%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #f2f2f2;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    width: 30%;
-    margin: auto;
-  }
-  
-  h1 {
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 30px;
-  } 
-
-
-  .login_form h2 {
-    font-size: 40px;
-    margin-bottom: 30px;
-  }
-
-  .login_username,.login_pass {
-    font-size: 24px;
-    margin-bottom: 10px;
-    margin-right: 20px;
-  }
-  
-  .login_input {
-    width: 300px;
-    height: 40px;
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 25px;
-    border: none;
-    font-size: 16px;
-  }
-  
-  .login_button {
-    margin-top: 20px;
-    width: 300px;
-    height: 40px;
-    padding: 10px;
-    border-radius: 25px;
-    border: none;
-    font-size: 16px;
-    background-color: #4CAF50;
-    color: white;
-    cursor: pointer;
-  }
-
-  .demo{
-    margin-top: 20px;
-
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    font-size: 16px;
-    background-color: #4CAF50;
-    color: white;
-    cursor: pointer;
-  }
-  .demo:hover {
-    background-color: #3e8e41;
-  }
-  
-  .login_button:hover {
-    background-color: #3e8e41;
-  }
-
-`;
 
 export default ClientProfilePage;

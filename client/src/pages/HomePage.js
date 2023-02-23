@@ -30,6 +30,9 @@ function HomePage() {
             <li>
               <Link to="/SignUpPage">Sign Up</Link>
             </li>
+            <li>
+              <Link to="/FuelQuoteForm">FuelQuoteFormTest</Link>
+            </li>
           </ul>
         </nav>
         </div>

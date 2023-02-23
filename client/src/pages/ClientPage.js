@@ -1,14 +1,10 @@
 import React from 'react';
 import {Link, useHistory} from 'react-router-dom';
-import styled from 'styled-components';
-
-
-
+import '../styles/ClientPage.css'
 
 function ClientPage() {
   return (
-
-    <Wrapper>
+    <>
     <div className='div_clientpage'>
 
       
@@ -22,15 +18,8 @@ function ClientPage() {
         
       </ul>
     </div>
-    </Wrapper>   
+    </>   
   );
 }
-const Wrapper = styled.div`
-
-.div_clientpage{
-  background: linear-gradient(to right, #fa709a 0%, #fee140 100%);
-  height: 100vh;
-}
-`;
 
 export default ClientPage;

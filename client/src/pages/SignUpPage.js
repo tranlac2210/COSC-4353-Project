@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {Link, useHistory} from 'react-router-dom';
-// import './SignUpPage.css';
-import styled from "styled-components";
+import "../styles/SignUpPage.css";
 
 function SignUpPage() {
 
@@ -35,7 +34,7 @@ function SignUpPage() {
   };
 
   return (
-    <Wrapper>
+    <>
       {backlogin ? (
       <div className='whole_signup'>
         
@@ -93,126 +92,8 @@ function SignUpPage() {
       ) :(
         <div><h1 className='empty'> </h1><form className='con_signup_form' onSubmit={handleSubmit}><label className='backlogin'><h1 className='backlogin_h1'>Congraturation!</h1> You have successfully created a new account .Click <a className="signup_link" href="/LoginPage"> Sign In</a> to get back to log in page</label></form></div>
         )}
-    </Wrapper>
+    </>
   );
 };
-
-const Wrapper = styled.div`
-.whole_signup{
-  background:url('https://cdn.discordapp.com/attachments/722016314679361559/1076156890700062750/bg_1.jpg')no-repeat center center fixed;
-  background-size: cover;
-  height: 100vh;
-  margin:auto;
-  display:flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.in_signup{
-  
-  text-align: center;
- 
-  flex-direction: column;
-  padding: 40px;
-  border-radius: 15px;
-  
-  width:100%;
-  margin: auto;
-}
-
-.signup-background{
-  text-align:center;
-  margin-right:80px;
-  float: left;
-  
-  width: auto;
-}
-
-.signup-background img{
-  
-  margin: auto; 
-  width: 100%;
- 
-}
- .empty{
-  margin-top:40px;
- }
-.show-label{
-  color:red;
-  margin-bottom:10px;
-}
-  .already-have-account {
-    text-align: center;
-    margin-top: 1rem;
-    font-size: 0.9rem;
-  }
-  .signup_h1,.backlogin_h1{
-    text-align:center;
-    margin-bottom:10px;
-  }
-  .con_signup_form{
-    
-    font-size: 20px;
-    background: linear-gradient(to right, #fa709a 0%, #fee140 100%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #f2f2f2;
-    padding: 200px;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    width: 40%;
-    margin: auto;
-  }
-
-  .signup_form {
-    // background: linear-gradient(to right, #fa709a 0%, #fee140 100%);
-    background-image: linear-gradient(to right,#ffffff 0%, #ffffff 50%,#ff8177 50%, #ff8177 100%);   
-    display: flex;    
-    align-items: center;    
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    width: 1000px;
-    margin: auto;
-  }
-  
-  .signup_form h2 {
-    
-    margin-bottom: 30px;
-  }
-  
-  .signup_label_username,.signup_label_pass,.signup_label_conpass {
-    // text-align: center;
-    display: flex;
-    margin-top: 10px;
-    margin-bottom: 5px;
-    justify-content: left;
-    margin-left:65px;
-  }
-  
-  .signup_input {
-    
-    width: auto;
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    margin-bottom: 20px;
-  }
-  
-  .signup_button {
-    
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 30px;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .signup_button:hover {
-    background-color: #3e8e41;
-  }
-`; 
 
 export default SignUpPage;
