@@ -8,12 +8,12 @@ function ClientPage() {
     <div className='div_clientpage'>
 
       
-      <h2>Welcome, Client!</h2>
-      <p>Here you can access your account information, view your recent transactions, and manage your personal information.</p>
-      <ul>
-      <li><Link to="/ClientProfilePage">Manage Personal Information</Link></li>
-        <li><a href="#">View Recent Transactions</a></li>
-        <li><Link to="/ChangePassPage">Change Password</Link></li>
+      <h2 className='c_h2'>Welcome, Client!</h2>
+      <p className='c_p'>Here you can access your account information, Create Fuel Quote Form, and manage your personal information.</p>
+      <ul className='linklist'>
+      <li><Link to="/ClientProfilePage" style={{ color: 'white' }}>Manage Personal Information</Link></li>
+        <li><Link to="/FuelQuoteForm" style={{ color: 'white' }}>Fuel Quote Form</Link></li>
+        <li><Link to="/ChangePassPage" style={{ color: 'white' }}>Change Password</Link></li>
         
         
       </ul>
