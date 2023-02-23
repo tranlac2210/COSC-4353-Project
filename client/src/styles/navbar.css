@@ -44,6 +44,10 @@
 
 .signin-btn {
   display: none;
+  
+}
+.btn btn-dark signin-btn{
+  color:while;
 }
 
 /* nav media query */
@@ -60,6 +64,7 @@
 
   .signin-btn {
     display: inline-block;
+    
   }
 
   .nav-links {

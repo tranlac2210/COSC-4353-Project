@@ -4,6 +4,7 @@ import { FaBars } from 'react-icons/fa';
 import { useGlobalContext } from './context';
 import "bootstrap/dist/css/bootstrap.min.css"
 import '../styles/navbar.css'
+import { BrowserRouter as Router, Route,Routes , Link } from 'react-router-dom';
 
 const Navbar = () => {
   const { openSidebar, openSubmenu, closeSubmenu } = useGlobalContext();
@@ -45,7 +46,7 @@ const Navbar = () => {
             </button>
           </li>
         </ul>
-        <button className='btn btn-dark signin-btn'>Sign in</button>
+        <button className='btn btn-dark signin-btn'> <Link  to='/LoginPage' style={{ color: 'white' }}>Sign in</Link></button>
       </div>
     </nav>
   );

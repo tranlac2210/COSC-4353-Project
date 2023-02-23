@@ -40,7 +40,9 @@ function SignUpPage() {
         
         <h1 className='signup_h1'></h1>
       <form className='signup_form' onSubmit={handleSubmit}>
-     
+      <a className="loginbb" href="/" id="bottle" onclick="document.location=this.id+'.html';return false;">
+        <img src="https://cdn.discordapp.com/attachments/722016314679361559/1078414402761527417/image_3.png" alt="bottle"/>
+        </a>
         {begin}
         <div className="signup-background">
         <img src="https://cdn.discordapp.com/attachments/722016314679361559/1076179438733107290/Untitled-PfTme9ZCQ-transformed.jpeg" alt="Login Image"/>

@@ -34,9 +34,9 @@ function ChangePassPage()
 
   return (
     <>
-    <h2></h2>
+    <h2 className='empty'></h2>
     <form className='change_pass_form' onSubmit={handleSubmit}>
-      <h2>Change Password</h2>
+      <h2 className='change_h2'>Change Password</h2>
       <div>
         <label className='change_pass_label' htmlFor="password">New Password:</label>
         <input className='change_pass_input'
