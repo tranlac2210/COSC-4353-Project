@@ -19,7 +19,7 @@ function AdminLoginPage(){
 
   return (
       <div><h1>Welcome to the Login Page</h1>
-      <form className="login_form" onSubmit={handleSubmit}>
+      <form className="ad_login_form" onSubmit={handleSubmit}>
         <h3>Log in</h3>
         <div  >
           <label className="login_username" htmlFor="username">Username:</label>

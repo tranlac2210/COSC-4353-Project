@@ -18,7 +18,7 @@
     .signup_now:hover {
       color: #3e8e41;
     }
-  .login_form {
+  .ad_login_form {
     background: linear-gradient(to right, #fa709a 0%, #fee140 100%);
     display: flex;
     flex-direction: column;
@@ -38,7 +38,7 @@
   } 
 
 
-  .login_form h3 {
+  .ad_login_form h3 {
     font-size: 30px;
     margin-bottom: 30px;
   }

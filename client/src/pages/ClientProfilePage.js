@@ -24,7 +24,7 @@ function ClientProfilePage() {
   return (
     <>
       <div><h1 className='profileh1'>Client information</h1>
-        <form className="login_form" onSubmit={handleSubmit}>
+        <form className="cp_login_form" onSubmit={handleSubmit}>
           <div>
             <label className="login_username" htmlFor="fullName">Full Name:</label>
             <input className='login_input'
