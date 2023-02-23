@@ -27,13 +27,14 @@ function LoginPage(){
   return (
     <>
       
-      <div className="wholeloginpage"> 
-      <div className="bb"></div>
+      <div className="wholeloginpage" onclick="window.location.href='/';"> 
       
-      <form className="login_form" onSubmit={handleSubmit}>
+          
+      <form className="c_login_form" onSubmit={handleSubmit}>
       <div className="login-background">
         <img src="https://cdn.discordapp.com/attachments/722016314679361559/1075986201259036722/login.jpg" alt="Login Image"/>
       </div>
+ 
       
         <h3>Log in</h3>
         <div >
