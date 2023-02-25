@@ -1,12 +1,25 @@
 Working Space
 - Lac Tran:         
-     + Homepage.js -- active     
-     + Navbar.js   -- active
+     + Homepage.js & .css -- Done     
+     + Navbar.js & .css  -- Done
+     + Background.js & .css -- Done
+     + Sidebar.js & .css -- Done
+     + Submenu.js & .css -- Done
+     + Context.js -- Done
+     + Image foler -- Done
 -------------------------------
 - Phat Tran:         
-     + ClientPage.js -- Done     
-     + LoginPage.js -- Done     
-     + SignupPage.js   -- Done
-     + ClientProfilePage.js -- Done
-     + ChangePassPage.js -- Done
+     + ClientPage.js & .css -- Done     
+     + LoginPage.js & .css -- Done     
+     + SignupPage.js & .css -- Done
+     + ClientProfilePage.js & .css -- Done
+     + ChangePassPage.js & .css -- Done
 -------------------------------
+- Charles Tran:         
+     + FuelQuoteForm.js & .css -- Done      
+-------------------------------
+- Chuong Tran:         
+     + Modal.js .css-- Done     
+     + ClientList.js .css-- Done     
+     + ClientEdit.js   .css-- Done
+     
