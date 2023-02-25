@@ -1,44 +1,47 @@
-.signup_form {
+
+  .fuelinput {
     display: flex;
+    background: linear-gradient(to right, #fa709a 0%, #fee140 100%);
     flex-direction: column;
     align-items: center;
     background-color: #f2f2f2;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    width: 50%;
+    width: 30%;
     margin: auto;
   }
   
-  .signup_form h2 {
+  .empty{
+    margin-top: 50px;
+  }
+
+  .fuelinput h2 {
     margin-bottom: 30px;
   }
   
-  .signup_label_username,.signup_label_pass,.signup_label_conpass {
+  .input {
     display: flex;
     margin-top: 10px;
     margin-bottom: 5px;
     align-items: center;
+    
   }
-  
-  .signup_input {
+
+  .input1 {
     width: 100%;
-    padding: 10px;
+    padding: 5px;
     border-radius: 5px;
     border: none;
     margin-bottom: 20px;
   }
-  
-  .signup_button {
+
+  .submit_button {
+    margin-top: 20px;
     background-color: #4CAF50;
     color: white;
-    padding: 10px 20px;
+    padding: 5px 20px;
     border-radius: 5px;
     border: none;
     cursor: pointer;
   }
-  
-  .signup_button:hover {
-    background-color: #3e8e41;
-  }
-  
