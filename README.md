@@ -5,8 +5,6 @@ Working Space
      + Background.js & .css -- Done
      + Sidebar.js & .css -- Done
      + Submenu.js & .css -- Done
-     + Context.js -- Done
-     + Image foler -- Done
 -------------------------------
 - Phat Tran:         
      + ClientPage.js & .css -- Done     
@@ -16,7 +14,9 @@ Working Space
      + ChangePassPage.js & .css -- Done
 -------------------------------
 - Charles Tran:         
-     + FuelQuoteForm.js & .css -- Done      
+     + FuelQuoteForm.js & .css -- Done  
+     + Image foler (Design logo and background images) -- Done   
+     + Context.js -- Done 
 -------------------------------
 - Chuong Tran:         
      + Modal.js .css-- Done     
