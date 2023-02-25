@@ -14,8 +14,7 @@ Working Space
      + ChangePassPage.js & .css -- Done
 -------------------------------
 - Charles Tran:         
-     + FuelQuoteForm.js & .css -- Done  
-     + Image foler (Design logo and background images) -- Done   
+     + FuelQuoteForm.js & .css -- Done    
      + Context.js -- Done 
 -------------------------------
 - Chuong Tran:         
