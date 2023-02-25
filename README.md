@@ -4,8 +4,9 @@ Working Space
      + Navbar.js   -- active
 -------------------------------
 - Phat Tran:         
-     + LoginPage.js -- active     
-     + SignupPage.js   -- active
-     + ClientProfilePage.js -- active
-     + ChangePassPage.js -- active
+     + ClientPage.js -- Done     
+     + LoginPage.js -- Done     
+     + SignupPage.js   -- Done
+     + ClientProfilePage.js -- Done
+     + ChangePassPage.js -- Done
 -------------------------------
