@@ -1,16 +1,17 @@
-const express = require("express")
-const bodyParser = require("body-parser")
-
+import express from "express";
+import bodyParser  from "body-parser";
+import adminRoutes from "./src/routes/admin.js";
 
 const app = express();
 const PORT = 9000;
 
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-    console.log("Get")
+app.use('/admin', adminRoutes);
 
-    res.send("Hello from my");
-});
+app.get('/', (req, res) => {
+
+    res.send("Mainpage");
+})
 
 app.listen(PORT, () => console.log(`Server is running on port: http://localhost:${PORT}`));
