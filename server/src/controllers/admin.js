@@ -1,0 +1,12 @@
+export const signIn = (req, res) => {
+    res.send("Log in");
+
+}
+
+export const signUp = (req, res) => {
+    res.send("Sign up");
+}
+
+export const passwordChange = (req, res) => {
+    res.send("passwordChange");
+}
