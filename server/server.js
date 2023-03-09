@@ -1,8 +1,8 @@
 import express from "express";
 import bodyParser  from "body-parser";
 import cors from "cors"
-import adminRoutes from "./src/routes/admin.js";
-import userRoutes from "./src/routes/user.js"
+import adminRoutes from "./src/routes/admin.route.js";
+import userRoutes from "./src/routes/user.route.js"
 
 const app = express();
 const PORT = 9000;
