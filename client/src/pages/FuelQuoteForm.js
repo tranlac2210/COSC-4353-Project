@@ -27,6 +27,7 @@ function FuelQuoteForm() {
           <label className="input" htmlFor='gallonsRequested'>Gallons Requested: </label>
           <input className='input1'
             type='number'
+            min="0"
             id="gallonsRequested"
             value={gallonsRequested}
             onChange={(event)=> setGallonsRequested(event.target.value)}
