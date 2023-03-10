@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import "../styles/SignUpPage.css";
+import axios from 'axios';
 
 function SignUpPage() {
 
@@ -10,7 +11,7 @@ function SignUpPage() {
   const [showLabel, setshowLabel] = useState(false);
   const [backlogin, setbacklogin] = useState(true);
   const [begin, setbegin] = useState(true);
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (password !== confirmPassword) {
       alert("Passwords don't match");
@@ -22,9 +23,27 @@ function SignUpPage() {
       
       return;
     }
-    setshowLabel(false);
-    alert("Account successfully created!");
-    setbegin(false)
+    try {
+      // Send a POST request to the server to create a new user
+      const response = await axios.post('http://localhost:9000/user/signUp', {
+        userName: username,
+        password: password,
+        confirmedPassword:confirmPassword
+      });
+      console.log(response.data); // log the response data
+
+      // Show success message and redirect to login page
+      alert("Account successfully created!");
+      setbacklogin(false);
+    } catch (error) {
+      
+      console.error(error);
+      alert(`${username},${password},${confirmPassword}`);
+      alert("Failed to create account");
+      return
+    }
+    setshowLabel(false);    
+    setbegin(false);
     setusername(false);
     setPassword(false);
     setConfirmPassword(false);
