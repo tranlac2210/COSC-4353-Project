@@ -1,18 +1,40 @@
 import React, { useState } from "react";
-import {Link, useHistory} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import '../styles/AdminLoginPage.css';
+import axios from 'axios';
 
 function AdminLoginPage(){
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [ErrorLabel, setErrorLabel] = useState(false);
+  const navigate  = useNavigate ();
 
-  const handleSubmit = event => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    alert('Incorrect Password or Username!!');
+    try {
+      // Send a POST request to the login API endpoint
+      const response = await axios.post('http://localhost:9000/admin/signin', {
+        userName: username,
+        password: password        
+      });
+      console.log(response.data);
+      // alert(`${response.status},${password}`)
+      if (response.status!==200) {
+        // If the response is not OK, throw an error
+        throw new Error('Incorrect Password or Username!!!!');
+      }
+  
+      // If the response is OK, redirect to the client page
+      navigate('/admin/clientlist?username='+ username);
+    } 
+     catch (error) {
+      // If there's an error, set the error label
+      setErrorLabel('Incorrect Password or Username !!');
+    }
+    // alert('Incorrect Password or Username!!');
     setErrorLabel(true);
-    setErrorLabel('Incorrect Password or Username!!');
+    // setErrorLabel('Incorrect Password or Username!!');
     console.log("Username: ", username);
     console.log("Password: ", password);
     

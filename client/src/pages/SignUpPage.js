@@ -38,7 +38,7 @@ function SignUpPage() {
     } catch (error) {
       
       console.error(error);
-      alert(`${username},${password},${confirmPassword}`);
+      // alert(`${username},${password},${confirmPassword}`);
       alert("Failed to create account");
       return
     }
