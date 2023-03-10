@@ -1,17 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect  } from 'react';
+import { useLocation } from 'react-router-dom';
 import "../styles/ClientProfilePage.css";
+import axios from 'axios';
 
 function ClientProfilePage() {
-  const [fullName, setFullName] = useState('Client Name');
-  const [address1, setAddress1] = useState('address');
+  const location = useLocation();
+  const username = new URLSearchParams(location.search).get('username');
+  const [fullName, setFullName] = useState('');
+  const [address1, setAddress1] = useState('');
   const [address2, setAddress2] = useState('');
-  const [city, setCity] = useState('Houston');
-  const [state, setState] = useState('alabama');
-  const [zipcode, setZipcode] = useState('77204');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [zipcode, setZipcode] = useState('');
+  const [user, setUser] = useState({});
 
-  const handleSubmit = (event) => {
+  useEffect(() => {
+    async function fetchData() {
+      const res = await axios.get(`http://localhost:9000/user/getUserinfo/${username}`);
+      setFullName(res.data[0].FullName);
+      setAddress1(res.data[0].Address1);
+      setAddress2(res.data[0].Address2);
+      setCity(res.data[0].city);
+      setState(res.data[0].State);
+      setZipcode(res.data[0].Zipcode);
+    }  fetchData();
+  }, [username]);
+
+  
+
+  const handleSubmit = async  (event) => {
     event.preventDefault();    
-    
+   
+    // Make an API call to update the user information on the backend
+    try {
+      const res = await axios.put('http://localhost:9000/user/UserInfoChange', {
+        userName: username,
+        info: [{
+          FullName: fullName,
+          Address1: address1,
+          Address2: address2,
+          city: city,
+          State: state,
+          Zipcode: zipcode
+        }]
+      });
+  
+      console.log(res.data.success);
+    } catch (error) {
+      console.error(error);
+    }
     alert('Your changes have been successfully saved!');
     console.log('Full Name: ', fullName);
     console.log('Address 1: ', address1);

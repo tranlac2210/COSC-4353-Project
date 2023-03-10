@@ -11,7 +11,7 @@ router.get('/getClients', getClients);
 
 router.get('/deactivateClient/:id', deactivateClient)
 
-router.post('/modifyClientInfo', modifyClientInfo);
+router.put('/modifyClientInfo', modifyClientInfo);
 
 router.get('/getClientOrder/:id', getClientOrder)
 
