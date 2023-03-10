@@ -1,17 +1,36 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./ClientList.css"
-import clients from './clients';
+// import clients from './clients';
 import {Link, useNavigate} from 'react-router-dom'
 import Modal from '../components/Modal/Modal';
- 
+import axios from 'axios';
 
 
 function ClientList() {
     const [openModal, setOpenModal] = useState(false);
     const [deletedID, setdeletedId] = useState(-1)
+    const [first, setFirst] = useState("");
+    const [last, setLast] = useState("");
+    const [address, setAddress] = useState("");
+    const [id, setId] = useState("");
+    const [clients, setclients] = useState("");
+    const [active, setactive] = useState("");
 
     let history = useNavigate();
+
+    useEffect(() => {
+        async function fetchData() {
+          const res = await axios.get(`http://localhost:9000/admin/getClients`);
+          setFirst(res.data.first);
+          setLast(res.data.last);
+          setAddress(res.data.address);
+          setId(res.data.id);
+          setactive(res.data.active);
+          setclients(res.data);
+          
+        }  fetchData();
+      }, []);
 
     const handleDeactivate = (id) => {
         var index = clients.map(client => {
@@ -79,7 +98,7 @@ function ClientList() {
                                         <td>{client.last}</td>
                                         <td>{client.address}</td>
                                         <td>
-                                            <Link to={"/admin/ClientList/edit"}>
+                                            <Link to={`/admin/ClientList/edit?id=`+`${client.id}`}>
                                                 <button type="button" className="btn btn-primary" onClick={() => handleModify(client.id, client.first, client.last, client.address)}>MODIFY</button>
                                             </Link>
                                             &nbsp;
