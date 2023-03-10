@@ -91,7 +91,7 @@ export const deactivateClient = (req, res) => {
     })
 }
 
-export const getClientOrder = (req, res) => {
+export const getClientOrder = async (req, res) => {
     try {
         var id = req.params.id;
         var client = clients.find(c => c.id == id);
@@ -110,7 +110,7 @@ export const getClientOrder = (req, res) => {
     }
 }
 
-export const modifyClientInfo = (req, res) => {
+export const modifyClientInfo = async (req, res) => {
     try {
         const incomingData = req.body;
         let id = incomingData.id;
@@ -126,7 +126,9 @@ export const modifyClientInfo = (req, res) => {
         clientToBeUpdated.first = incomingData.first;
         clientToBeUpdated.last = incomingData.last;
         clientToBeUpdated.address = incomingData.address;
-
+        return res.status(200).json({
+        success: `Successfully changed client ${id} Info.`
+    })
     } catch (error) {
         res.status(400).json({
             error: error
@@ -142,13 +144,13 @@ export const signUp = async (req, res) => {
     var confirmedPassword = body.confirmedPassword;
 
     if (password !== confirmedPassword) {
-        res.status(400).json({
+        return res.status(400).json({
             error: "Confirmed Password does not match"
         })
     }
 
     if (admins.find((admin) => admin.userName === userName)) {
-        res.status(400).json({
+        return res.status(400).json({
             error: "Username already exists!"
         })
     }
