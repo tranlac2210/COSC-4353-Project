@@ -15,6 +15,7 @@ function AdminLoginPage(){
     setErrorLabel('Incorrect Password or Username!!');
     console.log("Username: ", username);
     console.log("Password: ", password);
+    
   };
 
   return (
@@ -41,7 +42,7 @@ function AdminLoginPage(){
         </div>
         {ErrorLabel && (<label className="error-label"> {ErrorLabel}</label>)}
 
-        <button className="login_button" type="submit"><h4>Submit</h4></button>
+        <button className="admin_login_button" type="submit"><h4>Submit</h4></button>
         
         <div className="already-have-account">
         Not a member? 
