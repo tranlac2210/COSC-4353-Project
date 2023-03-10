@@ -59,8 +59,13 @@ const admins = [
 
 export const getClients = (req, res) => {
     try {
+        var toBeShow = [];
+        for (var object of clients) {
+            let {orders, ...toBePushed} = object;
+            toBeShow.push(toBePushed);
+        }
         // let {id, ...toBeShow} = clients;
-        res.status(200).json(clients);
+        res.status(200).json(toBeShow);
     } catch (error) {
         res.status(400).json({
             error: error
