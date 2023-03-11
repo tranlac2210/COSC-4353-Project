@@ -33,19 +33,18 @@ function ClientList() {
     let history = useNavigate();
 
 
-    const handleDeactivate = (id) => {
-        var index = clients.map(client => {
-            return client.id;
-        }).indexOf(id);
+    const handleDeactivate = async (id) => {
+        try {
+            const res = await createAPIEndpoint(ENDPOINTS.AdminDeactivateClient).fetchById(id);
 
-        console.log(index);
+            if (res.status != 200) {
+                throw Error(res.error)
+            }
 
-    
-        clients[index].active = 0;
-
-        setOpenModal(false);
-
-        // history("/admin/ClientList")
+            setOpenModal(false);
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     const handleOpenDeactivate = (id) => {
