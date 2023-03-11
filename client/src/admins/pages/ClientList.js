@@ -4,18 +4,31 @@ import "./ClientList.css"
 // import clients from './clients';
 import {Link, useNavigate} from 'react-router-dom'
 import Modal from '../components/Modal/Modal';
+
+import { createAPIEndpoint, ENDPOINTS } from '../../API';
+ 
+
 import axios from 'axios';
+
 
 
 function ClientList() {
     const [openModal, setOpenModal] = useState(false);
-    const [deletedID, setdeletedId] = useState(-1)
-    const [first, setFirst] = useState("");
-    const [last, setLast] = useState("");
-    const [address, setAddress] = useState("");
-    const [id, setId] = useState("");
-    const [clients, setclients] = useState("");
-    const [active, setactive] = useState("");
+
+    const [deletedID, setdeletedId] = useState(-1);
+    const [clients, setClients] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            // const res = await axios.get(`http://localhost:9000/user/getUserinfo/${username}`);
+            const res = await createAPIEndpoint(ENDPOINTS.AdminGetClients).fetch();
+            setClients(res.data);
+        } ; 
+          
+        fetchData();
+    }, [clients])
+
+
 
     let history = useNavigate();
 
