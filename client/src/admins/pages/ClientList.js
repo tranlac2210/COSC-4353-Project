@@ -32,18 +32,6 @@ function ClientList() {
 
     let history = useNavigate();
 
-    useEffect(() => {
-        async function fetchData() {
-          const res = await axios.get(`http://localhost:9000/admin/getClients`);
-          setFirst(res.data.first);
-          setLast(res.data.last);
-          setAddress(res.data.address);
-          setId(res.data.id);
-          setactive(res.data.active);
-          setclients(res.data);
-          
-        }  fetchData();
-      }, []);
 
     const handleDeactivate = (id) => {
         var index = clients.map(client => {
