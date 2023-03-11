@@ -1,0 +1,54 @@
+.div_clientpage {
+  /* background: linear-gradient(to right, #fa709a 0%, #fee140 100%); */
+  height: 100vh;
+  padding: 30px;
+}
+
+.welcome {
+  font-size: 70px;
+  color: black;
+  margin-bottom: 0px;
+}
+
+.headAdminPage {
+  background-image: linear-gradient(
+    to right,
+    #ff8177 0%,
+    #ff867a 0%,
+    #ff8c7f 21%,
+    #f99185 52%,
+    #cf556c 78%,
+    #b12a5b 100%
+  );
+  height: 5px;
+  width: 40%;
+  border-radius: 5px;
+}
+
+
+.container {
+  border: 1px solid black;
+  width: 350px;
+  height: 250px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #a00533;
+}
+
+.container p {
+  color: black;
+  font-size: 40px;
+}
+
+.container:hover {
+  filter: brightness(0.8);
+  /* opacity: 0.8; */
+  cursor: pointer;
+}
+
+.outside {
+  display: flex;
+  padding-top: 50px;
+}
