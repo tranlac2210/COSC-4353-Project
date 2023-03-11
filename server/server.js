@@ -11,9 +11,9 @@ app.use(cors());
 
 app.use(bodyParser.json());
 
-app.use('/admin', adminRoutes);
+app.use('/api/admin', adminRoutes);
 
-app.use('/user', userRoutes);
+app.use('/api/user', userRoutes);
 
 
 app.get('/', (req, res) => {

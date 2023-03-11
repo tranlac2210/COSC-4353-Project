@@ -83,10 +83,20 @@ h3{
     margin-top:20px;
     color: purple;
     cursor: pointer;
+    background: none;
+    border: none;
     }
 
     .signup_now:hover {
       color: #3e8e41;
+    }
+
+    .pink {
+      padding-top: 55px;
+    }
+
+    .pink h3 {
+      margin-bottom: 20px;
     }
     
 

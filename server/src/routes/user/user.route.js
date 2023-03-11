@@ -1,12 +1,19 @@
 import express from "express";
-import {signUp, signIn, getUsers,getUserinfo,UserInfoChange, passwordChange} from "./user.controller.js"
+import {signUp, 
+    signIn, 
+    getUsers, 
+    getUserNameById, 
+    getUserinfo,
+    UserInfoChange, 
+    passwordChange} from "./user.controller.js"
 
 
 const router = express.Router();
 
 router.get('/getUsers', getUsers);
 router.get('/getUserinfo/:userName', getUserinfo);
-router.put('/UserInfoChange', UserInfoChange);
+router.get('/getUser/:id', getUserNameById)
+router.put('/UserInfoChange/:id', UserInfoChange);
 
 
 router.post('/signup', signUp);

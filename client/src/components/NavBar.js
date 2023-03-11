@@ -6,9 +6,11 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import '../styles/navbar.css'
 import { BrowserRouter as Router, Route,Routes , Link } from 'react-router-dom';
 import LoginPage from '../pages/LoginPage';
+import { SignUpPage } from '../pages';
 
 const Navbar = () => {
   const [openModal, setOpenModal] = useState(false);
+  const [openSignUp, setOpenSignUp] = useState(false);
   const { openSidebar, openSubmenu, closeSubmenu } = useGlobalContext();
 
   const displaySubmenu = (e) => {
@@ -23,6 +25,16 @@ const Navbar = () => {
       closeSubmenu();
     }
   };
+
+  const handleSignUp = () => {
+    setOpenModal(false);
+    setOpenSignUp(true);
+  }
+
+  const HandleBackToLogIn = () => {
+    setOpenSignUp(false);
+    setOpenModal(true);
+  }
 
   useEffect(() => {
     if (openModal) {
@@ -63,7 +75,8 @@ const Navbar = () => {
         <button className='btn btn-dark signin-btn' onClick={() => setOpenModal(!openModal)}>Sign in</button>
       </div>
       </nav>
-      {openModal && <LoginPage onBack={() => setOpenModal(!openModal)} onClose={() => setOpenModal(!openModal)}/>}
+      {openModal && <LoginPage onBack={() => setOpenModal(!openModal)} onClose={() => setOpenModal(!openModal)} openSignUp={() => handleSignUp()}/>}
+      {openSignUp && <SignUpPage onBack={() => HandleBackToLogIn()} BackToLogIn={() => HandleBackToLogIn()}/>}
 
     </>
     
