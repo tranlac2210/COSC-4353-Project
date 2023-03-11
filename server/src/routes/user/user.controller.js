@@ -1,28 +1,35 @@
 import express from "express"
 import bcrypt from "bcrypt"
+import { uuid } from "uuidv4"
 
 const users = [
     {
+        "id": "1",
         "userName": "chuong",
         "password": "1234",
-        "info":[{'FullName':"chuong tran",
-        "Address1":"add",
-        "Address2":"",
-        "city":"Houston",
-        "State":"Texas",
-        "Zipcode":"77204"
-    } ]
+        "info":
+            {
+                'FullName':"chuong tran",
+                "Address1":"add",
+                "Address2":"",
+                "city":"Houston",
+                "State":"Texas",
+                "Zipcode":"77204"
+            }
     },
     {
+        "id": "2",
         "userName": "chuong2",
         "password": "1234",
-        "info":[{'FullName':"chuong tran2",
-        "Address1":"add2",
-        "Address2":"",
-        "city":"Houston2",
-        "State":"Texas2",
-        "Zipcode":"772042"
-    } ]
+        "info":
+            {
+                'FullName':"chuong tran2",
+                "Address1":"add2",
+                "Address2":"",
+                "city":"Houston2",
+                "State":"Texas2", 
+                "Zipcode":"772042"
+            } 
     }
 ]
 
@@ -35,7 +42,7 @@ export const signUp = async (req, res) => {
 
     if (user.password !== user.confirmedPassword) {
         return res.status(400).json({
-            error: "Confirmed Password does not match"
+            error: "Confirmed password does not match"
         })
     }
 
@@ -62,19 +69,22 @@ export const signUp = async (req, res) => {
     const newUser = {
         userName: userName,
         password: encryptedPassword,
-        info:[{
+        info:{
             FullName:'',
             Address1:'',
             Address2:'',
             city:'',
             State:'',
             Zipcode:'',
-        }]
+        }
     }
 
-    users.push({...newUser});
+    var newUserId = uuid();
+
+    users.push({id: newUserId, ...newUser});
 
     res.status(200).json({
+        id: newUserId, 
         success: "Successfully signing up!"
     })
 }
@@ -111,6 +121,7 @@ export const signIn = async (req, res) => {
     }
 
     return res.status(200).json({
+        id: findUser.id,
         success: "Successfully signing in"
     });
 
@@ -151,26 +162,32 @@ export const passwordChange = async (req, res) => {
 
 export const UserInfoChange = async (req, res) => {
     const body = req.body;
-    const userName = body.userName;
-    const FullName = body.info[0].FullName;
-    const Address1 = body.info[0].Address1;
-    const Address2 = body.info[0].Address2;
-    const city = body.info[0].city;
-    const State = body.info[0].State;
-    const zipcode = body.info[0].Zipcode;
+    const id = req.params.id;
+
+    // const userName = body.userName;
+    // const FullName = body.FullName;
+    // const Address1 = body.Address1;
+    // const Address2 = body.Address2;
+    // const city = body.city;
+    // const State = body.State;
+    // const zipcode = body.Zipcode;
     
-    if (!FullName||
-        !userName ||
-        FullName.length === 0||
-        userName.length === 0) {
-            return res.status(400).json({
-                error: "Username or FullName is invalid!"
-            });
+    // if (!FullName||
+    //     !userName ||
+    //     FullName.length === 0||
+    //     userName.length === 0) {
+    //         return res.status(400).json({
+    //             error: "Username or FullName is invalid!"
+    //         });
+    // }
+
+    if (!id) {
+        return res.status(400).json({
+            error: "Username or FullName is invalid!"
+        });
     }
-
    
-
-    const findUser = users.find((user) => user.userName === userName,{new: true});
+    const findUser = users.find((user) => user.id == id,{new: true});
 
     if (findUser == null) {
         return res.status(400).json({
@@ -178,12 +195,12 @@ export const UserInfoChange = async (req, res) => {
         })
     }   
 
-    findUser.info[0].FullName = FullName;
-    findUser.info[0].Address1 = Address1;
-    findUser.info[0].Address2 = Address2;
-    findUser.info[0].city = city;
-    findUser.info[0].State = State;
-    findUser.info[0].Zipcode = zipcode;
+    findUser.info.FullName = body.FullName;
+    findUser.info.Address1 = body.Address1;
+    findUser.info.Address2 = body.Address2;
+    findUser.info.city = body.city;
+    findUser.info.State = body.State;
+    findUser.info.Zipcode = body.Zipcode;
 
     return res.status(200).json({
         success: "Successfully save info."
@@ -212,6 +229,29 @@ export const getUserinfo = (req, res) => {
     } catch (error) {
         res.status(400).json({
             error: error
+        })
+    }
+}
+
+export const getUserNameById = (req, res) => {
+    try {
+        const id = req.params.id;
+
+        if (id) {
+            var Userfind = users.find((user) => user.id == id);
+
+            if (!Userfind) {
+                res.status(400).json({
+                    error: "Can't find user."
+                })
+            }
+
+            res.status(200).json(Userfind.info)
+
+        }
+    } catch (err) {
+        res.status(400).json({
+            error: err
         })
     }
 }

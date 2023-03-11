@@ -5,10 +5,14 @@ import axios from 'axios';
 export const BASE_URL = 'http://localhost:9000/';
 
 export const ENDPOINTS = {
-    USERS: 'users'
+    USERS: 'user',
+    UserSignIn: 'user/signin',
+    UserSignUp: 'user/signup',
+    GetUser: 'user/getUser',
+    UserInfoChange: 'user/UserInfoChange'
 };
 
-const usersEndpoint = createAPIEndpoint(ENDPOINTS.USERS);
+// const usersEndpoint = createAPIEndpoint(ENDPOINTS.USERS);
 
 export const createAPIEndpoint = (endpoint) => {
     let url = BASE_URL + 'api/' + endpoint + '/';
