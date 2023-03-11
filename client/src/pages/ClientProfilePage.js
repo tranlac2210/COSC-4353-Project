@@ -14,7 +14,7 @@ function ClientProfilePage() {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [zipcode, setZipcode] = useState('');
-  const [user, setUser] = useState({});
+  
 
   useEffect(() => {
     async function fetchData() {
