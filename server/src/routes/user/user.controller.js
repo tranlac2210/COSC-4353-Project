@@ -1,6 +1,10 @@
 import express from "express"
 import bcrypt from "bcrypt"
 import { uuid } from "uuidv4"
+import jwt from "jsonwebtoken"
+import dotenv from 'dotenv'
+
+dotenv.config();
 
 const users = [
     {
@@ -89,6 +93,10 @@ export const signUp = async (req, res) => {
     })
 }
 
+export function getPost (req,res) {
+    res.json(users.filter(user => user.id === req.user.id));
+}
+
 export const signIn = async (req, res) => {
     const data = req.body;
 
@@ -125,6 +133,98 @@ export const signIn = async (req, res) => {
         success: "Successfully signing in"
     });
 
+}
+
+let refreshTokens = [];
+
+export const authsignIn = async (req, res) => {
+    // Authenticate User
+    const data = req.body;
+
+    var userName = data.userName;
+    var password = data.password;
+
+    if (!userName ||
+        !password ||
+        userName.length === 0 ||
+        password.length === 0) {
+            return res.status(400).json({
+                error: "Username or Password is invalid!"
+            });
+    }
+
+    const findUser = users.find((user) => user.userName === userName);
+
+    if (findUser == null) {
+        return res.status(400).json({
+            error: "User doesn't exist!"
+        })
+    }
+
+    const comparePassword = await bcrypt.compare(password, findUser.password);
+
+    if (!comparePassword) {
+        return res.status(400).json({
+            error: "Username or Password is incorrect!"
+        })
+    }
+
+    const id = findUser.id;
+    const user = { id: id};
+
+    const accessToken = generateAccessToken(user);
+    const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
+    refreshTokens.push(refreshToken);
+
+    return res.status(200).json({
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+        success: "Successfully signing in"
+    })
+}
+
+
+export function getToken (req, res) {
+    const refreshToken = req.body.token;
+    if (refreshToken == null) res.sendStatus(401);
+
+    if (!refreshTokens.includes(refreshToken)) res.sendStatus(403);
+
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+        if (err) return res.sendStatus(403);
+
+        const accessToken = generateAccessToken({id: user.id})
+
+        res.json({
+            accessToken: accessToken
+        })
+    })
+}
+
+
+export function Logout (req, res) {
+    refreshTokens = refreshTokens.filter(token => token !== req.body.token);
+    res.sendStatus(204);
+}
+
+function generateAccessToken(user) {
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '15s'});
+}
+
+export function authenticateToken(req, res, next) {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader.split(" ")[1];
+
+    if (token == null) {
+        return res.sendStatus(401);
+    }
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        if (err) return res.sendStatus(403);
+
+        req.user = user;
+        next();
+    })
 }
 
 export const passwordChange = async (req, res) => {
