@@ -3,10 +3,11 @@ import { useLocation } from 'react-router-dom';
 import "../styles/ClientProfilePage.css";
 import axios from 'axios';
 import { createAPIEndpoint, ENDPOINTS } from '../API';
+import Cookies from 'js-cookie'
 
 function ClientProfilePage() {
   const location = useLocation();
-  const id = new URLSearchParams(location.search).get('id');
+  // const id = new URLSearchParams(location.search).get('id');
 
   const [fullName, setFullName] = useState('');
   const [address1, setAddress1] = useState('');
@@ -16,62 +17,110 @@ function ClientProfilePage() {
   const [zipcode, setZipcode] = useState('');
   
 
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     // const res = await axios.get(`http://localhost:9000/user/getUserinfo/${username}`);
+  //     const res = await createAPIEndpoint(ENDPOINTS.GetUser).fetchById(id);
+  //     setFullName(res.data.FullName);
+  //     setAddress1(res.data.Address1);
+  //     setAddress2(res.data.Address2);
+  //     setCity(res.data.city);
+  //     setState(res.data.State);
+  //     setZipcode(res.data.Zipcode);
+  //   }  fetchData();
+  // }, [id]);
+
   useEffect(() => {
     async function fetchData() {
-      // const res = await axios.get(`http://localhost:9000/user/getUserinfo/${username}`);
-      const res = await createAPIEndpoint(ENDPOINTS.GetUser).fetchById(id);
+      let accessToken = Cookies.get('accessToken');
+      let webApiUrl = 'http://localhost:9000/api/user/authGetUsers';
+      const res = await axios.get(webApiUrl, { headers: {"Authorization" : `Bearer ${accessToken}`} });
+      // const res = await createAPIEndpoint(ENDPOINTS.GetUserAuth).get({Headers: {"Authorization": `Bearer ${accessToken}`}});
       setFullName(res.data.FullName);
       setAddress1(res.data.Address1);
       setAddress2(res.data.Address2);
       setCity(res.data.city);
       setState(res.data.State);
       setZipcode(res.data.Zipcode);
-    }  fetchData();
-  }, [id]);
+
+    }  
+    fetchData();
+  });
 
   
 
-  const handleSubmit = async  (event) => {
-    event.preventDefault();    
+  // const handleSubmit = async  (event) => {
+  //   event.preventDefault();    
    
-    // Make an API call to update the user information on the backend
-    try {
-      // const res = await axios.put('http://localhost:9000/user/UserInfoChange', {
-      //   // userName: username,
-      //   info: [{
-      //     FullName: fullName,
-      //     Address1: address1,
-      //     Address2: address2,
-      //     city: city,
-      //     State: state,
-      //     Zipcode: zipcode
-      //   }]
-      // });
+  //   // Make an API call to update the user information on the backend
+  //   try {
+  //     // const res = await axios.put('http://localhost:9000/user/UserInfoChange', {
+  //     //   // userName: username,
+  //     //   info: [{
+  //     //     FullName: fullName,
+  //     //     Address1: address1,
+  //     //     Address2: address2,
+  //     //     city: city,
+  //     //     State: state,
+  //     //     Zipcode: zipcode
+  //     //   }]
+  //     // });
 
-      const res = await createAPIEndpoint(ENDPOINTS.UserInfoChange).put(id, {
-        // userName: username,
-          FullName: fullName,
-          Address1: address1,
-          Address2: address2,
-          city: city,
-          State: state,
-          Zipcode: zipcode
-      });
+  //     const res = await createAPIEndpoint(ENDPOINTS.UserInfoChange).put(id, {
+  //       // userName: username,
+  //         FullName: fullName,
+  //         Address1: address1,
+  //         Address2: address2,
+  //         city: city,
+  //         State: state,
+  //         Zipcode: zipcode
+  //     });
 
-      alert('Your changes have been successfully saved!');
+  //     alert('Your changes have been successfully saved!');
   
-      console.log(res.data.success);
-    } catch (error) {
-      console.error(error);
-    }
+  //     console.log(res.data.success);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+
+  const handleSubmit = () => {
+
+  }
+
+    // const handleSubmit = async  (event) => {
+    //   event.preventDefault();    
     
-    console.log('Full Name: ', fullName);
-    console.log('Address 1: ', address1);
-    console.log('Address 2: ', address2);
-    console.log('City: ', city);
-    console.log('State: ', state);
-    console.log('Zipcode: ', zipcode);
-  };
+    //   // Make an API call to update the user information on the backend
+    //   try {
+    //     // const res = await axios.put('http://localhost:9000/user/UserInfoChange', {
+    //     //   // userName: username,
+    //     //   info: [{
+    //     //     FullName: fullName,
+    //     //     Address1: address1,
+    //     //     Address2: address2,
+    //     //     city: city,
+    //     //     State: state,
+    //     //     Zipcode: zipcode
+    //     //   }]
+    //     // });
+
+    //     const res = await createAPIEndpoint(ENDPOINTS.UserInfoChange).put(id, {
+    //       // userName: username,
+    //         FullName: fullName,
+    //         Address1: address1,
+    //         Address2: address2,
+    //         city: city,
+    //         State: state,
+    //         Zipcode: zipcode
+    //     });
+
+    //     alert('Your changes have been successfully saved!');
+    
+    //     console.log(res.data.success);
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // };
 
   return (
     <>

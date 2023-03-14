@@ -4,6 +4,7 @@ import axios from 'axios';
 import "../styles/LoginPage.css";
 import { AppProvider } from '../components';
 import { createAPIEndpoint, ENDPOINTS } from "../API";
+import Cookies from "js-cookie"
 
 import { Navbar } from '../components'
 import { Background } from '../components'
@@ -19,7 +20,37 @@ function LoginPage({onBack, onClose, openSignUp}){
   const [ErrorLabel, setErrorLabel] = useState(false);
   const navigate  = useNavigate ();
 
-  const handleSubmit = async (event) => {
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  
+  //   try {
+  //     // Send a POST request to the login API endpoint
+  //     // const response = await axios.post('http://localhost:9000/user/signin', {
+  //     //   userName: username,
+  //     //   password: password        
+  //     // });
+  //     const response = await createAPIEndpoint(ENDPOINTS.UserSignIn).post({
+  //       userName: username,
+  //       password: password        
+  //     });
+
+  //     console.log(response.data);
+  //     // alert(`${response.status},${password}`)
+  //     if (response.status!==200) {
+  //       // If the response is not OK, throw an error
+  //       throw new Error(response.error);
+  //     }
+  
+  //     // If the response is OK, redirect to the client page
+  //     navigate('/ClientPage?id='+ response.data.id);
+  //   } 
+  //    catch (er) {
+  //     // If there's an error, set the error label
+  //     setErrorLabel(er.error);
+  //   }
+  // };
+
+  const handleSubmitAuth = async (event) => {
     event.preventDefault();
   
     try {
@@ -28,20 +59,26 @@ function LoginPage({onBack, onClose, openSignUp}){
       //   userName: username,
       //   password: password        
       // });
-      const response = await createAPIEndpoint(ENDPOINTS.UserSignIn).post({
+      const response = await createAPIEndpoint(ENDPOINTS.UserAuthSignIn).post({
         userName: username,
         password: password        
       });
 
       console.log(response.data);
+      Cookies.set('accessToken', response.data.accessToken);
+      Cookies.set('refreshToken', response.data.refreshToken);
+
+      console.log(Cookies.get('accessToken'));
+      console.log(Cookies.get('refreshToken'));
       // alert(`${response.status},${password}`)
-      if (response.status!==200) {
+      if (response.status !== 200) {
         // If the response is not OK, throw an error
         throw new Error(response.error);
       }
   
-      // If the response is OK, redirect to the client page
-      navigate('/ClientPage?id='+ response.id);
+      // // If the response is OK, redirect to the client page
+      // navigate('/ClientPage?id='+ response.data.id);
+      navigate('/ClientPage');
     } 
      catch (er) {
       // If there's an error, set the error label
@@ -54,7 +91,7 @@ function LoginPage({onBack, onClose, openSignUp}){
       {/* onclick="window.location.href='/';" */}
       <div className="wholeloginpage overlay" onClick={onClose}> 
         <div onClick={(e) => {e.stopPropagation()}}>
-        <form className="c_login_form" onSubmit={handleSubmit}>
+        <form className="c_login_form" onSubmit={handleSubmitAuth}>
           <button onClick={onBack} className="loginbb" href="/" id="bottle">
             <img src="https://cdn.discordapp.com/attachments/722016314679361559/1078414402761527417/image_3.png" alt="bottle"/>
           </button>

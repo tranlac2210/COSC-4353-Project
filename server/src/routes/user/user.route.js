@@ -19,10 +19,10 @@ router.get('/getUsers', getUsers);
 router.get('/getUserinfo/:userName', getUserinfo);
 router.get('/getUser/:id', getUserNameById)
 router.put('/UserInfoChange/:id', UserInfoChange);
-router.get('/posts', authenticateToken, getPost);
+router.get('/authGetUsers', authenticateToken, getPost);
 // router.post('/authLogin', authLogin);
 router.delete('/logout', Logout)
-router.post('/token', getToken)
+router.post('/token', getToken) 
 
 
 

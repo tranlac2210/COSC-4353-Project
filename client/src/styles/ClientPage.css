@@ -55,6 +55,16 @@
   background-color: #a00533;
 }
 
+.nav-pad {
+  padding-left: 20px;
+  padding-right: 20px;
+  border-bottom: 3px solid black;
+}
+
+.click:hover {
+  opacity: 0.7;
+}
+
 .container p {
   color: black;
   font-size: 40px;
