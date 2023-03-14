@@ -9,7 +9,9 @@ export const ENDPOINTS = {
     USERS: 'user',
     UserSignIn: 'user/signin', // POST: User Sign in
     UserSignUp: 'user/signup', // POST: User Sign up
+    UserAuthSignIn: 'user/authSignin', // POST: User auth sign in
     GetUser: 'user/getUser', // GET: Get User by ID
+    GetUserAuth: 'user/authGetUsers', // GET: get user auth
     GetUsers: 'user/getUsers', // GET: Get all Users
     UserInfoChange: 'user/UserInfoChange', // GET: Get User info by ID
     UserPasswordChange: 'user/passwordChange', // PUT: Change user password 
