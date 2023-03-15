@@ -281,50 +281,61 @@ export const passwordChange = async (req, res) => {
 };
 
 export const UserInfoChange = async (req, res) => {
-  const body = req.body;
-  const id = req.params.id;
+  
+//   const id = req.params.id;
+  try {
+    const body = req.body;
+    var findUser = users.filter((user) => user.id == req.user.id)[0];
 
-  // const userName = body.userName;
-  // const FullName = body.FullName;
-  // const Address1 = body.Address1;
-  // const Address2 = body.Address2;
-  // const city = body.city;
-  // const State = body.State;
-  // const zipcode = body.Zipcode;
+    if (!findUser) {
+      return res.status(400).json({
+        error: "User doesn't exist!",
+      });
+    }
 
-  // if (!FullName||
-  //     !userName ||
-  //     FullName.length === 0||
-  //     userName.length === 0) {
-  //         return res.status(400).json({
-  //             error: "Username or FullName is invalid!"
-  //         });
-  // }
+    findUser.info.FullName = body.FullName;
+    findUser.info.Address1 = body.Address1;
+    findUser.info.Address2 = body.Address2;
+    findUser.info.city = body.city;
+    findUser.info.State = body.State;
+    findUser.info.Zipcode = body.Zipcode;
 
-  if (!id) {
+    return res.status(200).json({
+        // success: "Successfully save info.",
+        // findUser
+        findUser
+
+    });
+  } catch (err) {
     return res.status(400).json({
-      error: "Username or FullName is invalid!",
+      error: err,
     });
   }
 
-  const findUser = users.find((user) => user.id == id, { new: true });
+//   if (!id) {
+//     return res.status(400).json({
+//       error: "Username or FullName is invalid!",
+//     });
+//   }
 
-  if (findUser == null) {
-    return res.status(400).json({
-      error: "User doesn't exist!",
-    });
-  }
+//   const findUser = users.find((user) => user.id == id, { new: true });
 
-  findUser.info.FullName = body.FullName;
-  findUser.info.Address1 = body.Address1;
-  findUser.info.Address2 = body.Address2;
-  findUser.info.city = body.city;
-  findUser.info.State = body.State;
-  findUser.info.Zipcode = body.Zipcode;
+//   if (findUser == null) {
+//     return res.status(400).json({
+//       error: "User doesn't exist!",
+//     });
+//   }
 
-  return res.status(200).json({
-    success: "Successfully save info.",
-  });
+//   findUser.info.FullName = body.FullName;
+//   findUser.info.Address1 = body.Address1;
+//   findUser.info.Address2 = body.Address2;
+//   findUser.info.city = body.city;
+//   findUser.info.State = body.State;
+//   findUser.info.Zipcode = body.Zipcode;
+
+//   return res.status(200).json({
+//     success: "Successfully save info.",
+//   });
 };
 
 export const getUsers = (req, res) => {

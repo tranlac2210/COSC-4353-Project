@@ -18,7 +18,8 @@ const router = express.Router();
 router.get('/getUsers', getUsers);
 router.get('/getUserinfo/:userName', getUserinfo);
 router.get('/getUser/:id', getUserNameById)
-router.put('/UserInfoChange/:id', UserInfoChange);
+router.post('/UserInfoChange', authenticateToken, UserInfoChange);
+// router.put('/UserInfoChange/:id', authenticateToken, UserInfoChange);
 router.get('/authGetUsers', authenticateToken, getPost);
 // router.post('/authLogin', authLogin);
 router.delete('/logout', Logout)
