@@ -4,6 +4,8 @@ import "../styles/SignUpPage.css";
 import axios from 'axios';
 import { createAPIEndpoint, ENDPOINTS } from '../API';
 import Cookies from 'js-cookie';
+import BackButton from "../image/backButton.png"
+import SignUpImage from "../image/SignUpImage.jpeg"
 
 function SignUpPage({onBack, BackToLogIn}) {
   const navigate  = useNavigate();
@@ -75,11 +77,11 @@ function SignUpPage({onBack, BackToLogIn}) {
         <h1 className='signup_h1'></h1>
         <form className='signup_form' onSubmit={handleSubmit}>
         <button onClick={onBack} className="loginbb" href="/" id="bottle">
-          <img src="https://cdn.discordapp.com/attachments/722016314679361559/1078414402761527417/image_3.png" alt="bottle"/>
+          <img src={BackButton} alt="bottle"/>
         </button>
           {begin}
           <div className="signup-background">
-          <img src="https://cdn.discordapp.com/attachments/722016314679361559/1076179438733107290/Untitled-PfTme9ZCQ-transformed.jpeg" alt="Login Image"/>
+          <img src={SignUpImage} alt="Login Image"/>
         </div>
           <div className='in_signup'>
           <h2>Sign Up</h2>

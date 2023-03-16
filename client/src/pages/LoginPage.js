@@ -10,6 +10,8 @@ import { Navbar } from '../components'
 import { Background } from '../components'
 import { Sidebar } from '../components'
 import { Submenu } from '../components'
+import backButton from "../image/backButton.png"
+import LogInImage from "../image/LogInImage.jpeg"
 
 
 
@@ -90,11 +92,11 @@ function LoginPage({onBack, onClose, openSignUp}){
         <div onClick={(e) => {e.stopPropagation()}}>
         <form className="c_login_form" onSubmit={handleSubmitAuth}>
           <button onClick={onBack} className="loginbb" href="/" id="bottle">
-            <img src="https://cdn.discordapp.com/attachments/722016314679361559/1078414402761527417/image_3.png" alt="bottle"/>
+            <img src={backButton} alt="bottle"/>
           </button>
 
           <div className="login-background">
-            <img src="https://cdn.discordapp.com/attachments/722016314679361559/1075986201259036722/login.jpg" alt="Login Image"/>
+            <img src={LogInImage} alt="Login Image"/>
           </div>
 
   
