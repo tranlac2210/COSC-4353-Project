@@ -6,11 +6,7 @@ import {Link, useNavigate} from 'react-router-dom'
 import Modal from '../components/Modal/Modal';
 
 import { createAPIEndpoint, ENDPOINTS } from '../../API';
- 
-
 import axios from 'axios';
-
-
 
 function ClientList() {
     const [openModal, setOpenModal] = useState(false);
@@ -18,20 +14,18 @@ function ClientList() {
     const [deletedID, setdeletedId] = useState(-1);
     const [clients, setClients] = useState([]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            // const res = await axios.get(`http://localhost:9000/user/getUserinfo/${username}`);
-            const res = await createAPIEndpoint(ENDPOINTS.AdminGetClients).fetch();
-            setClients(res.data);
-        } ; 
-          
-        fetchData();
-    }, [clients])
-
-
-
     let history = useNavigate();
 
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await createAPIEndpoint(ENDPOINTS.AdminGetClients).fetch();
+            setClients(res.data);
+            
+        }; 
+          
+        fetchData();
+        console.log(clients);
+    }, [])
 
     const handleDeactivate = async (id) => {
         try {
@@ -78,9 +72,8 @@ function ClientList() {
                         <tr>
                             <th>#</th>
                             <th>Username</th>
-                            <th>First</th>
-                            <th>Last</th>
-                            <th>Address</th>
+                            <th>Fullname</th>
+                            <th>Location</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -93,13 +86,17 @@ function ClientList() {
                                     client.active === 1 && (
                                     <tr key={client.id}>
                                         <td>{client.id}</td>
-                                        <td>{client.username}</td>
-                                        <td>{client.first}</td>
-                                        <td>{client.last}</td>
-                                        <td>{client.address}</td>
+                                        <td>{client.userName}</td>
+                                        <td>{client.info.FullName}</td>
+                                        {client.info.city && client.info.State 
+                                        ? 
+                                        <td>{client.info.city}, {client.info.State}</td>
+                                        : 
+                                        <td></td>}
+                                        
                                         <td>
                                             <Link to={`/admin/ClientList/edit?id=`+`${client.id}`}>
-                                                <button type="button" className="btn btn-primary" onClick={() => handleModify(client.id, client.first, client.last, client.address)}>MODIFY</button>
+                                                <button type="button" className="btn btn-primary" onClick={() => handleModify(client.id, client.first, client.last, client.address)}>DETAILS</button>
                                             </Link>
                                             &nbsp;
                                             <button type="button" className="btn btn-success" onClick={() => alert(client.active)}>ORDERS</button>

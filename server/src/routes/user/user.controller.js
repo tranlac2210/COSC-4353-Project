@@ -3,37 +3,38 @@ import bcrypt from "bcrypt";
 import { uuid } from "uuidv4";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import users from "../data/users.js"
 
 dotenv.config();
 
-const users = [
-  {
-    id: "1",
-    userName: "chuong",
-    password: "1234",
-    info: {
-      FullName: "chuong tran",
-      Address1: "add",
-      Address2: "",
-      city: "Houston",
-      State: "Texas",
-      Zipcode: "77204",
-    },
-  },
-  {
-    id: "2",
-    userName: "chuong2",
-    password: "1234",
-    info: {
-      FullName: "chuong tran2",
-      Address1: "add2",
-      Address2: "",
-      city: "Houston2",
-      State: "Texas2",
-      Zipcode: "772042",
-    },
-  },
-];
+// const users = [
+//   {
+//     id: "1",
+//     userName: "chuong",
+//     password: "1234",
+//     info: {
+//       FullName: "chuong tran",
+//       Address1: "add",
+//       Address2: "",
+//       city: "Houston",
+//       State: "Texas",
+//       Zipcode: "77204",
+//     },
+//   },
+//   {
+//     id: "2",
+//     userName: "chuong2",
+//     password: "1234",
+//     info: {
+//       FullName: "chuong tran2",
+//       Address1: "add2",
+//       Address2: "",
+//       city: "Houston2",
+//       State: "Texas2",
+//       Zipcode: "772042",
+//     },
+//   },
+// ];
 
 export const signUp = async (req, res) => {
   const user = req.body;
@@ -76,6 +77,7 @@ export const signUp = async (req, res) => {
     id: newUserId,
     userName: userName,
     password: encryptedPassword,
+    active: 1,
     info: {
       FullName: "",
       Address1: "",
@@ -84,6 +86,9 @@ export const signUp = async (req, res) => {
       State: "",
       Zipcode: "",
     },
+    orders: [
+
+    ]
   };
 
   users.push(newUser);
@@ -99,11 +104,6 @@ export const signUp = async (req, res) => {
     refreshToken: refreshToken,
     success: "Successfully signing up",
   });
-
-  // res.status(200).json({
-  //   id: newUserId,
-  //   success: "Successfully signing up!",
-  // });
 };
 
 export function getPost(req, res) {
@@ -122,8 +122,6 @@ export function getPost(req, res) {
       error: err,
     });
   }
-  // var find = users.filter(user => user.id === req.user.id)[0];
-  // return res.json(find.info);
 }
 
 export const signIn = async (req, res) => {
