@@ -70,7 +70,10 @@ export const signUp = async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   var encryptedPassword = await bcrypt.hash(password, salt);
 
+  var newUserId = uuid();
+  
   const newUser = {
+    id: newUserId,
     userName: userName,
     password: encryptedPassword,
     info: {
@@ -83,14 +86,24 @@ export const signUp = async (req, res) => {
     },
   };
 
-  var newUserId = uuid();
+  users.push(newUser);
 
-  users.push({ id: newUserId, ...newUser });
+  const jsonUser = { id: newUser.id };
 
-  res.status(200).json({
-    id: newUserId,
-    success: "Successfully signing up!",
+  const accessToken = generateAccessToken(jsonUser);
+  const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
+  refreshTokens.push(refreshToken);
+
+  return res.status(200).json({
+    accessToken: accessToken,
+    refreshToken: refreshToken,
+    success: "Successfully signing up",
   });
+
+  // res.status(200).json({
+  //   id: newUserId,
+  //   success: "Successfully signing up!",
+  // });
 };
 
 export function getPost(req, res) {
@@ -312,30 +325,6 @@ export const UserInfoChange = async (req, res) => {
     });
   }
 
-//   if (!id) {
-//     return res.status(400).json({
-//       error: "Username or FullName is invalid!",
-//     });
-//   }
-
-//   const findUser = users.find((user) => user.id == id, { new: true });
-
-//   if (findUser == null) {
-//     return res.status(400).json({
-//       error: "User doesn't exist!",
-//     });
-//   }
-
-//   findUser.info.FullName = body.FullName;
-//   findUser.info.Address1 = body.Address1;
-//   findUser.info.Address2 = body.Address2;
-//   findUser.info.city = body.city;
-//   findUser.info.State = body.State;
-//   findUser.info.Zipcode = body.Zipcode;
-
-//   return res.status(200).json({
-//     success: "Successfully save info.",
-//   });
 };
 
 export const getUsers = (req, res) => {

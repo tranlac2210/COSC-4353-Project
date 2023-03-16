@@ -93,7 +93,7 @@ function ClientList() {
                                     client.active === 1 && (
                                     <tr key={client.id}>
                                         <td>{client.id}</td>
-                                        <td>Username</td>
+                                        <td>{client.username}</td>
                                         <td>{client.first}</td>
                                         <td>{client.last}</td>
                                         <td>{client.address}</td>

@@ -67,9 +67,6 @@ function LoginPage({onBack, onClose, openSignUp}){
       console.log(response.data);
       Cookies.set('accessToken', response.data.accessToken);
       Cookies.set('refreshToken', response.data.refreshToken);
-
-      console.log(Cookies.get('accessToken'));
-      console.log(Cookies.get('refreshToken'));
       // alert(`${response.status},${password}`)
       if (response.status !== 200) {
         // If the response is not OK, throw an error

@@ -16,7 +16,7 @@ function AdminLoginPage(){
     event.preventDefault();
     try {
       // Send a POST request to the login API endpoint
-      const response = await axios.post('http://localhost:9000/admin/signin', {
+      const response = await axios.post('http://localhost:9000/api/admin/signin', {
         userName: username,
         password: password        
       });
@@ -38,12 +38,12 @@ function AdminLoginPage(){
     setErrorLabel(true);
     // setErrorLabel('Incorrect Password or Username!!');
     console.log("Username: ", username);
-    console.log("Password: ", password);
+    console.log("Password: ", password); 
     
   };
 
   return (
-      <div className="container">
+      <div className="container-adminLoginPage">
       <div className="ad_login_form">
         <div className="headAdmin"></div>
         <h3>Staff Log in</h3>

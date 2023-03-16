@@ -4,6 +4,7 @@ import bcrypt from "bcrypt"
 const clients = [
     {
         id: 0,
+        username: "ronaldo",
         first: "chuong",
         last: "tran",
         address: "richmond, tx",
@@ -18,6 +19,7 @@ const clients = [
     },
     {
         id: 1,
+        username: "si thue",
         first: "chuong3",
         last: "tran",
         address: "richmond, tx",
@@ -32,6 +34,7 @@ const clients = [
     },
     {
         id: 2,
+        username: "rau con",
         first: "chuong4",
         last: "tran",
         address: "richmond, tx",
@@ -186,6 +189,7 @@ export const signIn = async (req, res) => {
 
     var userName = data.userName;
     var password = data.password;
+    
 
     if (!userName ||
         !password ||
@@ -204,13 +208,19 @@ export const signIn = async (req, res) => {
         })
     }
 
-    const comparePassword = await bcrypt.compare(password, findAdmin.password);
+    // if (findAdmin.password != password) {
+    //     res.status(400).json({
+    //         error: "Password is incorrect."
+    //     })
+    // }
 
-    if (!comparePassword) {
-        return res.status(400).json({
-            error: "Username or Password is incorrect!"
-        })
-    }
+    // const comparePassword = await bcrypt.compare(password, findAdmin.password);
+
+    // if (!comparePassword) {
+    //     return res.status(400).json({
+    //         error: "Username or Password is incorrect!"
+    //     })
+    // }
 
     return res.status(200).json({
         success: "Successfully signing in"

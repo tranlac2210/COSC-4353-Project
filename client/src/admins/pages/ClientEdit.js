@@ -20,7 +20,7 @@ function ClientEdit(props) {
     const cid = new URLSearchParams(location.search).get('id');
     useEffect(() => {
         async function fetchData() {
-          const res = await axios.get(`http://localhost:9000/admin/getClients`);
+          const res = await axios.get(`http://localhost:9000/api/admin/getClients`);
           setFirst(res.data[cid].first);
           setLast(res.data[cid].last);
           setAddress(res.data[cid].address);
@@ -36,7 +36,7 @@ function ClientEdit(props) {
     const handleSubmit = async () => {
         // e.preventDefault()
         try {
-            const resf = await axios.put('http://localhost:9000/admin/modifyClientInfo', {
+            const resf = await axios.put('http://localhost:9000/api/admin/modifyClientInfo', {
               id: id,
               first:first,
               last:last,

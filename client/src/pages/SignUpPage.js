@@ -3,6 +3,7 @@ import {Link, useHistory, useNavigate} from 'react-router-dom';
 import "../styles/SignUpPage.css";
 import axios from 'axios';
 import { createAPIEndpoint, ENDPOINTS } from '../API';
+import Cookies from 'js-cookie';
 
 function SignUpPage({onBack, BackToLogIn}) {
   const navigate  = useNavigate();
@@ -40,12 +41,14 @@ function SignUpPage({onBack, BackToLogIn}) {
         confirmedPassword: confirmPassword
       });
 
-      
+      Cookies.set('accessToken', response.data.accessToken);
+      Cookies.set('refreshToken', response.data.refreshToken);
+
+      console.log(Cookies.get('accessToken'));
 
       // Show success message and redirect to login page
-      // alert("Account successfully created!");
-      console.log(response.data); // log the response data
-      navigate('/ClientPage?id=' + response.data.id);
+      alert("Account successfully created!");
+      navigate('/ClientPage');
       // setbacklogin(false);
     } catch (error) {
       
