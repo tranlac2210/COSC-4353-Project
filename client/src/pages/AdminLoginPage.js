@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import {Link, useNavigate} from 'react-router-dom';
 import '../styles/AdminLoginPage.css';
+import "bootstrap/dist/css/bootstrap.min.css"
 import axios from 'axios';
+
 
 function AdminLoginPage(){
 
@@ -14,7 +16,7 @@ function AdminLoginPage(){
     event.preventDefault();
     try {
       // Send a POST request to the login API endpoint
-      const response = await axios.post('http://localhost:9000/admin/signin', {
+      const response = await axios.post('http://localhost:9000/api/admin/signin', {
         userName: username,
         password: password        
       });
@@ -36,15 +38,17 @@ function AdminLoginPage(){
     setErrorLabel(true);
     // setErrorLabel('Incorrect Password or Username!!');
     console.log("Username: ", username);
-    console.log("Password: ", password);
+    console.log("Password: ", password); 
     
   };
 
   return (
-      <div><h1>Welcome to the Login Page</h1>
-      <form className="ad_login_form" onSubmit={handleSubmit}>
-        <h3>Log in</h3>
-        <div  >
+      <div className="container-adminLoginPage">
+      <div className="ad_login_form">
+        <div className="headAdmin"></div>
+        <h3>Staff Log in</h3>
+        <div className="content">
+        <div>
           <label className="login_username" htmlFor="username">Username:</label>
           <input className="login_input"
             type="text"
@@ -64,15 +68,17 @@ function AdminLoginPage(){
         </div>
         {ErrorLabel && (<label className="error-label"> {ErrorLabel}</label>)}
 
-        <button className="admin_login_button" type="submit"><h4>Submit</h4></button>
+        <button className="btn btn-success btn-ho" onClick={handleSubmit}>Submit</button>
+        </div>
         
-        <div className="already-have-account">
+        
+        {/* <div className="already-have-account">
         Not a member? 
         <a className="signup_now" href="/SignupPage">Create New Account</a>
-      </div>
-        <Link className="demo" to="/admin/clientlist">Continue as Guest</Link>
+      </div> */}
+        {/* <Link className="demo" to="/admin/clientlist">Continue as Guest</Link> */}
 
-      </form>
+      </div>
       </div>
   );
 };

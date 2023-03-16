@@ -12,6 +12,7 @@ import { AdminLoginPage } from './pages';
 import './App.css';
 import ClientList from './admins/pages/ClientList';
 import ClientEdit from './admins/pages/ClientEdit';
+import AdminPage from './admins/pages/AdminPage';
 
 function App() {
   return (
@@ -20,8 +21,8 @@ function App() {
         <div>
           <Routes>
             <Route path="/" element={<HomePage/>} />
-            <Route path="/LoginPage" element={<LoginPage/>} />
-            <Route path="/SignUpPage" element={<SignUpPage/>} />
+            {/* <Route path="/LoginPage" element={<LoginPage/>} /> */}
+            {/* <Route path="/SignUpPage" element={<SignUpPage/>} /> */}
             <Route path="/ClientPage" element={<ClientPage/>} />
             <Route path="/ClientProfilePage" element={<ClientProfilePage/>} />
 
@@ -32,6 +33,7 @@ function App() {
             <Route path="/admin/ClientList/edit" element={<ClientEdit/>}></Route>
             <Route path="/ChangePassPage" element={<ChangePassPage/>} />
             <Route path="/AdminLoginPage" element={<AdminLoginPage/>} />
+            <Route path='/admin/AdminPage' element={<AdminPage/>}/>
 
 
           </Routes>

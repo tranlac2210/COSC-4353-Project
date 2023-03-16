@@ -18,7 +18,6 @@
     background-image: linear-gradient(to right, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%); 
     height: 10px;
     border-radius: 5px 0 0 0;
-
 }
 
 .modal-title {
@@ -43,7 +42,6 @@
 .content {
     width: 100%;
     padding: 1rem 1rem 3rem 1rem;
-
 }
 
 .btnContainer {

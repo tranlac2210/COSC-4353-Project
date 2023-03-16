@@ -4,47 +4,41 @@ import "./ClientList.css"
 // import clients from './clients';
 import {Link, useNavigate} from 'react-router-dom'
 import Modal from '../components/Modal/Modal';
-import axios from 'axios';
 
+import { createAPIEndpoint, ENDPOINTS } from '../../API';
+import axios from 'axios';
 
 function ClientList() {
     const [openModal, setOpenModal] = useState(false);
-    const [deletedID, setdeletedId] = useState(-1)
-    const [first, setFirst] = useState("");
-    const [last, setLast] = useState("");
-    const [address, setAddress] = useState("");
-    const [id, setId] = useState("");
-    const [clients, setclients] = useState("");
-    const [active, setactive] = useState("");
+
+    const [deletedID, setdeletedId] = useState(-1);
+    const [clients, setClients] = useState([]);
 
     let history = useNavigate();
 
     useEffect(() => {
-        async function fetchData() {
-          const res = await axios.get(`http://localhost:9000/admin/getClients`);
-          setFirst(res.data.first);
-          setLast(res.data.last);
-          setAddress(res.data.address);
-          setId(res.data.id);
-          setactive(res.data.active);
-          setclients(res.data);
+        const fetchData = async () => {
+            const res = await createAPIEndpoint(ENDPOINTS.AdminGetClients).fetch();
+            setClients(res.data);
+            
+        }; 
           
-        }  fetchData();
-      }, []);
+        fetchData();
+        console.log(clients);
+    }, [])
 
-    const handleDeactivate = (id) => {
-        var index = clients.map(client => {
-            return client.id;
-        }).indexOf(id);
+    const handleDeactivate = async (id) => {
+        try {
+            const res = await createAPIEndpoint(ENDPOINTS.AdminDeactivateClient).fetchById(id);
 
-        console.log(index);
+            if (res.status != 200) {
+                throw Error(res.error)
+            }
 
-    
-        clients[index].active = 0;
-
-        setOpenModal(false);
-
-        // history("/admin/ClientList")
+            setOpenModal(false);
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     const handleOpenDeactivate = (id) => {
@@ -78,9 +72,8 @@ function ClientList() {
                         <tr>
                             <th>#</th>
                             <th>Username</th>
-                            <th>First</th>
-                            <th>Last</th>
-                            <th>Address</th>
+                            <th>Fullname</th>
+                            <th>Location</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -93,13 +86,17 @@ function ClientList() {
                                     client.active === 1 && (
                                     <tr key={client.id}>
                                         <td>{client.id}</td>
-                                        <td>Username</td>
-                                        <td>{client.first}</td>
-                                        <td>{client.last}</td>
-                                        <td>{client.address}</td>
+                                        <td>{client.userName}</td>
+                                        <td>{client.info.FullName}</td>
+                                        {client.info.city && client.info.State 
+                                        ? 
+                                        <td>{client.info.city}, {client.info.State}</td>
+                                        : 
+                                        <td></td>}
+                                        
                                         <td>
                                             <Link to={`/admin/ClientList/edit?id=`+`${client.id}`}>
-                                                <button type="button" className="btn btn-primary" onClick={() => handleModify(client.id, client.first, client.last, client.address)}>MODIFY</button>
+                                                <button type="button" className="btn btn-primary" onClick={() => handleModify(client.id, client.first, client.last, client.address)}>DETAILS</button>
                                             </Link>
                                             &nbsp;
                                             <button type="button" className="btn btn-success" onClick={() => alert(client.active)}>ORDERS</button>
