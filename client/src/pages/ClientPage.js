@@ -28,7 +28,7 @@ function ClientPage() {
   return (
     <>
       <nav className="navbar nav-pad navbar-light bg-light">
-        <a className="navbar-brand" href="#" onClick={handleClickLogo}> 
+        <a className="navbar-brand" href="/ClientPage" onClick={handleClickLogo}> 
           <img
             src={logo}
             width="40"

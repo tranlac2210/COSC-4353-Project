@@ -19,11 +19,12 @@ function SignUpPage({onBack, BackToLogIn}) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    
     if (password !== confirmPassword) {
       alert("Passwords don't match");
       setshowLabel(true);
       setshowLabel('Password and Confirm Password not match!!! ');
-      setusername('');
+      // setusername('');
       setPassword('');
       setConfirmPassword('');
       
@@ -54,7 +55,7 @@ function SignUpPage({onBack, BackToLogIn}) {
       navigate('/ClientPage');
       // setbacklogin(false);
     } catch (error) {
-      
+      setshowLabel(`${error.response.data.error}`);
       console.error(error);
       // alert(`${username},${password},${confirmPassword}`);
       alert("Failed to create account");

@@ -50,7 +50,7 @@ export const signUp = async (req, res) => {
   }
 
   if (users.find((user) => user.userName === userName)) {
-    return res.status(400).json({
+    return res.status(409).json({
       error: "Username already exists!",
     });
   }

@@ -1,14 +1,36 @@
 import React, { useState,useEffect } from 'react';
+import { useLocation ,useNavigate} from "react-router-dom";
 import "../styles/ChangePassPage.css";
 import Cookies from "js-cookie";
-import axios from "axios";;
+import axios from "axios";
+import logo from "../image/logo.svg";
 
 function ChangePassPage() 
 {
+  const location = useLocation();
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showSuccessLabel, setShowSuccessLabel] = useState(false);
   const [SuccessLabel, setSuccessLabel] = useState(false);
+
+  const id = new URLSearchParams(location.search).get("id");
+  const navigate = useNavigate();
+
+  const handleClick = (toLink) => {
+    navigate(`/${toLink}`);
+  };
+
+  const handleClickLogOut = (e) => {
+    Cookies.remove('role');
+    Cookies.remove('accessToken');
+    e.preventDefault();
+    navigate('/')
+  }
+
+  const handleClickLogo = (e) => {
+    e.preventDefault();
+    navigate('/ClientPage')
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -80,9 +102,26 @@ function ChangePassPage()
 
   return (
     <>
+    <nav className="navbar nav-pad navbar-light bg-light">
+        <a className="navbar-brand" href="/ClientPage" onClick={handleClickLogo}> 
+          <img
+            src={logo}
+            width="40"
+            height="40"
+            className="d-inline-block align-top"
+            alt=""
+          ></img>
+        </a>
+        <a className="nav-item nav-link click bg-dark text-white" href="#" onClick={handleClickLogOut}>
+          Log Out
+        </a>
+      </nav>
     <h2 className='empty'></h2>
-    <form className='change_pass_form' onSubmit={handleSubmit}>
-    <h2 className='empty'></h2>
+    
+    <form className='change_pass_form' onSubmit={handleSubmit}>    
+    
+    <div className="cp_headSignUp"></div>
+    
       <h2 className='change_h2'>Change Password</h2>
       <div>
         <label className='change_pass_label' htmlFor="password">New Password:</label>
