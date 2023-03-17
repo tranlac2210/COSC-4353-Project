@@ -3,6 +3,7 @@ import {Link, useNavigate} from 'react-router-dom';
 import '../styles/AdminLoginPage.css';
 import "bootstrap/dist/css/bootstrap.min.css"
 import axios from 'axios';
+import Cookies from "js-cookie";
 
 
 function AdminLoginPage(){
@@ -20,7 +21,6 @@ function AdminLoginPage(){
         userName: username,
         password: password        
       });
-      console.log(response.data);
       // alert(`${response.status},${password}`)
       if (response.status!==200) {
         // If the response is not OK, throw an error
@@ -28,7 +28,9 @@ function AdminLoginPage(){
       }
   
       // If the response is OK, redirect to the client page
-      navigate('/admin/clientlist?username='+ username);
+      Cookies.set("role", "Admin");
+      navigate('/admin/ClientList');
+      // navigate('/admin/clientlist?username='+ username);
     } 
      catch (error) {
       // If there's an error, set the error label
@@ -37,9 +39,6 @@ function AdminLoginPage(){
     // alert('Incorrect Password or Username!!');
     setErrorLabel(true);
     // setErrorLabel('Incorrect Password or Username!!');
-    console.log("Username: ", username);
-    console.log("Password: ", password); 
-    
   };
 
   return (
@@ -70,14 +69,6 @@ function AdminLoginPage(){
 
         <button className="btn btn-success btn-ho" onClick={handleSubmit}>Submit</button>
         </div>
-        
-        
-        {/* <div className="already-have-account">
-        Not a member? 
-        <a className="signup_now" href="/SignupPage">Create New Account</a>
-      </div> */}
-        {/* <Link className="demo" to="/admin/clientlist">Continue as Guest</Link> */}
-
       </div>
       </div>
   );

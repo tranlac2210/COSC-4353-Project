@@ -29,6 +29,7 @@
   margin-top: 20px;
 }
 
+
 .signup_now {
   padding: 5px;
   text-decoration: none;
@@ -37,6 +38,22 @@
   color: purple;
   cursor: pointer;
 }
+
+  
+  .admin_login_button {
+    margin-bottom:10px;
+    margin-top: 20px;
+    width: 300px;
+    height: 40px;
+    padding: 10px;
+    border-radius: 30px;
+    border: none;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+  }
+
 
 .signup_now:hover {
   color: #3e8e41;
@@ -53,6 +70,7 @@
   width: 30%;
   margin: auto;
 }
+
 
 h1 {
   text-align: center;
@@ -111,7 +129,11 @@ h1 {
   background-color: #3e8e41;
 }
 
-.login_button:hover,
+.admin_login_button:hover,
 .signup_link:hover {
   background-color: #3e8e41;
 }
+
+
+
+
