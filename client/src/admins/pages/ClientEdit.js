@@ -5,6 +5,8 @@ import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./ClientEdit.css"
+import logo from "../../image/logo.svg"
+import Cookies from 'js-cookie';
 
 
 
@@ -15,7 +17,7 @@ function ClientEdit(props) {
     const [id, setId] = useState("");
     const [clients, setclients] = useState([]);
 
-    let historyf = useNavigate();
+    let navigate = useNavigate();
     const location = useLocation();
     const cid = new URLSearchParams(location.search).get('id');
     useEffect(() => {
@@ -45,7 +47,7 @@ function ClientEdit(props) {
             
         
             console.log(resf.data.success);
-            historyf("/admin/ClientList");
+            navigate("/admin/ClientList");
             
           } catch (error) {
             console.error(error);
@@ -71,9 +73,37 @@ function ClientEdit(props) {
     //     setAddress(localStorage.getItem("Address"));
     //     setId(localStorage.getItem("ID"));
     // }, [])
+
+    const handleClickLogo = (e) => {
+      e.preventDefault();
+    }
+
+    const handleClickLogOut = (e) => {
+      Cookies.remove("role");
+      e.preventDefault();
+      navigate("/");
+    }
      
     return (
         <Fragment>
+          <nav className="navbar nav-pad navbar-light bg-light">
+        <a className="navbar-brand" href="#" onClick={handleClickLogo}>
+          <img
+            src={logo}
+            width="40"
+            height="40"
+            className="d-inline-block align-top"
+            alt=""
+          ></img>
+        </a>
+        <a
+          className="nav-item nav-link click"
+          href="#"
+          onClick={handleClickLogOut}
+        >
+          Log Out
+        </a>
+      </nav>
             <div className='border border-dark b-spacing-2'>
                 <div className="input-group mb-3">
                     <span className="input-group-text">First</span>

@@ -1,0 +1,16 @@
+.outsideNoAccess {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 100px;
+}
+
+
+.text {
+    color: black;
+    font-size: 30px;
+    padding: 50px;
+    height: 250px;
+}

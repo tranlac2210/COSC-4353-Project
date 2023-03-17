@@ -15,6 +15,8 @@ function ClientPage() {
   };
 
   const handleClickLogOut = (e) => {
+    Cookies.remove('role');
+    Cookies.remove('accessToken');
     e.preventDefault();
     navigate('/')
   }
