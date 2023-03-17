@@ -18,7 +18,11 @@
 }
 
 .content {
-  margin: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: auto;
 }
 
 .error-label {
@@ -67,7 +71,7 @@
   /* padding: 30px; */
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  width: 30%;
+  width: 600px;  
   margin: auto;
 }
 
