@@ -257,39 +257,63 @@ export function authenticateToken(req, res, next) {
 }
 
 export const passwordChange = async (req, res) => {
-  const body = req.body;
+  // const body = req.body;
 
-  const password = body.password;
-  const userName = body.userName;
+  // const password = body.password;
+  // const userName = body.userName;
 
-  if (
-    !password ||
-    !userName ||
-    password.length === 0 ||
-    userName.length === 0
-  ) {
-    return res.status(400).json({
-      error: "Username or Password is invalid!",
-    });
-  }
+  try {
+    const body = req.body;
+    var findUser = users.filter((user) => user.id == req.user.id)[0];
+    const salt = await bcrypt.genSalt(10);
+    var encryptedPassword = await bcrypt.hash(body.password, salt);
+    if (!findUser) {
+      return res.status(400).json({
+        error: "User doesn't exist!",
+      });
+    }
+    findUser.password = encryptedPassword;
+    return res.status(200).json({
+      // success: "Successfully save info.",
+      // findUser
+      findUser
 
-  const findUser = users.find((user) => user.userName === userName);
-
-  if (findUser == null) {
-    return res.status(400).json({
-      error: "User doesn't exist!",
-    });
-  }
-
-  const salt = await bcrypt.genSalt(10);
-  var encryptedPassword = await bcrypt.hash(password, salt);
-
-  findUser.password = encryptedPassword;
-
-  return res.status(200).json({
-    success: "Successfully changed password.",
   });
+} catch (err) {
+  return res.status(400).json({
+    error: err,
+  });
+}
+
 };
+  // if (
+  //   !password ||
+  //   !userName ||
+  //   password.length === 0 ||
+  //   userName.length === 0
+  // ) {
+  //   return res.status(400).json({
+  //     error: "Username or Password is invalid!",
+  //   });
+  // }
+
+//   const findUser = users.find((user) => user.userName === userName);
+
+//   if (findUser == null) {
+//     return res.status(400).json({
+//       error: "User doesn't exist!",
+//     });
+//   }
+
+//   const salt = await bcrypt.genSalt(10);
+//   var encryptedPassword = await bcrypt.hash(password, salt);
+
+//   findUser.password = encryptedPassword;
+
+//   return res.status(200).json({
+//     success: "Successfully changed password.",
+//   });
+// };
 
 export const UserInfoChange = async (req, res) => {
   
