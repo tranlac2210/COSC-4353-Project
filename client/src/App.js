@@ -28,12 +28,13 @@ function App() {
             <Route path="/ClientPage" element={<UserElement><ClientPage/></UserElement>} />
             <Route path="/ClientProfilePage" element={<UserElement><ClientProfilePage/></UserElement>} />
             <Route path="/FuelQuoteForm" element={<UserElement><FuelQuoteForm/></UserElement>} />
+            <Route path="/ChangePassPage" element={<UserElement><ChangePassPage/></UserElement>} />
 
             /* -------------ADMIN------------- */
             <Route path='/admin/ClientList' element={<AdminElement><ClientList/></AdminElement>}></Route>
             {/* <Route path="/admin/ClientList" element={<ClientList/>}></Route> */}
             <Route path="/admin/ClientList/edit" element={<AdminElement><ClientEdit/></AdminElement>}></Route>
-            <Route path="/ChangePassPage" element={<AdminElement><ChangePassPage/></AdminElement>} />
+            
             <Route path="/AdminLoginPage" element={<AdminLoginPage/>} />
             <Route path='/admin/AdminPage' element={<AdminElement><AdminPage/></AdminElement>}/>
 
