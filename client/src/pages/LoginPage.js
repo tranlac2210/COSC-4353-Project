@@ -69,6 +69,7 @@ function LoginPage({onBack, onClose, openSignUp}){
       console.log(response.data);
       Cookies.set('accessToken', response.data.accessToken);
       Cookies.set('refreshToken', response.data.refreshToken);
+      Cookies.set('role', 'User');
       // alert(`${response.status},${password}`)
       if (response.status !== 200) {
         // If the response is not OK, throw an error
@@ -77,6 +78,7 @@ function LoginPage({onBack, onClose, openSignUp}){
   
       // // If the response is OK, redirect to the client page
       // navigate('/ClientPage?id='+ response.data.id);
+      Cookies.set('role', 'User');
       navigate('/ClientPage');
     } 
      catch (er) {
