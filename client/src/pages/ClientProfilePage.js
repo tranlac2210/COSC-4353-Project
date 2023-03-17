@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation ,useNavigate} from "react-router-dom";
 import "../styles/ClientProfilePage.css";
 import axios from "axios";
 import { createAPIEndpoint, ENDPOINTS } from "../API";
 import Cookies from "js-cookie";
+import logo from "../image/logo.svg";
 
 function ClientProfilePage() {
   const location = useLocation();
@@ -14,6 +15,25 @@ function ClientProfilePage() {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zipcode, setZipcode] = useState("");
+  
+  const id = new URLSearchParams(location.search).get("id");
+  const navigate = useNavigate();
+
+  const handleClick = (toLink) => {
+    navigate(`/${toLink}`);
+  };
+
+  const handleClickLogOut = (e) => {
+    Cookies.remove('role');
+    Cookies.remove('accessToken');
+    e.preventDefault();
+    navigate('/')
+  }
+
+  const handleClickLogo = (e) => {
+    e.preventDefault();
+    navigate('/ClientPage')
+  }
 
 
   useEffect(() => {
@@ -74,7 +94,20 @@ function ClientProfilePage() {
   };
 
   return (
-    <>
+    <><nav className="navbar nav-pad navbar-light bg-light">
+    <a className="navbar-brand" href="/ClientPage" onClick={handleClickLogo}> 
+      <img
+        src={logo}
+        width="40"
+        height="40"
+        className="d-inline-block align-top"
+        alt=""
+      ></img>
+    </a>
+    <a className="nav-item nav-link click" href="#" onClick={handleClickLogOut}>
+      Log Out
+    </a>
+  </nav>
       <div>
         <div className="empty"></div>
         <div className="cp_login_form">
@@ -163,8 +196,12 @@ function ClientProfilePage() {
               value={zipcode}
               onChange={(event) => setZipcode(event.target.value)}
               maxLength={9}
-              pattern="\d{5,9}"
+              pattern="`\d{5}-\d{4}`"
               required
+              onKeyPress={(event) => {
+    if (!/[0-9]/.test(event.key)) {
+      event.preventDefault();    }
+  }}
             />
           </div>
           <button className="login_button" type="submit" onClick={handleSubmit}>

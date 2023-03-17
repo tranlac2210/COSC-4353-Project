@@ -83,7 +83,14 @@ function LoginPage({onBack, onClose, openSignUp}){
     } 
      catch (er) {
       // If there's an error, set the error label
-      setErrorLabel(er.error);
+      // if (er.response && er.response.status === 400){
+      //   setErrorLabel("Username doesn't exist!!!");
+      // } else{
+        setErrorLabel(`${er.response.data.error}`);
+    // }
+      
+      // setErrorLabel(er);
+      
     }
   };
 
