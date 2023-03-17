@@ -33,6 +33,6 @@ router.post('/signup', signUp);
 router.post('/signin', signIn)
 router.post('/authSignin', authsignIn)
 
-router.put('/passwordChange', passwordChange)
+router.post('/passwordChange',authenticateToken, passwordChange)
 
 export default router;
