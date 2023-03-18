@@ -117,6 +117,7 @@ function LoginPage({onBack, onClose, openSignUp}){
               id="username"
               value={username}
               onChange={event => setUsername(event.target.value)}
+              required
             />
           </div>
           <div>
@@ -126,6 +127,7 @@ function LoginPage({onBack, onClose, openSignUp}){
               id="password"
               value={password}
               onChange={event => setPassword(event.target.value)}
+              required
             />
           </div>
           {ErrorLabel && (<label className="error-label"> {ErrorLabel}</label>)}

@@ -76,6 +76,7 @@ function ClientEdit(props) {
 
     const handleClickLogo = (e) => {
       e.preventDefault();
+      navigate("/admin/ClientList");
     }
 
     const handleClickLogOut = (e) => {
