@@ -154,7 +154,7 @@ export const signUp = async (req, res) => {
   }
 
   if (admins.find((admin) => admin.userName === userName)) {
-    return res.status(400).json({
+    return res.status(409).json({
       error: "Username already exists!",
     });
   }
@@ -208,7 +208,7 @@ export const signIn = async (req, res) => {
 
   if (findAdmin == null) {
     return res.status(400).json({
-      error: "User doesn't exist!",
+      error: "Username doesn't exist!",
     });
   }
 
@@ -237,16 +237,16 @@ export const passwordChange = async (req, res) => {
   const password = body.password;
   const userName = body.userName;
 
-  if (
-    !password ||
-    !userName ||
-    password.length === 0 ||
-    userName.length === 0
-  ) {
-    return res.status(400).json({
-      error: "Username or Password is invalid!",
-    });
-  }
+  // if (
+  //   !password ||
+  //   !userName ||
+  //   password.length === 0 ||
+  //   userName.length === 0
+  // ) {
+  //   return res.status(400).json({
+  //     error: "Username or Password is invalid!",
+  //   });
+  // }
 
   const findAdmin = admins.find((admin) => admin.userName === userName);
 

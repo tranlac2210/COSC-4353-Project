@@ -34,10 +34,11 @@ function AdminLoginPage(){
     } 
      catch (error) {
       // If there's an error, set the error label
-      setErrorLabel('Incorrect Password or Username !!');
+      // setErrorLabel('Incorrect Password or Username !!');
+      setErrorLabel(`${error.response.data.error}`);
     }
     // alert('Incorrect Password or Username!!');
-    setErrorLabel(true);
+    // setErrorLabel(true);
     // setErrorLabel('Incorrect Password or Username!!');
   };
 
@@ -54,6 +55,7 @@ function AdminLoginPage(){
             id="username"
             value={username}
             onChange={event => setUsername(event.target.value)}
+            required
           />
         </div>
         <div>
@@ -63,6 +65,7 @@ function AdminLoginPage(){
             id="password"
             value={password}
             onChange={event => setPassword(event.target.value)}
+            required
           />
         </div>
         {ErrorLabel && (<label className="error-label"> {ErrorLabel}</label>)}
