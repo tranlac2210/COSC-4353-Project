@@ -75,16 +75,6 @@ function ClientProfilePage() {
         },
       });
 
-      // const res = await createAPIEndpoint(ENDPOINTS.UserInfoChange).put(id, {
-      //   // userName: username,
-      //   FullName: fullName,
-      //   Address1: address1,
-      //   Address2: address2,
-      //   city: city,
-      //   State: state,
-      //   Zipcode: zipcode,
-      // });
-
       alert("Your changes have been successfully saved!");
 
       console.log(res.data.success);
