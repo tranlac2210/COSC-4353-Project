@@ -170,6 +170,7 @@ function ClientProfilePage() {
               required
             >
               {/* <option value="">Select State</option> */}
+              <option value="Choose">Choose State</option>
               <option value="TX">Texas</option>
               <option value="AL">Alabama</option>
               <option value="AK">Alaska</option>
