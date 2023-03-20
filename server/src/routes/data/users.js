@@ -3,7 +3,7 @@ const users = [
     id: "1",
     userName: "chuong",
     password: "1234",
-    active: 1,
+    active: 0,
     info: {
       FullName: "chuong tran",
       Address1: "add",
