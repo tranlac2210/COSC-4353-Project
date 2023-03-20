@@ -286,34 +286,7 @@ export const passwordChange = async (req, res) => {
 }
 
 };
-  // if (
-  //   !password ||
-  //   !userName ||
-  //   password.length === 0 ||
-  //   userName.length === 0
-  // ) {
-  //   return res.status(400).json({
-  //     error: "Username or Password is invalid!",
-  //   });
-  // }
 
-//   const findUser = users.find((user) => user.userName === userName);
-
-//   if (findUser == null) {
-//     return res.status(400).json({
-//       error: "User doesn't exist!",
-//     });
-//   }
-
-//   const salt = await bcrypt.genSalt(10);
-//   var encryptedPassword = await bcrypt.hash(password, salt);
-
-//   findUser.password = encryptedPassword;
-
-//   return res.status(200).json({
-//     success: "Successfully changed password.",
-//   });
-// };
 
 export const UserInfoChange = async (req, res) => {
   

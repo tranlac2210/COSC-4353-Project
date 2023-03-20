@@ -68,8 +68,33 @@ export const getClients = (req, res) => {
       let { orders, ...toBePushed } = object;
       toBeShow.push(toBePushed);
     }
-    // let {id, ...toBeShow} = clients;
-    res.status(200).json(toBeShow);
+
+    const result = toBeShow.filter(user => user.active == 1);
+
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({
+      error: error,
+    });
+  }
+};
+
+export const getClient = (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const clientInfo = users.find((user) => user.id == id).info;
+
+    if (clientInfo != null) {
+      res.status(200).json(clientInfo);
+    }
+    else {
+      res.status(400).json({
+        error: "Something wrong happened. Please try again."
+      })
+    }
+
+    
   } catch (error) {
     res.status(400).json({
       error: error,
@@ -80,7 +105,7 @@ export const getClients = (req, res) => {
 export const deactivateClient = (req, res) => {
   var id = req.params.id;
 
-  var clientToBeUpdated = clients.find((client) => client.id == id);
+  var clientToBeUpdated = users.find((user) => user.id == id);
 
   if (clientToBeUpdated == null) {
     return res.status(400).json({
@@ -116,10 +141,11 @@ export const getClientOrder = async (req, res) => {
 
 export const modifyClientInfo = async (req, res) => {
   try {
-    const incomingData = req.body;
-    let id = incomingData.id;
+    const body = req.body;
+    // let id = incomingData.id;
+    const id = req.params.id;
 
-    var clientToBeUpdated = clients.find((client) => client.id == id);
+    var clientToBeUpdated = users.find((user) => user.id == id);
 
     if (clientToBeUpdated == null) {
       return res.status(400).json({
@@ -127,9 +153,13 @@ export const modifyClientInfo = async (req, res) => {
       });
     }
 
-    clientToBeUpdated.first = incomingData.first;
-    clientToBeUpdated.last = incomingData.last;
-    clientToBeUpdated.address = incomingData.address;
+    clientToBeUpdated.info.FullName = body.FullName;
+    clientToBeUpdated.info.Address1 = body.Address1;
+    clientToBeUpdated.info.Address2 = body.Address2;
+    clientToBeUpdated.info.city = body.city;
+    clientToBeUpdated.info.State = body.State;
+    clientToBeUpdated.info.Zipcode = body.Zipcode;
+
     return res.status(200).json({
       success: `Successfully changed client ${id} Info.`,
     });

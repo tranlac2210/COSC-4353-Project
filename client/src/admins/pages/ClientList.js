@@ -26,8 +26,7 @@ function ClientList() {
     };
 
     fetchData();
-    console.log(clients);
-  }, []);
+  }, [clients]);
 
   const handleDeactivate = async (id) => {
     try {
@@ -43,6 +42,7 @@ function ClientList() {
     } catch (err) {
       console.log(err);
     }
+    // console.log(id);
   };
 
   const handleOpenDeactivate = (id) => {
