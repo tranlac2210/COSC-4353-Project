@@ -23,7 +23,8 @@ export const ENDPOINTS = {
     AdminGetClient: 'admin/getClient', // GET: Get a client
     AdminDeactivateClient: 'admin/deactivateClient', // GET: deactivate client
     GetAdmins: 'admin/getAdmins', // GET: Get admins
-    modifyClientInfo: 'admin/modifyClientInfo' // PUT: Modify client info
+    modifyClientInfo: 'admin/modifyClientInfo', // PUT: Modify client info
+    AdminGetClientOrder: 'admin/getClientOrder', // GET (fetchById): Get client orders
     
 };
 
