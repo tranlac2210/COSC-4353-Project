@@ -123,7 +123,7 @@ export const deactivateClient = (req, res) => {
 export const getClientOrder = async (req, res) => {
   try {
     var id = req.params.id;
-    var client = clients.find((c) => c.id == id);
+    var client = users.find((user) => user.id == id);
 
     if (client == null) {
       res.status(400).json({
