@@ -185,7 +185,7 @@ export const authsignIn = async (req, res) => {
 
   const findUser = users.find((user) => user.userName === userName);
 
-  if (findUser == null) {
+  if (findUser == null || findUser.active == 0) {
     return res.status(400).json({
       error: "User doesn't exist!",
     });
