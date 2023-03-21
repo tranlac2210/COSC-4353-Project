@@ -9,7 +9,7 @@ const users = [
       Address1: "add",
       Address2: "",
       city: "Houston",
-      State: "Texas",
+      State: "TX",
       Zipcode: "77204",
     },
     orders: [
@@ -49,7 +49,7 @@ const users = [
       Address1: "add2",
       Address2: "",
       city: "Houston2",
-      State: "Texas2",
+      State: "TX",
       Zipcode: "772042",
     },
     orders: [
@@ -89,7 +89,7 @@ const users = [
       Address1: "add2",
       Address2: "",
       city: "Houston2",
-      State: "Texas2",
+      State: "TX",
       Zipcode: "772042",
     },
     orders: [
@@ -129,7 +129,7 @@ const users = [
       Address1: "add2",
       Address2: "",
       city: "Houston2",
-      State: "Texas2",
+      State: "TX",
       Zipcode: "772042",
     },
     orders: [
