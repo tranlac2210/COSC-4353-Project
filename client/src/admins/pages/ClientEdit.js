@@ -163,7 +163,7 @@ function ClientEdit() {
               onChange={(event) => setState(event.target.value)}
               required
             >
-              <option value="Choose">Choose State</option>
+              <option value="">Select State</option>
               <option value="AL">Alabama</option>
               <option value="AK">Alaska</option>
               <option value="AZ">Arizona</option>

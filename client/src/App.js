@@ -12,6 +12,7 @@ import { AdminLoginPage } from './pages';
 import './App.css';
 import ClientList from './admins/pages/ClientList';
 import ClientEdit from './admins/pages/ClientEdit';
+import ClientOrder from './admins/pages/ClientOrder';
 import AdminPage from './admins/pages/AdminPage';
 import {AdminElement, UserElement} from './role-based/RoleElement';
 import NoAccess from './role-based/NoAccess';
@@ -34,7 +35,7 @@ function App() {
             <Route path='/admin/ClientList' element={<AdminElement><ClientList/></AdminElement>}></Route>
             {/* <Route path="/admin/ClientList" element={<ClientList/>}></Route> */}
             <Route path="/admin/ClientList/edit" element={<AdminElement><ClientEdit/></AdminElement>}></Route>
-            
+            <Route path="/admin/ClientList/Order" element={<AdminElement><ClientOrder/></AdminElement>}></Route>
             <Route path="/AdminLoginPage" element={<AdminLoginPage/>} />
             <Route path='/admin/AdminPage' element={<AdminElement><AdminPage/></AdminElement>}/>
 

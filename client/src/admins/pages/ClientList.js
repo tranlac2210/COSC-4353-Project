@@ -144,14 +144,28 @@ function ClientList() {
                               DETAILS
                             </button>
                           </Link>
+                          
                           &nbsp;
-                          <button
-                            type="button"
-                            className="btn btn-success"
-                            onClick={() => alert(client.active)}
+                          <Link
+                            to={`/admin/ClientList/Order?id=` + `${client.id}`}
                           >
-                            ORDERS
-                          </button>
+                            <button
+                              type="button"
+                              className="btn btn-success"
+                              onClick={() =>
+                                handleModify(
+                                  client.id,
+                                  client.first,
+                                  client.last,
+                                  client.address
+                                )
+                              }
+                            >
+                              ORDERS
+                            </button>
+                          </Link>    
+
+                          
                           &nbsp;
                           <button
                             type="button"

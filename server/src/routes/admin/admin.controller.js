@@ -242,11 +242,11 @@ export const signIn = async (req, res) => {
     });
   }
 
-  // if (findAdmin.password != password) {
-  //     res.status(400).json({
-  //         error: "Password is incorrect."
-  //     })
-  // }
+  if (findAdmin.password != password) {
+      res.status(400).json({
+          error: "Password is incorrect."
+      })
+  }
 
   // const comparePassword = await bcrypt.compare(password, findAdmin.password);
 
