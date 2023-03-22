@@ -79,7 +79,7 @@ function ClientProfilePage() {
 
       console.log(res.data.success);
     } catch (error) {
-      console.error(error);
+      alert(error.response.data.error)
     }
   };
 
@@ -234,6 +234,7 @@ function ClientProfilePage() {
               id="zipcode"
               value={zipcode}
               onChange={(event) => setZipcode(event.target.value)}
+              minLength={5}
               maxLength={9}
               pattern="`\d{5}-\d{4}`"
               required

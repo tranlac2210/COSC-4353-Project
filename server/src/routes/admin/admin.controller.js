@@ -2,53 +2,6 @@ import express from "express";
 import bcrypt from "bcrypt";
 import users from "../data/users.js";
 
-const clients = [
-  {
-    id: 0,
-    username: "ronaldo",
-    first: "chuong",
-    last: "tran",
-    address: "richmond, tx",
-    active: 1,
-    orders: [
-      {
-        id: 1,
-        name: "95",
-        total: 200,
-      },
-    ],
-  },
-  {
-    id: 1,
-    username: "si thue",
-    first: "chuong3",
-    last: "tran",
-    address: "richmond, tx",
-    active: 1,
-    orders: [
-      {
-        id: 1,
-        name: "95",
-        total: 200,
-      },
-    ],
-  },
-  {
-    id: 2,
-    username: "rau con",
-    first: "chuong4",
-    last: "tran",
-    address: "richmond, tx",
-    active: 1,
-    orders: [
-      {
-        id: 1,
-        name: "95",
-        total: 200,
-      },
-    ],
-  },
-];
 
 const admins = [
   {
@@ -153,6 +106,15 @@ export const modifyClientInfo = async (req, res) => {
       });
     }
 
+    if (body.FullName.length > 50 || body.Address1.length > 100
+      || body.Address2.length > 100 || body.city.length > 100
+      || body.Zipcode.length > 9
+      || body.Zipcode.length < 5 ) {
+       return res.status(400).json({
+         error: "Invalid input",
+       });
+      }
+
     clientToBeUpdated.info.FullName = body.FullName;
     clientToBeUpdated.info.Address1 = body.Address1;
     clientToBeUpdated.info.Address2 = body.Address2;
@@ -256,6 +218,11 @@ export const signIn = async (req, res) => {
   //     })
   // }
 
+  req.session.user = {
+    username: findAdmin.userName,
+    role: "ADMIN"
+  }
+
   return res.status(200).json({
     success: "Successfully signing in",
   });
@@ -267,16 +234,6 @@ export const passwordChange = async (req, res) => {
   const password = body.password;
   const userName = body.userName;
 
-  // if (
-  //   !password ||
-  //   !userName ||
-  //   password.length === 0 ||
-  //   userName.length === 0
-  // ) {
-  //   return res.status(400).json({
-  //     error: "Username or Password is invalid!",
-  //   });
-  // }
 
   const findAdmin = admins.find((admin) => admin.userName === userName);
 

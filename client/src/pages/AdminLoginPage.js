@@ -4,6 +4,7 @@ import '../styles/AdminLoginPage.css';
 import "bootstrap/dist/css/bootstrap.min.css"
 import axios from 'axios';
 import Cookies from "js-cookie";
+import { createAPIEndpoint, ENDPOINTS } from "../API";
 
 
 function AdminLoginPage(){
@@ -16,8 +17,13 @@ function AdminLoginPage(){
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      // Send a POST request to the login API endpoint
-      const response = await axios.post('http://localhost:9000/api/admin/signin', {
+      //Send a POST request to the login API endpoint
+      // const response = await axios.post('http://localhost:9000/api/auth/adminLogIn', {
+      //   userName: username,
+      //   password: password        
+      // });
+
+      const response = await createAPIEndpoint(ENDPOINTS.AdminSignIn).post({
         userName: username,
         password: password        
       });
@@ -28,6 +34,7 @@ function AdminLoginPage(){
       }
   
       // If the response is OK, redirect to the client page
+      console.log(response)
       Cookies.set("role", "Admin");
       navigate('/admin/ClientList');
       // navigate('/admin/clientlist?username='+ username);
