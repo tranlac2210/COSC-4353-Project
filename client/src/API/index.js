@@ -26,6 +26,9 @@ export const ENDPOINTS = {
     GetAdmins: 'admin/getAdmins', // GET: Get admins
     modifyClientInfo: 'admin/modifyClientInfo', // PUT: Modify client info
     AdminGetClientOrder: 'admin/getClientOrder', // GET (fetchById): Get client orders
+
+    /*-------------AUTH-------- */
+    // AdminSignIn: 'auth/adminLogIn', // POST: Admin Sign in
     
 };
 

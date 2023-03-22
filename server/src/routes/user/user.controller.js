@@ -301,6 +301,15 @@ export const UserInfoChange = async (req, res) => {
       });
     }
 
+    if (body.FullName.length > 50 || body.Address1.length > 100
+       || body.Address2.length > 100 || body.city.length > 100
+       || body.Zipcode.length > 9
+       || body.Zipcode.length < 5 ) {
+        return res.status(400).json({
+          error: "Invalid input",
+        });
+       }
+
     findUser.info.FullName = body.FullName;
     findUser.info.Address1 = body.Address1;
     findUser.info.Address2 = body.Address2;
@@ -309,9 +318,9 @@ export const UserInfoChange = async (req, res) => {
     findUser.info.Zipcode = body.Zipcode;
 
     return res.status(200).json({
-        // success: "Successfully save info.",
+        success: "Successfully save info.",
         // findUser
-        findUser
+        // findUser
 
     });
   } catch (err) {
