@@ -10,6 +10,7 @@ import {signUp,
     getPost,
     Logout,
     getToken,
+    getFuelInfo,
     authsignIn} from "./user.controller.js"
 
 
@@ -24,6 +25,10 @@ router.get('/authGetUsers', authenticateToken, getPost);
 // router.post('/authLogin', authLogin);
 router.delete('/logout', Logout)
 router.post('/token', getToken) 
+
+
+
+router.post('/getFuelInfo', getFuelInfo);
 
 
 

@@ -6,11 +6,19 @@ import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import Cookies from "js-cookie";
 
+import { createAPIEndpoint, ENDPOINTS } from "../API";
+
+
 function FuelQuoteForm() {
   const location = useLocation();
-  const [gallonsRequested, setGallonsRequested] = useState(null);
-  const [selectedAddress, setAddress] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [gallonsRequested, setGallonsRequested] = useState('');
+  const [selectedAddress, setAddress] = useState('');
+  const [selectedDate, setSelectedDate] = useState('');
+  const [username, setusername] = useState('');
+
+  const [suggestedPrice, setPrice] = useState(''); 
+  const [totalAmountDue, setAmountDue] = useState(''); 
+
   const id = new URLSearchParams(location.search).get("id");
   const navigate = useNavigate();
 
@@ -30,11 +38,33 @@ function FuelQuoteForm() {
     navigate('/ClientPage')
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('Gallons Requested: ', gallonsRequested);
-    console.log('Address: ', selectedAddress);
-    console.log('Selected Date: ', selectedDate);
+    //console.log('Gallons Requested: ', gallonsRequested);
+    //console.log('Address: ', selectedAddress);
+    //console.log('Selected Date: ', selectedDate);
+
+    try {
+      // Send a POST request to the login API endpoint
+      const response = await createAPIEndpoint(ENDPOINTS.UserQuoteForm).post({
+        username: username,
+        gallonsRequested: gallonsRequested,
+        selectedAddress: selectedAddress,
+        selectedDate: selectedDate,
+        //suggestedPrice: suggestedPrice,
+        //totalAmountDue: totalAmountDue
+
+      });
+
+      console.log(response.data);
+
+    } 
+
+     catch (er) {
+      // If there's an error, set the error label
+        //setErrorLabel(`${er.response.data.error}`);
+      
+    }
   };
 
 
@@ -60,6 +90,15 @@ function FuelQuoteForm() {
       <div className="cp_headSignUp"></div>
       <h2>Fuel Quote Form</h2>
         <div>
+          <label className="input" htmlFor='username'>Username: </label>
+          <input className='input1'
+            id="username"
+            value={username}
+            onChange={(event)=> setusername(event.target.value)}
+            required
+          />
+        </div>
+         <div>
           <label className="input" htmlFor='gallonsRequested'>Gallons Requested: </label>
           <input className='input1'
             type='number'
@@ -70,13 +109,13 @@ function FuelQuoteForm() {
             required
           />
         </div>
-        <div>
-          <label className="input" htmlFor='address'>Delivery Address: </label>
-          <select value = {selectedAddress} onChange = {handleSubmit} className='input1'>
+         <div>
+           <label className="input" htmlFor='address'>Delivery Address: </label>
+          <select value = {selectedAddress} onChange = {(event)=>setAddress(event.target.value)} className='input1'>
             <option value="Address 1">Address 1</option>
             <option value="Address 2">Address 2</option>
-          </select>
-        </div>
+           </select>
+         </div> 
         <div>
           <label className="input" htmlFor='deliveryDate'>Select Delivery Date: </label>
             <DatePicker className='input1'
@@ -87,10 +126,12 @@ function FuelQuoteForm() {
               required
             />
         </div>
-        <div>
+        {/* { /*<div>
           <label className="input" htmlFor='suggestedPrice'>Suggested Price / Gallon: </label>
           <input className='input1'
             type='number'
+            value={suggestedPrice}
+            onChange={(event)=> setPrice(event.target.value)}
             readOnly={true}
           />
         </div>
@@ -98,9 +139,11 @@ function FuelQuoteForm() {
           <label className="input" htmlFor='totalAmountDue'>Total Amount Due: </label>
           <input className='input1'
             type='number'
+            value={totalAmountDue}
+            onChange={(event)=> setAmountDue(event.target.value)}
             readOnly={true}
           />
-        </div>
+        </div>*/ } 
         <button className="submit_button" type="submit">Request Quote</button>
       </form>
     </div>

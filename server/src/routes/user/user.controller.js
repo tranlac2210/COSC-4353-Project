@@ -335,6 +335,79 @@ export const getUsers = (req, res) => {
   res.status(200).json(users);
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export const getFuelInfo = async (req, res) => {
+    
+  const data = req.body;
+  var username = data.username;
+
+  var gallonsRequested = data.gallonsRequested;
+  var selectedAddress = data.selectedAddress;
+  var selectedDate = data.selectedDate;
+  //var suggestedPrice = data.suggestedPrice;
+  //var totalAmountDue = data.totalAmountDue;
+
+   if (
+     !gallonsRequested 
+   ) {
+     return res.status(400).json({
+       error: "Gallons Requested is Invalid!",
+     });
+   }
+
+  if (
+      !selectedAddress 
+    ) {
+      return res.status(400).json({
+        error: "Selected Address is Invalid!",
+      });
+    }
+
+  if (
+      !selectedDate 
+    ) {
+      return res.status(400).json({
+        error: "Selected Date is Invalid!",
+      });
+    }
+
+    //data.suggestedPrice = data.calculation1();
+    //data.totalAmountDue = data.calculation2();
+
+  return res.status(200).json({
+    success: "success"
+  });
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export const getUserinfo = (req, res) => {
   try {
     var userName = req.params.userName;
@@ -375,3 +448,5 @@ export const getUserNameById = (req, res) => {
     });
   }
 };
+
+

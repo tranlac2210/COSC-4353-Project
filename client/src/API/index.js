@@ -15,6 +15,7 @@ export const ENDPOINTS = {
     GetUsers: 'user/getUsers', // GET: Get all Users
     UserInfoChange: 'user/UserInfoChange', // GET: Get User info by ID
     UserPasswordChange: 'user/passwordChange', // PUT: Change user password 
+    UserQuoteForm: 'user/getFuelInfo', 
 
     /*-----------------ADMIN------------*/
     AdminSignUp: 'admin/signup', // POST: Admin Sign up
