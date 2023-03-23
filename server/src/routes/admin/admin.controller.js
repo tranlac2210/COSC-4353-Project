@@ -1,54 +1,6 @@
-import express from "express";
 import bcrypt from "bcrypt";
 import users from "../data/users.js";
 
-const clients = [
-  {
-    id: 0,
-    username: "ronaldo",
-    first: "chuong",
-    last: "tran",
-    address: "richmond, tx",
-    active: 1,
-    orders: [
-      {
-        id: 1,
-        name: "95",
-        total: 200,
-      },
-    ],
-  },
-  {
-    id: 1,
-    username: "si thue",
-    first: "chuong3",
-    last: "tran",
-    address: "richmond, tx",
-    active: 1,
-    orders: [
-      {
-        id: 1,
-        name: "95",
-        total: 200,
-      },
-    ],
-  },
-  {
-    id: 2,
-    username: "rau con",
-    first: "chuong4",
-    last: "tran",
-    address: "richmond, tx",
-    active: 1,
-    orders: [
-      {
-        id: 1,
-        name: "95",
-        total: 200,
-      },
-    ],
-  },
-];
 
 const admins = [
   {
@@ -97,7 +49,7 @@ export const getClient = (req, res) => {
     
   } catch (error) {
     res.status(400).json({
-      error: error,
+      error: "Id is invalid",
     });
   }
 };
@@ -121,7 +73,6 @@ export const deactivateClient = (req, res) => {
 };
 
 export const getClientOrder = async (req, res) => {
-  try {
     var id = req.params.id;
     var client = users.find((user) => user.id == id);
 
@@ -130,19 +81,14 @@ export const getClientOrder = async (req, res) => {
         error: "ID is invalid.",
       });
     }
-
-    res.status(200).json(client.orders);
-  } catch (error) {
-    res.status(400).json({
-      error: error,
-    });
-  }
+    else{
+      res.status(200).json(client.orders);
+    }
 };
 
 export const modifyClientInfo = async (req, res) => {
   try {
     const body = req.body;
-    // let id = incomingData.id;
     const id = req.params.id;
 
     var clientToBeUpdated = users.find((user) => user.id == id);
@@ -152,6 +98,15 @@ export const modifyClientInfo = async (req, res) => {
         error: "Something wrong happened. Please try again!",
       });
     }
+
+    if (body.FullName.length > 50 || body.Address1.length > 100
+      || body.Address2.length > 100 || body.city.length > 100
+      || body.Zipcode.length > 9
+      || body.Zipcode.length < 5 ) {
+       return res.status(400).json({
+         error: "Invalid input",
+       });
+      }
 
     clientToBeUpdated.info.FullName = body.FullName;
     clientToBeUpdated.info.Address1 = body.Address1;
@@ -248,13 +203,10 @@ export const signIn = async (req, res) => {
       })
   }
 
-  // const comparePassword = await bcrypt.compare(password, findAdmin.password);
-
-  // if (!comparePassword) {
-  //     return res.status(400).json({
-  //         error: "Username or Password is incorrect!"
-  //     })
-  // }
+  req.session.user = {
+    username: findAdmin.userName,
+    role: "ADMIN"
+  }
 
   return res.status(200).json({
     success: "Successfully signing in",
@@ -267,16 +219,6 @@ export const passwordChange = async (req, res) => {
   const password = body.password;
   const userName = body.userName;
 
-  // if (
-  //   !password ||
-  //   !userName ||
-  //   password.length === 0 ||
-  //   userName.length === 0
-  // ) {
-  //   return res.status(400).json({
-  //     error: "Username or Password is invalid!",
-  //   });
-  // }
 
   const findAdmin = admins.find((admin) => admin.userName === userName);
 

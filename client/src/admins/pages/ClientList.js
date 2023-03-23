@@ -12,7 +12,6 @@ import axios from "axios";
 
 function ClientList() {
   const [openModal, setOpenModal] = useState(false);
-
   const [deletedID, setdeletedId] = useState(-1);
   const [clients, setClients] = useState([]);
   const navigate = useNavigate();

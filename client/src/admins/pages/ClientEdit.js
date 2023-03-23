@@ -73,7 +73,7 @@ function ClientEdit() {
       alert("Your changes have been successfully saved!");
 
     } catch (error) {
-      console.error(error);
+      alert(error.response.data.error)
     }
   };
 

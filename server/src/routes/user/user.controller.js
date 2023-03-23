@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import { uuid } from "uuidv4";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import users from "../data/users.js"
+import users from "../data/users.js";
 
 dotenv.config();
 
@@ -72,7 +72,7 @@ export const signUp = async (req, res) => {
   var encryptedPassword = await bcrypt.hash(password, salt);
 
   var newUserId = uuid();
-  
+
   const newUser = {
     id: newUserId,
     userName: userName,
@@ -86,9 +86,7 @@ export const signUp = async (req, res) => {
       State: "",
       Zipcode: "",
     },
-    orders: [
-
-    ]
+    orders: [],
   };
 
   users.push(newUser);
@@ -185,7 +183,7 @@ export const authsignIn = async (req, res) => {
 
   const findUser = users.find((user) => user.userName === userName);
 
-  if (findUser == null) {
+  if (findUser == null || findUser.active == 0) {
     return res.status(400).json({
       error: "User doesn't exist!",
     });
@@ -276,21 +274,17 @@ export const passwordChange = async (req, res) => {
     return res.status(200).json({
       // success: "Successfully save info.",
       // findUser
-      findUser
-
-  });
-} catch (err) {
-  return res.status(400).json({
-    error: err,
-  });
-}
-
+      findUser,
+    });
+  } catch (err) {
+    return res.status(400).json({
+      error: err,
+    });
+  }
 };
 
-
 export const UserInfoChange = async (req, res) => {
-  
-//   const id = req.params.id;
+  //   const id = req.params.id;
   try {
     const body = req.body;
     var findUser = users.filter((user) => user.id == req.user.id)[0];
@@ -298,6 +292,19 @@ export const UserInfoChange = async (req, res) => {
     if (!findUser) {
       return res.status(400).json({
         error: "User doesn't exist!",
+      });
+    }
+
+    if (
+      body.FullName.length > 50 ||
+      body.Address1.length > 100 ||
+      body.Address2.length > 100 ||
+      body.city.length > 100 ||
+      body.Zipcode.length > 9 ||
+      body.Zipcode.length < 5
+    ) {
+      return res.status(400).json({
+        error: "Invalid input",
       });
     }
 
@@ -309,21 +316,76 @@ export const UserInfoChange = async (req, res) => {
     findUser.info.Zipcode = body.Zipcode;
 
     return res.status(200).json({
-        // success: "Successfully save info.",
-        // findUser
-        findUser
-
+      success: "Successfully save info.",
+      // findUser
+      // findUser
     });
   } catch (err) {
     return res.status(400).json({
       error: err,
     });
   }
-
 };
 
 export const getUsers = (req, res) => {
   res.status(200).json(users);
+};
+
+export const getFuelInfo = async (req, res) => {
+  const data = req.body;
+  // var username = data.username;
+
+  const body = req.body;
+  var gallonsRequested = data.gallonsRequested;
+  var selectedAddress = data.selectedAddress;
+  var selectedDate = data.selectedDate;
+
+  if (!gallonsRequested) {
+    return res.status(400).json({
+      error: "Gallons Requested is Invalid!",
+    });
+  }
+
+  if (!selectedAddress) {
+    return res.status(400).json({
+      error: "Selected Address is Invalid!",
+    });
+  }
+
+  if (!selectedDate) {
+    return res.status(400).json({
+      error: "Selected Date is Invalid!",
+    });
+  }
+
+  var findUser = users.filter((user) => user.id == req.user.id)[0];
+
+  if (!findUser) {
+    res.status(400).json({
+      error: "Can't find user!",
+    });
+  }
+
+  var orders = findUser.orders;
+
+  orders.push({
+    id: 1,
+    name: "Regular",
+    volumn: gallonsRequested,
+    date: selectedDate,
+  });
+
+  //var suggestedPrice = data.suggestedPrice;
+  //var totalAmountDue = data.totalAmountDue;
+
+  
+
+  //data.suggestedPrice = data.calculation1();
+  //data.totalAmountDue = data.calculation2();
+
+  return res.status(200).json({
+    success: "$400",
+  });
 };
 
 export const getUserinfo = (req, res) => {
