@@ -1,4 +1,3 @@
-import express from "express";
 import bcrypt from "bcrypt";
 import users from "../data/users.js";
 
@@ -50,7 +49,7 @@ export const getClient = (req, res) => {
     
   } catch (error) {
     res.status(400).json({
-      error: error,
+      error: "Id is invalid",
     });
   }
 };
@@ -74,7 +73,6 @@ export const deactivateClient = (req, res) => {
 };
 
 export const getClientOrder = async (req, res) => {
-  try {
     var id = req.params.id;
     var client = users.find((user) => user.id == id);
 
@@ -83,19 +81,14 @@ export const getClientOrder = async (req, res) => {
         error: "ID is invalid.",
       });
     }
-
-    res.status(200).json(client.orders);
-  } catch (error) {
-    res.status(400).json({
-      error: error,
-    });
-  }
+    else{
+      res.status(200).json(client.orders);
+    }
 };
 
 export const modifyClientInfo = async (req, res) => {
   try {
     const body = req.body;
-    // let id = incomingData.id;
     const id = req.params.id;
 
     var clientToBeUpdated = users.find((user) => user.id == id);
@@ -209,14 +202,6 @@ export const signIn = async (req, res) => {
           error: "Password is incorrect."
       })
   }
-
-  // const comparePassword = await bcrypt.compare(password, findAdmin.password);
-
-  // if (!comparePassword) {
-  //     return res.status(400).json({
-  //         error: "Username or Password is incorrect!"
-  //     })
-  // }
 
   req.session.user = {
     username: findAdmin.userName,
