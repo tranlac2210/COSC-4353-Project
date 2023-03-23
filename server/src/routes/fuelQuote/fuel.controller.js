@@ -27,43 +27,43 @@ const Quotes = class{
 
 }
 
-export const getFuelInfo = async (req, res) => {
+// export const getFuelInfo = async (req, res) => {
     
-    const data = req.body;
+//     const data = req.body;
   
-    var gallonsRequested = data.gallonsRequested;
-    var selectedAddress = data.selectedAddress;
-    var selectedDate = data.selectedDate;
-    var suggestedPrice = data.suggestedPrice;
-    var totalAmountDue = data.totalAmountDue;
+//     var gallonsRequested = data.gallonsRequested;
+//     var selectedAddress = data.selectedAddress;
+//     var selectedDate = data.selectedDate;
+//     var suggestedPrice = data.suggestedPrice;
+//     var totalAmountDue = data.totalAmountDue;
   
-    if (
-      !gallonsRequested 
-    ) {
-      return res.status(400).json({
-        error: "Gallons Requested is Invalid!",
-      });
-    }
+//     if (
+//       !gallonsRequested 
+//     ) {
+//       return res.status(400).json({
+//         error: "Gallons Requested is Invalid!",
+//       });
+//     }
 
-    if (
-        !selectedAddress 
-      ) {
-        return res.status(400).json({
-          error: "Selected Address is Invalid!",
-        });
-      }
+//     if (
+//         !selectedAddress 
+//       ) {
+//         return res.status(400).json({
+//           error: "Selected Address is Invalid!",
+//         });
+//       }
 
-    if (
-        !selectedDate 
-      ) {
-        return res.status(400).json({
-          error: "Selected Date is Invalid!",
-        });
-      }
+//     if (
+//         !selectedDate 
+//       ) {
+//         return res.status(400).json({
+//           error: "Selected Date is Invalid!",
+//         });
+//       }
 
-      //data.suggestedPrice = data.calculation1();
-      //data.totalAmountDue = data.calculation2();
+//       //data.suggestedPrice = data.calculation1();
+//       //data.totalAmountDue = data.calculation2();
   
-    //return res.status(200).json({});
-  };
+//     //return res.status(200).json({});
+//   };
 

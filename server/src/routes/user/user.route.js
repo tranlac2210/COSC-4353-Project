@@ -28,7 +28,7 @@ router.post('/token', getToken)
 
 
 
-router.post('/getFuelInfo', getFuelInfo);
+router.post('/getFuelInfo', authenticateToken, getFuelInfo);
 
 
 
