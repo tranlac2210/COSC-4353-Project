@@ -1,6 +1,6 @@
 .orders-table {
     border-collapse: collapse;
-    width: 100vh;
+    width: 100%;
     margin-bottom: 20px;
   }
   @media screen and (max-width: 1086px) {
@@ -23,6 +23,14 @@
   .orders-table thead {
     background: linear-gradient(to left, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%);
     color: #fff !important;
+  }
+
+  .cp_login_form {
+    width: 70%;
+  }
+
+  .outside-div-table {
+    width: 80%;
   }
 
   .orders-table th,

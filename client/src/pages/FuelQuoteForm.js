@@ -97,7 +97,7 @@ function FuelQuoteForm() {
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    // event.preventDefault();
 
     try {
       // Send a POST request to the login API endpoint
@@ -106,12 +106,12 @@ function FuelQuoteForm() {
       let webApiUrl = "http://localhost:9000/api/user/Userpostfuel";
 
       const jsonBody = {
-        
         Gallons: gallonsRequested,
         DeliveryAddress: addressString,
         date: selectedDate.toISOString().substr(0, 10),
         Sugguestprice: suggestedPrice,
         TotalAmount: totalAmountDue
+
       };
 
       const res = await axios.post(webApiUrl, jsonBody, {
@@ -159,7 +159,10 @@ function FuelQuoteForm() {
       <div>
         <h1 className="profiletest"></h1>
         <div className="empty"></div>
+
         <form className="fuelinput" onSubmit={handleRequestQuote}>
+
+
           <div className="cp_headSignUp"></div>
           <h2>Fuel Quote Form</h2>
           <div className="outdiv">
@@ -229,6 +232,7 @@ function FuelQuoteForm() {
             Submit
           </button>
         </form>
+
       </div>
     </>
   );
