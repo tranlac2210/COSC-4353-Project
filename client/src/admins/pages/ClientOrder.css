@@ -25,6 +25,14 @@
     color: #fff !important;
   }
 
+  .cp_login_form {
+    width: 70%;
+  }
+
+  .outside-div-table {
+    width: 80%;
+  }
+
   .orders-table th,
   .orders-table td {
     border: 1px solid #ddd;
