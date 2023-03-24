@@ -86,7 +86,8 @@ export const signUp = async (req, res) => {
       State: "",
       Zipcode: "",
     },
-    orders: [],
+    orders: [
+   ],
   };
 
   users.push(newUser);
@@ -327,9 +328,78 @@ export const UserInfoChange = async (req, res) => {
   }
 };
 
+
+export const Userpostfuel = async (req, res) => {
+  //   const id = req.params.id;
+  try {
+    const body = req.body;
+    var findUser = users.filter((user) => user.id == req.user.id)[0];
+
+    if (!findUser) {
+      return res.status(400).json({
+        error: "User doesn't exist!",
+      });
+    }
+
+    var orders = findUser.orders;
+    orders.push({
+      Gallons : body.Gallons,
+    DeliveryAddress : body.DeliveryAddress,
+    date : body.date,
+    Sugguestprice : body.Sugguestprice,
+    TotalAmount : body.TotalAmount,
+    })
+
+    // if (
+    //   body.FullName.length > 50 ||
+    //   body.Address1.length > 100 ||
+    //   body.Address2.length > 100 ||
+    //   body.city.length > 100 ||
+    //   body.Zipcode.length > 9 ||
+    //   body.Zipcode.length < 5
+    // ) {
+    //   return res.status(400).json({
+    //     error: "Invalid input",
+    //   });
+    // }
+
+    
+   
+
+    return res.status(200).json({
+      success: "Successfully save info.",
+      // findUser
+      // findUser
+    });
+  } catch (err) {
+    return res.status(400).json({
+      error: err,
+    });
+  }
+};
+
 export const getUsers = (req, res) => {
   res.status(200).json(users);
 };
+
+export function getUsersorder(req, res) {
+  try {
+    var Userfind = users.filter((user) => user.id == req.user.id)[0];
+
+    if (!Userfind) {
+      return res.status(400).json({
+        error: "Can't find user.",
+      });
+    }
+
+    return res.status(200).json(Userfind.orders);
+  } catch (err) {
+    return res.status(400).json({
+      error: err,
+    });
+  }
+}
+
 
 export const getFuelInfo = async (req, res) => {
   const data = req.body;

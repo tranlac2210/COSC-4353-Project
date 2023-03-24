@@ -1,7 +1,23 @@
 .orders-table {
     border-collapse: collapse;
-    width: 110vh;
+    width: 100vh;
     margin-bottom: 20px;
+  }
+  @media screen and (max-width: 1086px) {
+    .orders-table {
+      width: 20vh;
+    }
+  }
+
+
+  @media screen and (max-width: 450px) {
+    .cp_login_form {
+      width: fit-content;
+    }
+    .orders-table {
+      width: 5px;
+      size-adjust: 5px;
+    }
   }
 
   .orders-table thead {

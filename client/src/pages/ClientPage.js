@@ -1,16 +1,32 @@
-import React from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Link, useHistory, useLocation, useNavigate } from "react-router-dom";
 import "../styles/ClientPage.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "../image/logo.svg";
-import Cookies from "js-cookie"
+import Cookies from "js-cookie";
+import { createAPIEndpoint, ENDPOINTS } from "../API";
+
 
 function ClientPage() {
   const location = useLocation();
   const id = new URLSearchParams(location.search).get("id");
   const navigate = useNavigate();
+  const [clients, setClients] = useState([]);
 
   const handleClick = (toLink) => {
+    navigate(`/${toLink}`);
+  };
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const res = await createAPIEndpoint(ENDPOINTS.GetUsers).fetch();
+  //     setClients(res.data);
+  //   };
+
+  //   fetchData();
+  // }, [clients]);
+
+  const handleClickfuel = (toLink) => {
     navigate(`/${toLink}`);
   };
 
@@ -62,6 +78,14 @@ function ClientPage() {
             onClick={() => handleClick("FuelQuoteForm")}
           >
             <p>Fuel Quote Form</p>
+          </div>
+
+          <div
+            className="container"
+            style={{ backgroundColor: "#c42e4d" }}
+            onClick={() => handleClickfuel("FuelQuoteHistory")}
+          >
+            <p>Fuel Quote History</p>
           </div>
 
           <div

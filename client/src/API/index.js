@@ -13,6 +13,7 @@ export const ENDPOINTS = {
     GetUser: 'user/getUser', // GET: Get User by ID
     GetUserAuth: 'user/authGetUsers', // GET: get user auth
     GetUsers: 'user/getUsers', // GET: Get all Users
+    GetUsersorder: 'user/getUsersorder', 
     UserInfoChange: 'user/UserInfoChange', // GET: Get User info by ID
     UserPasswordChange: 'user/passwordChange', // PUT: Change user password 
     UserQuoteForm: 'user/getFuelInfo', 

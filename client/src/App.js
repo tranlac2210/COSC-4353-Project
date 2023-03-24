@@ -6,6 +6,7 @@ import { SignUpPage } from './pages';
 import { ClientPage } from './pages';
 import { ClientProfilePage } from './pages';
 import { FuelQuoteForm } from './pages';
+import { FuelQuoteHistory } from './pages';
 import { ChangePassPage } from './pages';
 import { AdminLoginPage } from './pages';
 
@@ -30,6 +31,7 @@ function App() {
             <Route path="/ClientProfilePage" element={<UserElement><ClientProfilePage/></UserElement>} />
             <Route path="/FuelQuoteForm" element={<UserElement><FuelQuoteForm/></UserElement>} />
             <Route path="/ChangePassPage" element={<UserElement><ChangePassPage/></UserElement>} />
+            <Route path="/FuelQuoteHistory" element={<UserElement><FuelQuoteHistory/></UserElement>} />
 
             /* -------------ADMIN------------- */
             <Route path='/admin/ClientList' element={<AdminElement><ClientList/></AdminElement>}></Route>

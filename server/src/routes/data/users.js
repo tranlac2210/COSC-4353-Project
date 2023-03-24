@@ -13,30 +13,46 @@ const users = [
       Zipcode: "77204",
     },
     orders: [
-        {
-          id: 1,
-          name: "Regular",
-          volumn: 20,
-          date: "2019-02-03T06:48:07"
-        },
-        {
-          id: 2,
-          name: "Mid-grade",
-          volumn: 36,
-          date: "2020-02-04T06:48:07"
-        },
-        {
-          id: 3,
-          name: "Premium",
-          volumn: 15,
-          date: "2020-02-10T06:48:07"
-        },
-        {
-          id: 4,
-          name: "Regular",
-          volumn: 23,
-          date: "2020-02-17T06:48:07"
-        },
+      {
+        id: 1,
+        Gallons: 80,
+        DeliveryAddress: "1234 Oak St, Austin, TX",
+        date: "2022-06-01",
+        Sugguestprice: "",
+        TotalAmount: "",
+      },
+      {
+        id: 2,
+        Gallons: 50,
+        DeliveryAddress: "5678 Pine St, Portland, OR",
+        date: "2022-06-02",
+        Sugguestprice: "",
+        TotalAmount: "",
+      },
+      {
+        id: 3,
+        Gallons: 90,
+        DeliveryAddress: "9101 Maple St, San Diego, CA",
+        date: "2022-06-03",
+        Sugguestprice: "",
+        TotalAmount: "",
+      },
+      {
+        id: 4,
+        Gallons: 70,
+        DeliveryAddress: "1213 Walnut St, Atlanta, GA",
+        date: "2022-06-04",
+        Sugguestprice: "",
+        TotalAmount: "",
+      },
+      {
+        id: 5,
+        Gallons: 65,
+        DeliveryAddress: "1415 Cherry St, Boston, MA",
+        date: "2022-06-05",
+        Sugguestprice: "",
+        TotalAmount: "",
+      },
       ],
   },
   {
@@ -55,27 +71,43 @@ const users = [
     orders: [
       {
         id: 1,
-        name: "Regular",
-        volumn: 20,
-        date: "2023-02-03T06:48:07"
+        Gallons: 70,
+        DeliveryAddress: "1234 Market St, Philadelphia, PA",
+        date: "2022-05-01",
+        Sugguestprice: "",
+        TotalAmount: "",
       },
       {
         id: 2,
-        name: "Mid-grade",
-        volumn: 40,
-        date: "2023-02-10T06:48:07"
+        Gallons: 85,
+        DeliveryAddress: "5678 Main St, Houston, TX",
+        date: "2022-05-02",
+        Sugguestprice: "",
+        TotalAmount: "",
       },
       {
         id: 3,
-        name: "Premium",
-        volumn: 25,
-        date: "2023-03-03T06:48:07"
+        Gallons: 110,
+        DeliveryAddress: "9101 Broadway, Chicago, IL",
+        date: "2022-05-03",
+        Sugguestprice: "",
+        TotalAmount: "",
       },
       {
         id: 4,
-        name: "Regular",
-        volumn: 13,
-        date: "2023-03-10T06:48:07"
+        Gallons: 95,
+        DeliveryAddress: "1213 Elm St, Miami, FL",
+        date: "2022-05-04",
+        Sugguestprice: "",
+        TotalAmount: "",
+      },
+      {
+        id: 5,
+        Gallons: 50,
+        DeliveryAddress: "1415 State St, Seattle, WA",
+        date: "2022-05-05",
+        Sugguestprice: "",
+        TotalAmount: "",
       },
     ],
   },
@@ -95,27 +127,43 @@ const users = [
     orders: [
       {
         id: 1,
-        name: "Regular",
-        volumn: 22,
-        date: "2018-02-03T06:48:07"
+        Gallons: 40,
+        DeliveryAddress: "10 Market St, San Francisco, CA",
+        date: "2022-04-01",
+        Sugguestprice: "",
+        TotalAmount: "",
       },
       {
         id: 2,
-        name: "Mid-grade",
-        volumn: 46,
-        date: "2019-02-03T12:48:07"
+        Gallons: 30,
+        DeliveryAddress: "20 Main St, New York, NY",
+        date: "2022-04-02",
+        Sugguestprice: "",
+        TotalAmount: "",
       },
       {
         id: 3,
-        name: "Premium",
-        volumn: 25,
-        date: "2019-02-10T13:48:07"
+        Gallons: 60,
+        DeliveryAddress: "30 Park Ave, Los Angeles, CA",
+        date: "2022-04-03",
+        Sugguestprice: "",
+        TotalAmount: "",
       },
       {
         id: 4,
-        name: "Regular",
-        volumn: 33,
-        date: "2019-03-03T14:48:07"
+        Gallons: 50,
+        DeliveryAddress: "40 Broadway, Denver, CO",
+        date: "2022-04-04",
+        Sugguestprice: "",
+        TotalAmount: "",
+      },
+      {
+        id: 5,
+        Gallons: 20,
+        DeliveryAddress: "50 State St, Boston, MA",
+        date: "2022-04-05",
+        Sugguestprice: "",
+        TotalAmount: "",
       },
     ],
   },
@@ -133,30 +181,47 @@ const users = [
       Zipcode: "772042",
     },
     orders: [
-      {
-        id: 1,
-        name: "Regular",
-        volumn: 20,
-        date: "2021-01-03T06:48:07"
-      },
-      {
-        id: 2,
-        name: "Mid-grade",
-        volumn: 36,
-        date: "2021-02-03T010:48:07"
-      },
-      {
-        id: 3,
-        name: "Premium",
-        volumn: 15,
-        date: "2021-03-03T08:48:07"
-      },
-      {
-        id: 4,
-        name: "Regular",
-        volumn: 23,
-        date: "2021-02-010T07:48:07"
-      },
+      
+        {
+          id: 1,
+          Gallons: 25,
+          DeliveryAddress: "123 Main St, Anytown USA",
+          date: "2022-03-20",
+          Sugguestprice: "",
+          TotalAmount: "",
+        },
+        {
+          id: 2,
+          Gallons: 50,
+          DeliveryAddress: "456 Elm St, Anytown USA",
+          date: "2022-03-21",
+          Sugguestprice: "",
+          TotalAmount: "",
+        },
+        {
+          id: 3,
+          Gallons: 75,
+          DeliveryAddress: "789 Oak St, Anytown USA",
+          date: "2022-03-22",
+          Sugguestprice: "",
+          TotalAmount: "",
+        },
+        {
+          id: 4,
+          Gallons: 100,
+          DeliveryAddress: "321 Pine St, Anytown USA",
+          date: "2022-03-23",
+          Sugguestprice: "",
+          TotalAmount: "",
+        },
+        {
+          id: 5,
+          Gallons: 125,
+          DeliveryAddress: "654 Cedar St, Anytown USA",
+          date: "2022-03-24",
+          Sugguestprice: "",
+          TotalAmount: "",
+        },
     ],
   },
 ];
