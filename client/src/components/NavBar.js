@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from '../image/logo.svg';
 import { FaBars } from 'react-icons/fa';
 import { useGlobalContext } from './context';
 import "bootstrap/dist/css/bootstrap.min.css"
 import '../styles/navbar.css'
 import { BrowserRouter as Router, Route,Routes , Link } from 'react-router-dom';
+import LoginPage from '../pages/LoginPage';
+import { SignUpPage } from '../pages';
 
 const Navbar = () => {
+  const [openModal, setOpenModal] = useState(false);
+  const [openSignUp, setOpenSignUp] = useState(false);
   const { openSidebar, openSubmenu, closeSubmenu } = useGlobalContext();
+
   const displaySubmenu = (e) => {
     const page = e.target.textContent;
     const tempBtn = e.target.getBoundingClientRect();
@@ -20,7 +25,28 @@ const Navbar = () => {
       closeSubmenu();
     }
   };
+
+  const handleSignUp = () => {
+    setOpenModal(false);
+    setOpenSignUp(true);
+  }
+
+  const HandleBackToLogIn = () => {
+    setOpenSignUp(false);
+    setOpenModal(true);
+  }
+
+  useEffect(() => {
+    if (openModal) {
+        document.body.style.overflow = 'hidden';
+    }
+    else {
+        document.body.style.overflow = 'unset';
+    }
+  }, [openModal])
+
   return (
+    <>
     <nav className='nav' onMouseOver={handleSubmenu}>
       <div className='nav-center'>
         <div className='nav-header'>
@@ -46,9 +72,14 @@ const Navbar = () => {
             </button>
           </li>
         </ul>
-        <button className='btn btn-dark signin-btn'> <Link  to='/LoginPage' style={{ color: 'white' }}>Sign in</Link></button>
+        <button className='btn btn-dark signin-btn' onClick={() => setOpenModal(!openModal)}>Sign in</button>
       </div>
-    </nav>
+      </nav>
+      {openModal && <LoginPage onBack={() => setOpenModal(!openModal)} onClose={() => setOpenModal(!openModal)} openSignUp={() => handleSignUp()}/>}
+      {openSignUp && <SignUpPage onBack={() => HandleBackToLogIn()} BackToLogIn={() => HandleBackToLogIn()}/>}
+
+    </>
+    
   );
 };
 

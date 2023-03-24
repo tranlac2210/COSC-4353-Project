@@ -5,6 +5,7 @@ import LoginPage from './LoginPage';
 import SignUpPage from './SignUpPage';
 
 import FuelQuoteForm from './FuelQuoteForm';
+import FuelQuoteHistory from './FuelQuoteHistory';
 
 import ChangePassPage from './ChangePassPage';
 import AdminLoginPage from './AdminLoginPage';
@@ -16,7 +17,7 @@ export {
   ClientProfilePage,
   LoginPage,
   SignUpPage,
-
+  FuelQuoteHistory,
   FuelQuoteForm,
 
   ChangePassPage,

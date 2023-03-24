@@ -6,12 +6,17 @@ import { SignUpPage } from './pages';
 import { ClientPage } from './pages';
 import { ClientProfilePage } from './pages';
 import { FuelQuoteForm } from './pages';
+import { FuelQuoteHistory } from './pages';
 import { ChangePassPage } from './pages';
 import { AdminLoginPage } from './pages';
 
 import './App.css';
 import ClientList from './admins/pages/ClientList';
 import ClientEdit from './admins/pages/ClientEdit';
+import ClientOrder from './admins/pages/ClientOrder';
+import AdminPage from './admins/pages/AdminPage';
+import {AdminElement, UserElement} from './role-based/RoleElement';
+import NoAccess from './role-based/NoAccess';
 
 function App() {
   return (
@@ -20,18 +25,21 @@ function App() {
         <div>
           <Routes>
             <Route path="/" element={<HomePage/>} />
-            <Route path="/LoginPage" element={<LoginPage/>} />
-            <Route path="/SignUpPage" element={<SignUpPage/>} />
-            <Route path="/ClientPage" element={<ClientPage/>} />
-            <Route path="/ClientProfilePage" element={<ClientProfilePage/>} />
+            <Route path="/noaccess" element={<NoAccess/>}/>
+            /* -------------CLIENT------------- */
+            <Route path="/ClientPage" element={<UserElement><ClientPage/></UserElement>} />
+            <Route path="/ClientProfilePage" element={<UserElement><ClientProfilePage/></UserElement>} />
+            <Route path="/FuelQuoteForm" element={<UserElement><FuelQuoteForm/></UserElement>} />
+            <Route path="/ChangePassPage" element={<UserElement><ChangePassPage/></UserElement>} />
+            <Route path="/FuelQuoteHistory" element={<UserElement><FuelQuoteHistory/></UserElement>} />
 
-            <Route path="/FuelQuoteForm" element={<FuelQuoteForm/>} />
-
-
-            <Route path="/admin/ClientList" element={<ClientList/>}></Route>
-            <Route path="/admin/ClientList/edit" element={<ClientEdit/>}></Route>
-            <Route path="/ChangePassPage" element={<ChangePassPage/>} />
+            /* -------------ADMIN------------- */
+            <Route path='/admin/ClientList' element={<AdminElement><ClientList/></AdminElement>}></Route>
+            {/* <Route path="/admin/ClientList" element={<ClientList/>}></Route> */}
+            <Route path="/admin/ClientList/edit" element={<AdminElement><ClientEdit/></AdminElement>}></Route>
+            <Route path="/admin/ClientList/Order" element={<AdminElement><ClientOrder/></AdminElement>}></Route>
             <Route path="/AdminLoginPage" element={<AdminLoginPage/>} />
+            <Route path='/admin/AdminPage' element={<AdminElement><AdminPage/></AdminElement>}/>
 
 
           </Routes>

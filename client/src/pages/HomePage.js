@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route,Routes , Link } from 'react-router-dom';
 import { Navbar } from '../components'
 import { Background } from '../components'
 import { Sidebar } from '../components'
 import { Submenu } from '../components'
 import { AppProvider } from '../components';
+import LoginPage from './LoginPage';
 
 function HomePage() {
+
   return (
     <>
        <AppProvider>
@@ -17,7 +19,7 @@ function HomePage() {
         </AppProvider>
       
       
-      <div>
+      {/* <div>
         <h1>Welcome to the Home Page</h1>
         <nav>
           <ul>
@@ -35,7 +37,7 @@ function HomePage() {
             </li>
           </ul>
         </nav>
-        </div>
+        </div> */}
       
     </>
   );

@@ -1,65 +1,51 @@
-.error-label{
-  color:red;
+.container-adminLoginPage {
+  padding-top: 50px;
 }
-  .login_h4{
-    margin-top:20px;
-  }
 
-  .signup_now {
-    
-    padding: 5px;
-    text-decoration: none;
-    color: inherit;
-    margin-top:20px;
-    color: purple;
-    cursor: pointer;
-    }
+.headAdmin {
+  background-image: linear-gradient(
+    to right,
+    #ff8177 0%,
+    #ff867a 0%,
+    #ff8c7f 21%,
+    #f99185 52%,
+    #cf556c 78%,
+    #b12a5b 100%
+  );
+  height: 10px;
+  border-radius: 5px 5px 0 0;
+  width: 100%;
+}
 
-    .signup_now:hover {
-      color: #3e8e41;
-    }
-  .ad_login_form {
-    background: linear-gradient(to right, #fa709a 0%, #fee140 100%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #f2f2f2;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    width: 30%;
-    margin: auto;
-  }
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+}
+
+.error-label {
+  color: red;
+  margin-bottom: 10px;
+}
+
+.login_h4 {
+  margin-top: 20px;
+}
+
+
+.signup_now {
+  padding: 5px;
+  text-decoration: none;
+  color: inherit;
+  margin-top: 20px;
+  color: purple;
+  cursor: pointer;
+}
+
   
-  h1 {
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 30px;
-  } 
-
-
-  .ad_login_form h3 {
-    font-size: 30px;
-    margin-bottom: 30px;
-  }
-
-  .login_username,.login_pass {
-    font-size: 20px;
-    margin-bottom: 10px;
-    margin-right: 20px;
-  }
-  
-  .login_input {
-    width: 300px;
-    height: 40px;
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    border: none;
-    font-size: 16px;
-  }
-  
-  .login_button {
+  .admin_login_button {
     margin-bottom:10px;
     margin-top: 20px;
     width: 300px;
@@ -73,21 +59,86 @@
     cursor: pointer;
   }
 
-  .demo{
-    margin-top: 20px;
 
-    padding: 10px;
-    border-radius: 20px;
-    border: none;
-    font-size: 16px;
-    background-color: #4CAF50;
-    color: white;
-    cursor: pointer;
-  }
-  .demo:hover {
-    background-color: #3e8e41;
-  }
-  
-  .login_button:hover,.signup_link:hover{
-    background-color: #3e8e41;
-  }
+.signup_now:hover {
+  color: #3e8e41;
+}
+.ad_login_form {
+  /* background: linear-gradient(to right, #fa709a 0%, #fee140 100%); */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f2f2f2;
+  /* padding: 30px; */
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  width: 600px;  
+  margin: auto;
+}
+
+
+h1 {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.ad_login_form h3 {
+  font-size: 30px;
+  margin-bottom: 30px;
+}
+
+.login_username,
+.login_pass {
+  font-size: 20px;
+  margin-bottom: 10px;
+  margin-right: 20px;
+}
+
+.login_input {
+  width: 300px;
+  height: 40px;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+}
+
+.login_button {
+  margin-bottom: 10px;
+  margin-top: 20px;
+  width: 300px;
+  height: 40px;
+  padding: 10px;
+  border-radius: 30px;
+  border: none;
+  font-size: 16px;
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+}
+
+.demo {
+  margin-top: 20px;
+
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  font-size: 16px;
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+}
+.demo:hover {
+  background-color: #3e8e41;
+}
+
+.admin_login_button:hover,
+.signup_link:hover {
+  background-color: #3e8e41;
+}
+
+
+
+
