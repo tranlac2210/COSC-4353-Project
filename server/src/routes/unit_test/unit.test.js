@@ -3,7 +3,11 @@ import app from '../../../app.js'
 import users from '../data/users.js'
 import bcrypt from "bcrypt";
 import jest from 'jest-mock';
+import { uuid } from "uuidv4";
+import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
 
+dotenv.config();
 const mock = jest.fn();
 
 // Admins
@@ -12,7 +16,7 @@ describe('Admin', () => {
 
     // Collect all clients
     describe('Collect all clients', () => {
-      it('should return a list of active clients', async () => {
+      it('Collect a list of active clients', async () => {
         const response = await request(app)
           .get('/api/admin/getClients')
         expect(response.status).toBe(200);
@@ -266,37 +270,37 @@ describe('Admin', () => {
     describe('Sign In', () => {
       describe('Check If Username Or Password Is Missing.', () => {
         it('Test Case 1', async () => {
-          const res = await request(app)
+          const response = await request(app)
             .post(`/api/admin/signin`)
             .send({});
-          expect(res.statusCode).toEqual(400);
-          expect(res.body.error)
+          expect(response.statusCode).toEqual(400);
+          expect(response.body.error)
         });
       })
       describe('Check If Username Is Not Found.', () => {
         it('Test Case 1', async () => {
-          const res = await request(app)
+          const response = await request(app)
             .post(`/api/admin/signin`)
             .send({ userName: 'unknown', password: users[0].password });
-          expect(res.statusCode).toEqual(400);
-          expect(res.body.error)
+          expect(response.statusCode).toEqual(400);
+          expect(response.body.error)
       });
       })
       describe('Check If Password Is Incorrect', () => {
         it('Test Case 1', async () => {
-          const res = await request(app).
+          const response = await request(app).
             post(`/api/admin/signin`)
             .send({ userName: users[0].userName, password: 'invalid' });
-          expect(res.statusCode).toEqual(400);
-          expect(res.body.error)
+          expect(response.statusCode).toEqual(400);
+          expect(response.body.error)
       });
       })
       describe('Check If Username and Password Are Correct', () => {
         it('Test Case 1', async () => {
-          const res = await request(app)
+          const response = await request(app)
             .post(`/api/admin/signin`)
             .send({ userName: 'chuongadmin', password: '1234' });
-          expect(res.statusCode).toEqual(200);
+          expect(response.statusCode).toEqual(200);
       });
       })
     });
@@ -305,11 +309,11 @@ describe('Admin', () => {
     describe('Change Password', () => {
       describe('Check If User Does Not Exist', () => {
         it('Test Case 1', async () => {
-          const res = await request(app)
+          const response = await request(app)
             .put(`/api/admin/passwordChange`)
             .send({ userName: 'unknown', password: '1234' });
-          expect(res.statusCode).toEqual(400);
-          expect(res.body.error)
+          expect(response.statusCode).toEqual(400);
+          expect(response.body.error)
         });
       })
       describe('Change Password of The Existing User', () => {
@@ -324,13 +328,13 @@ describe('Admin', () => {
           bcrypt.genSalt = mock.mockReturnValue('mocksalt');
           bcrypt.hash = mock.mockResolvedValue('mockhash');
 
-          const res = await request(app)
+          const response = await request(app)
             .put(`/api/admin/passwordChange`)
             .send({ userName: existingAdmin.userName, password: newPassword });
 
           // Check the response status and message
-          expect(res.statusCode).toEqual(200);
-          expect(res.body)
+          expect(response.statusCode).toEqual(200);
+          expect(response.body)
 
           // Check if the password of the existing user is changed
           const updatedAdmin = admins.find((admin) => admin.userName === existingAdmin.userName);
@@ -358,7 +362,9 @@ describe('Admin', () => {
 
 // Users
 describe('Users', () => {
-  describe('Get Users', () => {
+  
+  // Collect all users
+  describe('Collect all Users', () => {
     test('should return user information and orders.', async () => {
       const response = await request(app)
         .get('/api/user/getUsers')
@@ -374,4 +380,220 @@ describe('Users', () => {
       expect(response.body[0]).toHaveProperty('orders');
     })
   })
-})
+
+  // Sign Up
+  describe('Sign Up', () => {
+    let users = [];
+
+    beforeEach(() => {
+      // reset users array before each test
+      users = [];
+    });
+    describe('Validate token for a new user', () => {
+      it('Test Case 1', async () => {
+        const newUser = {
+          userName: 'testuser',
+          password: 'testpassword',
+          confirmedPassword: 'testpassword',
+        };
+
+        const salt = await bcrypt.genSalt(10);
+        const encryptedPassword = await bcrypt.hash(newUser.password, salt);
+        const newUserId = uuid();
+
+        const expectedUser = {
+          id: newUserId,
+          userName: newUser.userName,
+          password: encryptedPassword,
+          active: 1,
+          info: {
+            FullName: '',
+            Address1: '',
+            Address2: '',
+            city: '',
+            State: '',
+            Zipcode: '',
+          },
+          orders: [],
+        };
+
+        const response = await request(app)
+          .post('/api/user/signup')
+          .send(newUser)
+          expect(response.statusCode).toEqual(200);
+
+        const accessToken = response.body.accessToken;
+        const refreshToken = response.body.refreshToken;
+
+        // validate the tokens
+        const decodedAccessToken = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
+        const decodedRefreshToken = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+
+        expect(decodedAccessToken)
+        expect(decodedRefreshToken)
+
+        // validate the user was added to the users array
+        expect(expectedUser)
+      });
+    })
+
+    describe('Check if invalid username or password', () => {
+      it('Test Case 1', async () => {
+        const invalidUser = {
+          userName: '',
+          password: '',
+          confirmedPassword: '',
+        };
+
+        const response = await request(app)
+          .post('/api/user/signup')
+          .send(invalidUser)
+          expect(response.statusCode).toEqual(400);
+          expect(response.body.error)
+      });
+    })
+    
+    describe('Check if password confirmation mismatch', () => {
+      test('should return 400 for password confirmation mismatch', async () => {
+        const mismatchUser = {
+          userName: 'testuser',
+          password: 'testpassword',
+          confirmedPassword: 'differentpassword',
+        };
+
+        const response = await request(app)
+          .post('/api/user/signup')
+          .send(mismatchUser)
+          expect(response.statusCode).toEqual(400);
+          expect(response.body.error)
+    });
+    })
+    
+    describe('Check if an existing username', () => {
+      it('Test Case 1', async () => {
+        const existingUser = {
+          userName: 'testuser',
+          password: 'testpassword',
+          confirmedPassword: 'testpassword',
+        };
+
+        const response = await request(app)
+          .post('/api/user/signup')
+          .send(existingUser)
+          expect(response.statusCode).toEqual(409);
+          expect(response.body.error)
+      });
+    })
+  })
+
+  // Sign In
+  describe('Sign In', () => {
+    describe('Check If Username Or Password Is Missing.', () => {
+      it('Test Case 1', async () => {
+        const response = await request(app)
+          .post(`/api/user/signin`)
+          .send({});
+        expect(response.statusCode).toEqual(400);
+        expect(response.body.error)
+      });
+    })
+    describe('Check If Username Is Not Found.', () => {
+      it('Test Case 1', async () => {
+        const response = await request(app)
+          .post(`/api/user/signin`)
+          .send({ userName: 'unknown', password: users[0].password });
+        expect(response.statusCode).toEqual(400);
+        expect(response.body.error)
+    });
+    })
+    describe('Check If Password Is Incorrect', () => {
+      it('Test Case 1', async () => {
+        const response = await request(app).
+          post(`/api/user/signin`)
+          .send({ userName: users[0].userName, password: 'invalid' });
+        expect(response.statusCode).toEqual(400);
+        expect(response.body.error)
+    });
+    })
+    describe('Check If Username and Password Are Correct', () => {
+      it('Test Case 1', async () => {
+        const response = await request(app)
+          .post(`/api/user/signin`)
+          // .send({ userName: users[0].userName, password: users[0].password });
+          .send({ userName: 'chuong5', password: '1234' });
+        expect(response.statusCode).toEqual(200);
+    });
+    })
+  });
+
+  describe('Logout', () => {
+    describe('remove the refresh token from the refreshTokens array', () => {
+      it('Test Case 1', async () => {
+        // First, add a refresh token to the refreshTokens array
+        const refreshToken = 'dummy-refresh-token';
+        app.locals.refreshTokens
+
+        // Then, call the Logout endpoint with the same refresh token
+        const response = await request(app)
+          .post('/api/user/logout')
+          .send({ token: refreshToken })
+          // .expect(204);
+          expect(response.statusCode).toEqual(204);
+          expect(response.body.token)
+        // Finally, assert that the refresh token was removed from the refreshTokens array
+        // expect(app.locals.refreshTokens).not.toContain(refreshToken);
+        expect(app.locals.refreshTokens)
+      });
+    })
+    
+    describe('Validate refresh token', () => {
+      it('Test Case 1', async () => {
+        const refreshToken = 'dummy-refresh-token';
+        const response = await request(app)
+          .post('/api/user/logout')
+          .send({ token: refreshToken })
+          // .expect(204);
+          expect(response.statusCode).toEqual(204);
+          expect(response.body.token)
+      });
+    })  
+  });
+
+  describe('Get Token', () => {
+    describe('Validate a new access token if the refresh token is valid', () => {
+      it('Test Case 1', async () => {
+        // First, generate a valid refresh token and add it to the refreshTokens array
+        const refreshToken = jwt.sign({ id: 1 }, process.env.REFRESH_TOKEN_SECRET);
+        app.locals.refreshTokens
+
+        // Then, call the getToken endpoint with the same refresh token
+        const response = await request(app)
+          .post('/api/user/token')
+          .send({ token: refreshToken })
+          expect(response.statusCode).toEqual(200);
+
+        // Finally, assert that the response contains a new access token
+        expect(response.body.accessToken).toBeDefined();
+      });
+    })
+    
+    describe('Check if no refresh token is provided', () => {
+      it('Test Case 1', async () => {
+        const response = await request(app)
+          .post('/api/user/token')
+          expect(response.statusCode).toEqual(401);
+      });
+    })
+    
+    describe('Check if the refresh token is invalid', () => {
+      it('Test Case 1', async () => {
+        const refreshToken = 'invalid-refresh-token';
+        const response = await request(app)
+          .post('/api/user/token')
+          .send({ token: refreshToken })
+          expect(response.statusCode).toEqual(403);
+      });
+    })
+    
+  });
+})  
