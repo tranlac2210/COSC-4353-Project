@@ -1,6 +1,6 @@
 # Installation Instruction:
 
-**Front-end:**
+## Front-end:
 
 **Step 1:** Install dependencies
 ```
@@ -12,7 +12,7 @@ npm install
 npm run start
 ```
 
-**Back-end:**
+## Back-end:
 
 **Step 1:** Install dependencies
 ```
@@ -24,7 +24,7 @@ npm install
 npm run dev
 ```
 
-**Unit test:**
+## Unit test:
 
 **Step 1:** Install dependencies
 ```
