@@ -16,16 +16,16 @@ import {signUp,
 
 const router = express.Router();
 
-router.get('/getUsers', getUsers);
+router.get('/getUsers', getUsers); // done
 router.post('/UserInfoChange', authenticateToken, UserInfoChange); // unit test
 router.post('/Userpostfuel', authenticateToken, Userpostfuel); // unit test
 router.get('/getUsersorder', authenticateToken, getUsersorder); // unit test
 router.get('/authGetUsers', authenticateToken, getPost); // unit test
-router.delete('/logout', Logout) // unit test
+router.delete('/logout', Logout) // done
 router.post('/token', getToken) // unit test
 router.post('/getFuelInfo', authenticateToken, getFuelInfo);
-router.post('/signup', signUp); // unit test
-router.post('/signin', signIn)
+router.post('/signup', signUp); // done
+router.post('/signin', signIn) // done
 router.post('/authSignin', authsignIn) // unit test
 router.post('/passwordChange',authenticateToken, passwordChange) // unit test
 
