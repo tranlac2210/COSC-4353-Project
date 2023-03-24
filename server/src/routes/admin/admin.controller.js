@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import users from "../data/users.js";
 
 
-const admins = [
+export const admins = [
   {
     userName: "chuongadmin",
     password: "1234",
