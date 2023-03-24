@@ -76,6 +76,8 @@ function ClientProfilePage() {
       });
 
       alert("Your changes have been successfully saved!");
+   
+
 
       console.log(res.data.success);
     } catch (error) {

@@ -7,16 +7,16 @@
 // import "./ClientEdit.css"
 // import logo from "../../image/logo.svg"
 // import Cookies from 'js-cookie';
-import "./ClientOrder.css";
+// import "./ClientOrder.css";
 import React, { useState, useEffect } from "react";
 import { useLocation ,useNavigate} from "react-router-dom";
-import "../../styles/ClientProfilePage.css"
+import "../styles/FuelQuoteHistory.css"
 import axios from "axios";
-import { createAPIEndpoint, ENDPOINTS } from "../../API/index.js";
+import { createAPIEndpoint, ENDPOINTS } from "../API";
 import Cookies from "js-cookie";
-import logo from "../../image/logo.svg"
+import logo from "../image/logo.svg";
 
-function ClientOrder() {
+function FuelQuoteHistory() {
   const location = useLocation();
   const [clients, setClients] = useState([]);
   const [Name, setName] = useState("");
@@ -27,28 +27,46 @@ function ClientOrder() {
   const id = new URLSearchParams(location.search).get("id");
   const navigate = useNavigate();
 
+  const handleClick = (toLink) => {
+    navigate(`/${toLink}`);
+  };
+
+
   const handleClickLogOut = (e) => {
     Cookies.remove("role");
-      e.preventDefault();
-      navigate("/");
-  }
+    Cookies.remove("accessToken");
+    e.preventDefault();
+    navigate("/");
+  };
 
   const handleClickLogo = (e) => {
     e.preventDefault();
-      navigate("/admin/ClientList");
-  }
-
+    navigate("/ClientPage");
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await createAPIEndpoint(ENDPOINTS.AdminGetClientOrder).fetchById(id);
+    async function fetchData() {
+      let accessToken = Cookies.get("accessToken");
+      let webApiUrl = "http://localhost:9000/api/user/getUsersorder";
+      const res = await axios.get(webApiUrl, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
       setClients(res.data);
       
-    };
-
+    }
     fetchData();
   }, [clients]);
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const res = await createAPIEndpoint(ENDPOINTS.GetUsersorder).fetch();
+  //     setClients(res.data);
+      
+  //   };
+
+  //   fetchData();
+  // }, [clients]);
+  
   const handleSubmit = async (event) => {
     // Make an API call to update the user information on the backend
     try {
@@ -68,6 +86,8 @@ function ClientOrder() {
     } catch (error) {
       console.error(error);
     }
+ 
+
   };
 
   return (
@@ -87,15 +107,15 @@ function ClientOrder() {
   </nav>
       <div>
         <div className="empty"></div>
-        <div className="cp_login_form">
+        <div className="his-cp_login_form">
           <div className="headSignUp"></div>
           <h3>Client Orders</h3>
           {/* <div className="empty"></div> */}
           <div>
           
-          <table className="orders-table">
+          <table className="his-orders-table">
         <thead>
-          <tr>
+        <tr>
             <th>ID</th>
             <th>Gallons</th>
             <th>Delivery Address</th>
@@ -127,4 +147,4 @@ function ClientOrder() {
   );
 }
 
-export default ClientOrder;
+export default FuelQuoteHistory;

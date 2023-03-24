@@ -1,0 +1,63 @@
+.his-orders-table {
+    border-collapse: collapse;
+    width: 100vh;
+    margin-bottom: 20px;
+  }
+
+  @media screen and (max-width: 1586px) {
+    .his-cp_login_form {
+        width: 70vh;
+      }
+    .his-orders-table {
+      width: 50vh;
+    }
+  }
+  .his-cp_login_form h2 {
+    font-size: 40px;
+    margin-bottom: 30px;
+  }
+
+  .his-cp_login_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f2f2f2;
+    /* padding: 30px; */
+    padding-bottom: 30px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 60%;
+    margin: auto;
+  }
+
+  @media screen and (max-width: 750px) {
+    .his-cp_login_form {
+      width: fit-content;
+    }
+    .his-orders-table {
+      width: 5px;
+      size-adjust: 5px;
+    }
+  }
+
+  .his-orders-table thead {
+    background: linear-gradient(to left, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%);
+    color: #fff !important;
+    width:auto;
+  }
+
+  .his-orders-table th,
+  .his-orders-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+    
+  .his-orders-table tbody tr:nth-child(odd) {
+    background-color: #e6e6e6;
+  }
+  
+  .his-orders-table tbody tr:hover {
+    background-color: #ddd;
+  }
+  

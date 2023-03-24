@@ -17,6 +17,10 @@ function FuelQuoteForm() {
   const [addressString, setAddressString] = useState("");
   const [suggestedPrice, setPrice] = useState("");
   const [totalAmountDue, setAmountDue] = useState("");
+  const [LocationFactor, setLocationFactor] = useState("");
+  const [RateHistoryFactor, setRateHistoryFactor] = useState("");
+  const [GallonsRequestedFactor, setGallonsRequestedFactor] = useState("");
+  const currentPrice = 1.5;
 
   const id = new URLSearchParams(location.search).get("id");
   const navigate = useNavigate();
@@ -63,6 +67,35 @@ function FuelQuoteForm() {
     fetchData();
   }, []);
 
+  const handleRequestQuote = async (event) => {
+    event.preventDefault();
+   
+   
+    try {
+      // Send a POST request to the login API endpoint
+      const currentPrice = 1.5; // constant price for simplicity
+  const LocationFactor = addressString.includes('TX')? 0.02:0.04;
+  // if (selectedAddress.includes('TX')){
+  //       setLocationFactor(0.02)
+  //     }
+  const rateHistoryFactor = 0.01;
+  const gallonsRequestedFactor = gallonsRequested > 1000 ? 0.02 : 0.03;
+  const companyProfitFactor = 0.1;
+  const margin =
+    currentPrice *
+    (LocationFactor - rateHistoryFactor + gallonsRequestedFactor + companyProfitFactor);
+  const suggestedPrice = currentPrice + margin;
+  const totalAmountDue = suggestedPrice * gallonsRequested;
+  setPrice(suggestedPrice.toFixed(3));
+  setAmountDue(totalAmountDue.toFixed(2));
+
+
+    } catch (er) {
+      // If there's an error, set the error label
+      //setErrorLabel(`${er.response.data.error}`);
+    }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -70,12 +103,15 @@ function FuelQuoteForm() {
       // Send a POST request to the login API endpoint
       let accessToken = Cookies.get("accessToken");
 
-      let webApiUrl = "http://localhost:9000/api/user/getFuelInfo";
+      let webApiUrl = "http://localhost:9000/api/user/Userpostfuel";
 
       const jsonBody = {
-        gallonsRequested: gallonsRequested,
-        selectedAddress: selectedAddress,
-        selectedDate: selectedDate,
+        
+        Gallons: gallonsRequested,
+        DeliveryAddress: addressString,
+        date: selectedDate.toISOString().substr(0, 10),
+        Sugguestprice: suggestedPrice,
+        TotalAmount: totalAmountDue
       };
 
       const res = await axios.post(webApiUrl, jsonBody, {
@@ -84,7 +120,11 @@ function FuelQuoteForm() {
           "content-type": "application/json",
         },
       });
-
+      alert('Successful Submit quote!!')
+      setGallonsRequested("");
+      setSelectedDate("");
+      setPrice("");
+      setAmountDue("");
       console.log(res.data);
     } catch (er) {
       // If there's an error, set the error label
@@ -119,7 +159,7 @@ function FuelQuoteForm() {
       <div>
         <h1 className="profiletest"></h1>
         <div className="empty"></div>
-        <form className="fuelinput" onSubmit={handleSubmit}>
+        <form className="fuelinput" onSubmit={handleRequestQuote}>
           <div className="cp_headSignUp"></div>
           <h2>Fuel Quote Form</h2>
           <div className="outdiv">
@@ -182,8 +222,11 @@ function FuelQuoteForm() {
               readOnly={true}
             />
           </div>
-          <button className="submit_button" type="submit">
+          <button className="submit_button" type="submit" onClick={handleRequestQuote}>
             Request Quote
+          </button>
+          <button className="submit_button" type="submit" onClick={handleSubmit}>
+            Submit
           </button>
         </form>
       </div>
