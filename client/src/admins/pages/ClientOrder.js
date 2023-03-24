@@ -100,37 +100,33 @@ function ClientOrder() {
           <div className="headSignUp"></div>
           <h3>Client Orders</h3>
           {/* <div className="empty"></div> */}
-          <div>
-          
-          <table className="orders-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Gallons</th>
-            <th>Delivery Address</th>
-            <th>Date</th>
-            <th>Sugguest Price</th>
-            <th>Total Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          {clients.map((clients,index) => (
-            <tr key={index}>
-              <td>{index+1}</td>
-              <td>{clients.Gallons}</td>
-              <td>{clients.DeliveryAddress}</td>
-              <td>{clients.date}</td>
-              <td>{`$${clients.Sugguestprice}`}</td>
-              <td>{`$${clients.TotalAmount}`}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-          
-      </div> 
-            
-      </div> 
-          
+          <div className="outside-div-table">
+            <table className="orders-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Gallons</th>
+                  <th>Delivery Address</th>
+                  <th>Date</th>
+                  <th>Sugguest Price</th>
+                  <th>Total Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                {clients.map((clients, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{clients.Gallons}</td>
+                    <td>{clients.DeliveryAddress}</td>
+                    <td>{clients.date}</td>
+                    <td>{`$${clients.Sugguestprice}`}</td>
+                    <td>{`$${clients.TotalAmount}`}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </>
   );
