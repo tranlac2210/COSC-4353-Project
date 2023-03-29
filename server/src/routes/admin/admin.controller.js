@@ -1,17 +1,7 @@
 import bcrypt from "bcrypt";
 import users from "../data/users.js";
+import pool from "../../services/services.js";
 
-
-export const admins = [
-  {
-    userName: "chuongadmin",
-    password: "1234",
-  },
-  {
-    userName: "chuongadmin2",
-    password: "1234",
-  },
-];
 
 export const getClients = (req, res) => {
   try {
@@ -21,9 +11,15 @@ export const getClients = (req, res) => {
       toBeShow.push(toBePushed);
     }
 
+    // const [rows] = pool.query(`
+    // SELECT * 
+    // FROM users
+    // WHERE active = 1`)
+
     const result = toBeShow.filter(user => user.active == 1);
 
     res.status(200).json(result);
+    // res.status(200).json(rows)
   } catch (error) {
     res.status(400).json({
       error: error,
@@ -53,6 +49,15 @@ export const getClient = (req, res) => {
     });
   }
 };
+
+export const getAdmins = async (req, res) => {
+  const [rows] = await pool.query(`
+  SELECT username, password
+  FROM admins
+  `)
+
+  return res.status(200).json(rows)
+}
 
 export const deactivateClient = (req, res) => {
   var id = req.params.id;
@@ -238,6 +243,3 @@ export const passwordChange = async (req, res) => {
   });
 };
 
-export const getAdmins = (req, res) => {
-  return res.status(200).json(admins);
-};
