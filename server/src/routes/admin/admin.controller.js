@@ -116,12 +116,12 @@ export const modifyClientInfo = async (req, res) => {
 
     const [rows] = await pool.query(`
     UPDATE mydb.information 
-    SET Fullname = ${body.FullName}
-    address1 = ${body.Address1}
-    address2 = ${body.Address2}
-    city = ${body.city}
-    state = ${body.State}
-    zipcode = ${body.Zipcode}
+    SET Fullname = "${body.FullName}", 
+    address1 = "${body.Address1}", 
+    address2 = "${body.Address2}", 
+    city = "${body.city}", 
+    state = "${body.State}", 
+    zipcode = "${body.Zipcode}" 
     WHERE user_id = ${id}
     `);
 
