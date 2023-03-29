@@ -402,13 +402,13 @@ export function getUsersorder(req, res) {
 
 
 export const getFuelInfo = async (req, res) => {
-  const data = req.body;
+  // const data = req.body;
   // var username = data.username;
 
   const body = req.body;
-  var gallonsRequested = data.gallonsRequested;
-  var selectedAddress = data.selectedAddress;
-  var selectedDate = data.selectedDate;
+  var gallonsRequested = body.gallonsRequested;
+  // var selectedAddress = data.selectedAddress;
+  var selectedDate = body.selectedDate;
 
   if (!gallonsRequested) {
     return res.status(400).json({
@@ -416,11 +416,11 @@ export const getFuelInfo = async (req, res) => {
     });
   }
 
-  if (!selectedAddress) {
-    return res.status(400).json({
-      error: "Selected Address is Invalid!",
-    });
-  }
+  // if (!selectedAddress) {
+  //   return res.status(400).json({
+  //     error: "Selected Address is Invalid!",
+  //   });
+  // }
 
   if (!selectedDate) {
     return res.status(400).json({

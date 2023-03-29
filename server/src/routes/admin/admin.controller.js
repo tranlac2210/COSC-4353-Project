@@ -1,29 +1,19 @@
 import bcrypt from "bcrypt";
 import users from "../data/users.js";
+import pool from "../../services/services.js";
 
-
-export const admins = [
-  {
-    userName: "chuongadmin",
-    password: "1234",
-  },
-  {
-    userName: "chuongadmin2",
-    password: "1234",
-  },
-];
-
-export const getClients = (req, res) => {
+export const getClients = async (req, res) => {
   try {
-    var toBeShow = [];
-    for (var object of users) {
-      let { orders, ...toBePushed } = object;
-      toBeShow.push(toBePushed);
-    }
+    const [rows] = await pool.query(`
+    SELECT u.User_id, username, password, active, Fullname, address1, address2, city, state, zipcode
+    FROM mydb.users u
+    JOIN
+    mydb.information i
+    ON u.user_id = i.user_id
+    WHERE active = 1
+    `);
 
-    const result = toBeShow.filter(user => user.active == 1);
-
-    res.status(200).json(result);
+    res.status(200).json(rows);
   } catch (error) {
     res.status(400).json({
       error: error,
@@ -31,22 +21,26 @@ export const getClients = (req, res) => {
   }
 };
 
-export const getClient = (req, res) => {
+export const getClient = async (req, res) => {
   try {
     const id = req.params.id;
 
-    const clientInfo = users.find((user) => user.id == id).info;
+    const [rows] = await pool.query(`
+    SELECT u.User_id, username, password, active, Fullname, address1, address2, city, state, zipcode
+    FROM mydb.users u
+    JOIN
+    mydb.information i
+    ON u.user_id = i.user_id
+    WHERE u.User_id = ${id}
+    `);
 
-    if (clientInfo != null) {
-      res.status(200).json(clientInfo);
-    }
-    else {
+    if (rows != null) {
+      res.status(200).json(rows);
+    } else {
       res.status(400).json({
-        error: "Something wrong happened. Please try again."
-      })
+        error: "Something wrong happened. Please try again.",
+      });
     }
-
-    
   } catch (error) {
     res.status(400).json({
       error: "Id is invalid",
@@ -54,18 +48,27 @@ export const getClient = (req, res) => {
   }
 };
 
-export const deactivateClient = (req, res) => {
+export const getAdmins = async (req, res) => {
+  const [rows] = await pool.query(`
+  SELECT username, password
+  FROM admins
+  `);
+
+  return res.status(200).json(rows);
+};
+
+export const deactivateClient = async (req, res) => {
   var id = req.params.id;
 
-  var clientToBeUpdated = users.find((user) => user.id == id);
+  const [rows] = await pool.query(`
+  UPDATE mydb.users SET active = 0 WHERE User_id = ${id}
+  `);
 
-  if (clientToBeUpdated == null) {
+  if (rows.affectedRows == 0) {
     return res.status(400).json({
       error: "Something wrong happened. Please try again!",
     });
   }
-
-  clientToBeUpdated.active = 0;
 
   return res.status(200).json({
     success: "Successfully deactivate a client.",
@@ -73,17 +76,16 @@ export const deactivateClient = (req, res) => {
 };
 
 export const getClientOrder = async (req, res) => {
-    var id = req.params.id;
-    var client = users.find((user) => user.id == id);
+  var id = req.params.id;
+  var client = users.find((user) => user.id == id);
 
-    if (client == null) {
-      res.status(400).json({
-        error: "ID is invalid.",
-      });
-    }
-    else{
-      res.status(200).json(client.orders);
-    }
+  if (client == null) {
+    res.status(400).json({
+      error: "ID is invalid.",
+    });
+  } else {
+    res.status(200).json(client.orders);
+  }
 };
 
 export const modifyClientInfo = async (req, res) => {
@@ -91,33 +93,56 @@ export const modifyClientInfo = async (req, res) => {
     const body = req.body;
     const id = req.params.id;
 
-    var clientToBeUpdated = users.find((user) => user.id == id);
+    // var clientToBeUpdated = users.find((user) => user.id == id);
 
-    if (clientToBeUpdated == null) {
+    // if (clientToBeUpdated == null) {
+    //   return res.status(400).json({
+    //     error: "Something wrong happened. Please try again!",
+    //   });
+    // }
+
+    if (
+      body.FullName.length > 50 ||
+      body.Address1.length > 100 ||
+      body.Address2.length > 100 ||
+      body.city.length > 100 ||
+      body.Zipcode.length > 9 ||
+      body.Zipcode.length < 5
+    ) {
       return res.status(400).json({
-        error: "Something wrong happened. Please try again!",
+        error: "Invalid input",
       });
     }
 
-    if (body.FullName.length > 50 || body.Address1.length > 100
-      || body.Address2.length > 100 || body.city.length > 100
-      || body.Zipcode.length > 9
-      || body.Zipcode.length < 5 ) {
-       return res.status(400).json({
-         error: "Invalid input",
-       });
-      }
+    const [rows] = await pool.query(`
+    UPDATE mydb.information 
+    SET Fullname = ${body.FullName}
+    address1 = ${body.Address1}
+    address2 = ${body.Address2}
+    city = ${body.city}
+    state = ${body.State}
+    zipcode = ${body.Zipcode}
+    WHERE user_id = ${id}
+    `);
 
-    clientToBeUpdated.info.FullName = body.FullName;
-    clientToBeUpdated.info.Address1 = body.Address1;
-    clientToBeUpdated.info.Address2 = body.Address2;
-    clientToBeUpdated.info.city = body.city;
-    clientToBeUpdated.info.State = body.State;
-    clientToBeUpdated.info.Zipcode = body.Zipcode;
+    // clientToBeUpdated.info.FullName = body.FullName;
+    // clientToBeUpdated.info.Address1 = body.Address1;
+    // clientToBeUpdated.info.Address2 = body.Address2;
+    // clientToBeUpdated.info.city = body.city;
+    // clientToBeUpdated.info.State = body.State;
+    // clientToBeUpdated.info.Zipcode = body.Zipcode;
 
-    return res.status(200).json({
-      success: `Successfully changed client ${id} Info.`,
-    });
+    if (rows.affectedRows > 0) {
+      return res.status(200).json({
+        success: `Successfully changed client ${id} personal information.`,
+      });
+    }
+    else {
+      return res.status(400).json({
+        error: "Something wrong happened. Please try again."
+      })
+    }
+    
   } catch (error) {
     res.status(400).json({
       error: error,
@@ -198,15 +223,15 @@ export const signIn = async (req, res) => {
   }
 
   if (findAdmin.password != password) {
-      res.status(400).json({
-          error: "Password is incorrect."
-      })
+    res.status(400).json({
+      error: "Password is incorrect.",
+    });
   }
 
   req.session.user = {
     username: findAdmin.userName,
-    role: "ADMIN"
-  }
+    role: "ADMIN",
+  };
 
   return res.status(200).json({
     success: "Successfully signing in",
@@ -218,7 +243,6 @@ export const passwordChange = async (req, res) => {
 
   const password = body.password;
   const userName = body.userName;
-
 
   const findAdmin = admins.find((admin) => admin.userName === userName);
 
@@ -236,8 +260,4 @@ export const passwordChange = async (req, res) => {
   return res.status(200).json({
     success: "Successfully changed password.",
   });
-};
-
-export const getAdmins = (req, res) => {
-  return res.status(200).json(admins);
 };
