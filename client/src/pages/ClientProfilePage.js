@@ -42,13 +42,14 @@ function ClientProfilePage() {
       let webApiUrl = "http://localhost:9000/api/user/authGetUsers";
       const res = await axios.get(webApiUrl, {
         headers: { Authorization: `Bearer ${accessToken}` },
-      });
-      setFullName(res.data.FullName);
-      setAddress1(res.data.Address1);
-      setAddress2(res.data.Address2);
+      });     
+      
+      setFullName(res.data.Fullname);
+      setAddress1(res.data.address1);
+      setAddress2(res.data.address2);
       setCity(res.data.city);
-      setState(res.data.State);
-      setZipcode(res.data.Zipcode);
+      setState(res.data.state);
+      setZipcode(res.data.zipcode);
     }
     fetchData();
   }, []);
@@ -61,12 +62,12 @@ function ClientProfilePage() {
       let accessToken = Cookies.get("accessToken");
       let webApiUrl = "http://localhost:9000/api/user/UserInfoChange";
       const jsonBody = {
-        FullName: fullName,
-        Address1: address1,
-        Address2: address2,
+        Fullname: fullName,
+        address1: address1,
+        address2: address2,
         city: city,
-        State: state,
-        Zipcode: zipcode,
+        state: state,
+        zipcode: zipcode,
       };
       const res = await axios.post(webApiUrl, jsonBody, {
         headers: {
@@ -81,7 +82,7 @@ function ClientProfilePage() {
 
       console.log(res.data.success);
     } catch (error) {
-      alert(error.response.data.error)
+      alert(error)
     }
   };
 

@@ -128,11 +128,11 @@ function FuelQuoteHistory() {
           {clients.map((clients,index) => (
             <tr key={index}>
               <td>{index+1}</td>
-              <td>{clients.Gallons}</td>
-              <td>{clients.DeliveryAddress}</td>
+              <td>{clients.gallon}</td>
+              <td>{clients.address}</td>
               <td>{clients.date}</td>
-              <td>{`$${clients.Sugguestprice}`}</td>
-              <td>{`$${clients.TotalAmount}`}</td>
+              <td>{`$${clients.suggestPrice}`}</td>
+              <td>{`$${clients.totalCost}`}</td>
             </tr>
           ))}
         </tbody>
