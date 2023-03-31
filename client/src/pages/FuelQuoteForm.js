@@ -49,11 +49,11 @@ function FuelQuoteForm() {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
 
-      var Address1 = res.data.Address1;
-      var Address2 = res.data.Address2;
+      var Address1 = res.data.address1;
+      var Address2 = res.data.address2;
       var city = res.data.city;
-      var state = res.data.State;
-      var Zipcode = res.data.Zipcode;
+      var state = res.data.state;
+      var Zipcode = res.data.zipcode;
 
       var stringAddress = `${Address1} ${Address2} ${city}, ${state} ${Zipcode}`;
 
