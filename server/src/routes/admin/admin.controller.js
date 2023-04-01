@@ -12,7 +12,7 @@ export const getClients = async (req, res) => {
     ON u.user_id = i.user_id
     WHERE active = 1
     `);
-
+    
     res.status(200).json(rows);
   } catch (error) {
     res.status(400).json({
@@ -31,11 +31,11 @@ export const getClient = async (req, res) => {
     JOIN
     mydb.information i
     ON u.user_id = i.user_id
-    WHERE u.User_id = ${id}
+    WHERE u.User_id = '${id}'
     `);
 
     if (rows != null) {
-      res.status(200).json(rows);
+      res.status(200).json(rows[0]);
     } else {
       res.status(400).json({
         error: "Something wrong happened. Please try again.",
@@ -61,7 +61,7 @@ export const deactivateClient = async (req, res) => {
   var id = req.params.id;
 
   const [rows] = await pool.query(`
-  UPDATE mydb.users SET active = 0 WHERE User_id = ${id}
+  UPDATE mydb.users SET active = 0 WHERE User_id = '${id}'
   `);
 
   if (rows.affectedRows == 0) {
@@ -77,14 +77,18 @@ export const deactivateClient = async (req, res) => {
 
 export const getClientOrder = async (req, res) => {
   var id = req.params.id;
-  var client = users.find((user) => user.id == id);
+  const [users] = await pool.query(`(
+    SELECT * FROM mydb.orders
+    WHERE userId = '${id}'
+      )`);
+  // var [client] = users.find((user) => user.userId == id);
 
-  if (client == null) {
+  if (users == null) {
     res.status(400).json({
       error: "ID is invalid.",
     });
   } else {
-    res.status(200).json(client.orders);
+    res.status(200).json(users);
   }
 };
 
@@ -102,12 +106,12 @@ export const modifyClientInfo = async (req, res) => {
     // }
 
     if (
-      body.FullName.length > 50 ||
-      body.Address1.length > 100 ||
-      body.Address2.length > 100 ||
+      body.Fullname.length > 50 ||
+      body.address1.length > 100 ||
+      body.address2.length > 100 ||
       body.city.length > 100 ||
-      body.Zipcode.length > 9 ||
-      body.Zipcode.length < 5
+      body.zipcode.length > 9 ||
+      body.zipcode.length < 5
     ) {
       return res.status(400).json({
         error: "Invalid input",
@@ -116,13 +120,13 @@ export const modifyClientInfo = async (req, res) => {
 
     const [rows] = await pool.query(`
     UPDATE mydb.information 
-    SET Fullname = "${body.FullName}", 
-    address1 = "${body.Address1}", 
-    address2 = "${body.Address2}", 
+    SET Fullname = "${body.Fullname}", 
+    address1 = "${body.address1}", 
+    address2 = "${body.address2}", 
     city = "${body.city}", 
-    state = "${body.State}", 
-    zipcode = "${body.Zipcode}" 
-    WHERE user_id = ${id}
+    state = "${body.state}", 
+    zipcode = "${body.zipcode}" 
+    WHERE User_id = '${id}'
     `);
 
     // clientToBeUpdated.info.FullName = body.FullName;
@@ -145,7 +149,7 @@ export const modifyClientInfo = async (req, res) => {
     
   } catch (error) {
     res.status(400).json({
-      error: error,
+      error: `${error},something wrong`,
     });
   }
 };
@@ -203,6 +207,11 @@ export const signIn = async (req, res) => {
   var userName = data.userName;
   var password = data.password;
 
+  const [all_users] = await pool.query(`(
+    SELECT * FROM mydb.admins
+
+      )`);
+  const findAdmin = all_users.find((user) => user.username === userName);
   if (
     !userName ||
     !password ||
@@ -214,7 +223,7 @@ export const signIn = async (req, res) => {
     });
   }
 
-  const findAdmin = admins.find((admin) => admin.userName === userName);
+  // const findAdmin = admins.find((admin) => admin.userName === userName);
 
   if (findAdmin == null) {
     return res.status(400).json({
@@ -229,7 +238,7 @@ export const signIn = async (req, res) => {
   }
 
   req.session.user = {
-    username: findAdmin.userName,
+    username: findAdmin.username,
     role: "ADMIN",
   };
 

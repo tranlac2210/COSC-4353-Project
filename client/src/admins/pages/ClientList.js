@@ -112,13 +112,13 @@ function ClientList() {
               ? clients.map((client) => {
                   return (
                     client.active === 1 && (
-                      <tr key={client.id}>
-                        <td>{client.id}</td>
-                        <td>{client.userName}</td>
-                        <td>{client.info.FullName}</td>
-                        {client.info.city && client.info.State ? (
+                      <tr key={client.User_id}>
+                        <td>{client.User_id}</td>
+                        <td>{client.username}</td>
+                        <td>{client.Fullname}</td>
+                        {client.city && client.state ? (
                           <td>
-                            {client.info.city}, {client.info.State}
+                            {client.city}, {client.state}
                           </td>
                         ) : (
                           <td></td>
@@ -126,7 +126,7 @@ function ClientList() {
 
                         <td>
                           <Link
-                            to={`/admin/ClientList/edit?id=` + `${client.id}`}
+                            to={`/admin/ClientList/edit?id=` + `${client.User_id}`}
                           >
                             <button
                               type="button"
@@ -146,7 +146,7 @@ function ClientList() {
                           
                           &nbsp;
                           <Link
-                            to={`/admin/ClientList/Order?id=` + `${client.id}`}
+                            to={`/admin/ClientList/Order?id=` + `${client.User_id}`}
                           >
                             <button
                               type="button"
