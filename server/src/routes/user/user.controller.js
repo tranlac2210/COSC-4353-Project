@@ -97,8 +97,20 @@ export const signUp = async (req, res) => {
       await pool.query(`
       INSERT INTO mydb.information (
         Information_id,
+        Fullname,
+        address1,
+        address2,
+        city,
+        state,
+        zipcode,
         User_id        
-      ) SELECT COUNT(*)+1,         
+      ) SELECT COUNT(*)+1,      
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",   
         ? 
         FROM mydb.information       
   
@@ -274,7 +286,7 @@ export const authsignIn = async (req, res) => {
     });
   }
 
-  const id = findUser.id;
+  const id = findUser.User_id;
   const user = { id: id };
 
   const accessToken = generateAccessToken(user);
