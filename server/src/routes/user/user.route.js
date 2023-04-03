@@ -8,25 +8,23 @@ import {signUp,
     Userpostfuel,
     getUsersorder,
     getPost,
-    Logout,
+    // Logout,
     getToken,
-    getFuelInfo,
     authsignIn} from "./user.controller.js"
 
 
 const router = express.Router();
 
-router.get('/getUsers', getUsers); // done
-router.post('/UserInfoChange', authenticateToken, UserInfoChange); // unit test
-router.post('/Userpostfuel', authenticateToken, Userpostfuel); // unit test
-router.get('/getUsersorder', authenticateToken, getUsersorder); // unit test
-router.get('/authGetUsers', authenticateToken, getPost); // unit test
-router.delete('/logout', Logout) // done
-router.post('/token', getToken) // unit test
-router.post('/getFuelInfo', authenticateToken, getFuelInfo);
-router.post('/signup', signUp); // done
-router.post('/signin', signIn) // done
-router.post('/authSignin', authsignIn) // unit test
-router.post('/passwordChange',authenticateToken, passwordChange) // unit test
+router.get('/getUsers', getUsers);
+router.post('/UserInfoChange', authenticateToken, UserInfoChange); 
+router.post('/Userpostfuel', authenticateToken, Userpostfuel); 
+router.get('/getUsersorder', authenticateToken, getUsersorder); 
+router.get('/authGetUsers', authenticateToken, getPost); 
+// router.delete('/logout', Logout) // We don't use this
+router.post('/token', getToken) 
+router.post('/signup', signUp);
+router.post('/signin', signIn)
+router.post('/authSignin', authsignIn) 
+router.post('/passwordChange',authenticateToken, passwordChange) 
 
 export default router;
