@@ -4,7 +4,7 @@ import { uuid } from "uuidv4";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import users from "../data/users.js";
-import pool from "../../services/services.js";
+import pool from "../../services/db.service.js";
 
 dotenv.config();
 
@@ -317,10 +317,10 @@ export function getToken(req, res) {
   });
 }
 
-export function Logout(req, res) {
-  refreshTokens = refreshTokens.filter((token) => token !== req.body.token);
-  res.sendStatus(204);
-}
+// export function Logout(req, res) {
+//   refreshTokens = refreshTokens.filter((token) => token !== req.body.token);
+//   res.sendStatus(204);
+// }
 
 function generateAccessToken(user) {
   return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
@@ -548,64 +548,6 @@ export async function getUsersorder(req, res) {
     });
   }
 }
-
-
-export const getFuelInfo = async (req, res) => {
-  // const data = req.body;
-  // var username = data.username;
-
-  const body = req.body;
-  var gallonsRequested = body.gallonsRequested;
-  // var selectedAddress = data.selectedAddress;
-  var selectedDate = body.selectedDate;
-
-  if (!gallonsRequested) {
-    return res.status(400).json({
-      error: "Gallons Requested is Invalid!",
-    });
-  }
-
-  // if (!selectedAddress) {
-  //   return res.status(400).json({
-  //     error: "Selected Address is Invalid!",
-  //   });
-  // }
-
-  if (!selectedDate) {
-    return res.status(400).json({
-      error: "Selected Date is Invalid!",
-    });
-  }
-
-  var findUser = users.filter((user) => user.id == req.user.id)[0];
-
-  if (!findUser) {
-    res.status(400).json({
-      error: "Can't find user!",
-    });
-  }
-
-  var orders = findUser.orders;
-
-  orders.push({
-    id: 1,
-    name: "Regular",
-    volumn: gallonsRequested,
-    date: selectedDate,
-  });
-
-  //var suggestedPrice = data.suggestedPrice;
-  //var totalAmountDue = data.totalAmountDue;
-
-  
-
-  //data.suggestedPrice = data.calculation1();
-  //data.totalAmountDue = data.calculation2();
-
-  return res.status(200).json({
-    success: "$400",
-  });
-};
 
 export const getUserinfo = (req, res) => {
   try {
