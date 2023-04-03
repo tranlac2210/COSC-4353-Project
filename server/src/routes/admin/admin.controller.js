@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import users from "../data/users.js";
-import pool from "../../services/services.js";
+import pool from "../../services/db.service.js";
 
 export const getClients = async (req, res) => {
   try {
@@ -34,7 +34,7 @@ export const getClient = async (req, res) => {
     WHERE u.User_id = '${id}'
     `);
 
-    if (rows != null) {
+    if (rows[0] != null) {
       res.status(200).json(rows[0]);
     } else {
       res.status(400).json({
@@ -83,12 +83,12 @@ export const getClientOrder = async (req, res) => {
       )`);
   // var [client] = users.find((user) => user.userId == id);
 
-  if (users == null) {
+  if (users[0] == null) {
     res.status(400).json({
       error: "ID is invalid.",
     });
   } else {
-    res.status(200).json(users);
+    res.status(200).json(users[0]);
   }
 };
 
@@ -154,52 +154,52 @@ export const modifyClientInfo = async (req, res) => {
   }
 };
 
-export const signUp = async (req, res) => {
-  const body = req.body;
+// export const signUp = async (req, res) => {
+//   const body = req.body;
 
-  var userName = body.userName;
-  var password = body.password;
-  var confirmedPassword = body.confirmedPassword;
+//   var userName = body.userName;
+//   var password = body.password;
+//   var confirmedPassword = body.confirmedPassword;
 
-  if (password !== confirmedPassword) {
-    return res.status(400).json({
-      error: "Confirmed Password does not match",
-    });
-  }
+//   if (password !== confirmedPassword) {
+//     return res.status(400).json({
+//       error: "Confirmed Password does not match",
+//     });
+//   }
 
-  if (admins.find((admin) => admin.userName === userName)) {
-    return res.status(409).json({
-      error: "Username already exists!",
-    });
-  }
+//   if (admins.find((admin) => admin.userName === userName)) {
+//     return res.status(409).json({
+//       error: "Username already exists!",
+//     });
+//   }
 
-  if (
-    !userName ||
-    !password ||
-    !confirmedPassword ||
-    userName.length === 0 ||
-    password.length === 0 ||
-    confirmedPassword.length === 0
-  ) {
-    return res.status(400).json({
-      error: "Username or Password is invalid!",
-    });
-  }
+//   if (
+//     !userName ||
+//     !password ||
+//     !confirmedPassword ||
+//     userName.length === 0 ||
+//     password.length === 0 ||
+//     confirmedPassword.length === 0
+//   ) {
+//     return res.status(400).json({
+//       error: "Username or Password is invalid!",
+//     });
+//   }
 
-  const salt = await bcrypt.genSalt(10);
-  var encryptedPassword = await bcrypt.hash(password, salt);
+//   const salt = await bcrypt.genSalt(10);
+//   var encryptedPassword = await bcrypt.hash(password, salt);
 
-  const newAdmin = {
-    userName: userName,
-    password: encryptedPassword,
-  };
+//   const newAdmin = {
+//     userName: userName,
+//     password: encryptedPassword,
+//   };
 
-  admins.push({ ...newAdmin });
+//   admins.push({ ...newAdmin });
 
-  res.status(200).json({
-    success: "Successfully signing up!",
-  });
-};
+//   res.status(200).json({
+//     success: "Successfully signing up!",
+//   });
+// };
 
 export const signIn = async (req, res) => {
   const data = req.body;
@@ -247,26 +247,26 @@ export const signIn = async (req, res) => {
   });
 };
 
-export const passwordChange = async (req, res) => {
-  const body = req.body;
+// export const passwordChange = async (req, res) => {
+//   const body = req.body;
 
-  const password = body.password;
-  const userName = body.userName;
+//   const password = body.password;
+//   const userName = body.userName;
 
-  const findAdmin = admins.find((admin) => admin.userName === userName);
+//   const findAdmin = admins.find((admin) => admin.userName === userName);
 
-  if (findAdmin == null) {
-    return res.status(400).json({
-      error: "User doesn't exist!",
-    });
-  }
+//   if (findAdmin == null) {
+//     return res.status(400).json({
+//       error: "User doesn't exist!",
+//     });
+//   }
 
-  const salt = await bcrypt.genSalt(10);
-  var encryptedPassword = await bcrypt.hash(password, salt);
+//   const salt = await bcrypt.genSalt(10);
+//   var encryptedPassword = await bcrypt.hash(password, salt);
 
-  findAdmin.password = encryptedPassword;
+//   findAdmin.password = encryptedPassword;
 
-  return res.status(200).json({
-    success: "Successfully changed password.",
-  });
-};
+//   return res.status(200).json({
+//     success: "Successfully changed password.",
+//   });
+// };

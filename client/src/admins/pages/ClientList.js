@@ -12,7 +12,7 @@ import axios from "axios";
 
 function ClientList() {
   const [openModal, setOpenModal] = useState(false);
-  const [deletedID, setdeletedId] = useState(-1);
+  const [deletedID, setdeletedId] = useState("");
   const [clients, setClients] = useState([]);
   const navigate = useNavigate();
 
@@ -131,14 +131,14 @@ function ClientList() {
                             <button
                               type="button"
                               className="btn btn-primary"
-                              onClick={() =>
-                                handleModify(
-                                  client.id,
-                                  client.first,
-                                  client.last,
-                                  client.address
-                                )
-                              }
+                              // onClick={() =>
+                              //   handleModify(
+                              //     client.id,
+                              //     client.first,
+                              //     client.last,
+                              //     client.address
+                              //   )
+                              // }
                             >
                               DETAILS
                             </button>
@@ -151,14 +151,14 @@ function ClientList() {
                             <button
                               type="button"
                               className="btn btn-success"
-                              onClick={() =>
-                                handleModify(
-                                  client.id,
-                                  client.first,
-                                  client.last,
-                                  client.address
-                                )
-                              }
+                              // onClick={() =>
+                              //   handleModify(
+                              //     client.User_id,
+                              //     client.first,
+                              //     client.last,
+                              //     client.address
+                              //   )
+                              // }
                             >
                               ORDERS
                             </button>
@@ -169,7 +169,7 @@ function ClientList() {
                           <button
                             type="button"
                             className="btn btn-danger"
-                            onClick={() => handleOpenDeactivate(client.id)}
+                            onClick={() => handleOpenDeactivate(client.User_id)}
                           >
                             DEACTIVATE
                           </button>
