@@ -4,6 +4,7 @@ import { uuid } from "uuidv4";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import users from "../data/users.js";
+import pool from "../../services/db.service.js";
 
 dotenv.config();
 
@@ -37,88 +38,169 @@ dotenv.config();
 // ];
 
 export const signUp = async (req, res) => {
-  const user = req.body;
+  try{const user = req.body;
 
-  var userName = user.userName;
-  var password = user.password;
-  var confirmedPassword = user.confirmedPassword;
+    var userName = user.userName;
+    var password = user.password;
+    var confirmedPassword = user.confirmedPassword;
+    var newUserId = uuid();
+    const salt = await bcrypt.genSalt(10);
+    var encryptedPassword = await bcrypt.hash(password, salt);
+    const [all_users] = await pool.query(`(
+    SELECT * FROM mydb.users
 
-  if (user.password !== user.confirmedPassword) {
-    return res.status(400).json({
-      error: "Confirmed password does not match",
-    });
-  }
+      )`);
+      
+    if (user.password !== user.confirmedPassword) {
+      return res.status(400).json({
+        error: "Confirmed password does not match",
+      });
+    }
+  
+    if (all_users.find((user) => user.username === userName)) {
+      return res.status(409).json({
+        error: "Username already exists!",
+      });
+    }
+  
+    if (
+      !userName ||
+      !password ||
+      !confirmedPassword ||
+      userName.length === 0 ||
+      password.length === 0 ||
+      confirmedPassword.length === 0
+    ) {
+      return res.status(400).json({
+        error: "Username or Password is invalid!",
+      });
+    }
+  
+     
+    
+    await pool.query(`
+    INSERT INTO mydb.users (
+      User_id,
+      username,
+      password,
+        info_id,
+        active
+    ) SELECT
+      ?,
+      ?,
+      ?,
+       COUNT(*)+1,
+      1
+      FROM mydb.users 
 
-  if (users.find((user) => user.userName === userName)) {
-    return res.status(409).json({
-      error: "Username already exists!",
-    });
-  }
+      `,[newUserId,userName,encryptedPassword]);
+      await pool.query(`
+      INSERT INTO mydb.information (
+        Information_id,
+        Fullname,
+        address1,
+        address2,
+        city,
+        state,
+        zipcode,
+        User_id        
+      ) SELECT COUNT(*)+1,      
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",   
+        ? 
+        FROM mydb.information       
+  
+        `,[newUserId]);
 
-  if (
-    !userName ||
-    !password ||
-    !confirmedPassword ||
-    userName.length === 0 ||
-    password.length === 0 ||
-    confirmedPassword.length === 0
-  ) {
-    return res.status(400).json({
-      error: "Username or Password is invalid!",
-    });
-  }
+      //   await pool.query(`
+      //   INSERT INTO mydb.orders ( 
+      //     Order_id,         
+      //     userId        
+      //   ) SELECT COUNT(*)+1,                  
+      //     ?        
+      //     FROM mydb.orders
+      //     `,[newUserId]);
+      const jsonUser = { id: newUserId };
+      const accessToken = generateAccessToken(jsonUser);
+      const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
+      refreshTokens.push(refreshToken);
 
-  const salt = await bcrypt.genSalt(10);
-  var encryptedPassword = await bcrypt.hash(password, salt);
+      
+      return res.status(200).json({        
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+      success: "Successfully signing up",
+      
+    });}
+    catch(error) {
+      return res.status(400).json({
+        error: error,
+      });
+    }
+  
 
-  var newUserId = uuid();
+  
 
-  const newUser = {
-    id: newUserId,
-    userName: userName,
-    password: encryptedPassword,
-    active: 1,
-    info: {
-      FullName: "",
-      Address1: "",
-      Address2: "",
-      city: "",
-      State: "",
-      Zipcode: "",
-    },
-    orders: [
-   ],
-  };
+  
 
-  users.push(newUser);
+  
 
-  const jsonUser = { id: newUser.id };
+  // const newUser = {
+  //   id: newUserId,
+  //   userName: userName,
+  //   password: encryptedPassword,
+  //   active: 1,
+  //   info: {
+  //     FullName: "",
+  //     Address1: "",
+  //     Address2: "",
+  //     city: "",
+  //     State: "",
+  //     Zipcode: "",
+  //   },
+  //   orders: [
+  //  ],
+  // };
 
-  const accessToken = generateAccessToken(jsonUser);
-  const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
-  refreshTokens.push(refreshToken);
+  // users.push(newUser);
+  // await createUser(newUserId, userName, encryptedPassword);
 
-  return res.status(200).json({
-    accessToken: accessToken,
-    refreshToken: refreshToken,
-    success: "Successfully signing up",
-  });
+  
+
 };
 
-export function getPost(req, res) {
-  try {
-    var Userfind = users.filter((user) => user.id == req.user.id)[0];
+export const getPost = async (req, res) =>{
+  
+    // var Userfind = users.filter((user) => user.id == req.user.id)[0];
+    const [all_users] = await pool.query(`(
+      SELECT * FROM mydb.users
+  
+        )`);
+    try {
+      // const body = req.body;
+      var findUser = all_users.filter((user) => user.User_id == req.user.id)[0];
+    // const id = req.params.id;
 
-    if (!Userfind) {
+    
+    if (!findUser) {
       return res.status(400).json({
         error: "Can't find user.",
       });
     }
+    const [userinfo] = await pool.query(`
+    SELECT * from mydb.information
+    
+    `);
+    var findinfo = userinfo.filter((user) => user.user_id == req.user.id)[0];
 
-    return res.status(200).json(Userfind.info);
+    return res.status(200).json(findinfo);
   } catch (err) {
-    return res.status(400).json({
-      error: err,
+    return res.status(401).json({
+      error: `${err} from post`,
     });
   }
 }
@@ -128,7 +210,10 @@ export const signIn = async (req, res) => {
 
   var userName = data.userName;
   var password = data.password;
+  const [all_users] = await pool.query(`(
+    SELECT * FROM mydb.users
 
+      )`);
   if (
     !userName ||
     !password ||
@@ -140,7 +225,7 @@ export const signIn = async (req, res) => {
     });
   }
 
-  const findUser = users.find((user) => user.userName === userName);
+  const findUser = all_users.find((user) => user.username === userName);
 
   if (findUser == null) {
     return res.status(400).json({
@@ -170,7 +255,10 @@ export const authsignIn = async (req, res) => {
 
   var userName = data.userName;
   var password = data.password;
+  const [all_users] = await pool.query(`(
+    SELECT * FROM mydb.users
 
+      )`);
   if (
     !userName ||
     !password ||
@@ -182,7 +270,7 @@ export const authsignIn = async (req, res) => {
     });
   }
 
-  const findUser = users.find((user) => user.userName === userName);
+  const findUser = all_users.find((user) => user.username === userName);
 
   if (findUser == null || findUser.active == 0) {
     return res.status(400).json({
@@ -198,7 +286,7 @@ export const authsignIn = async (req, res) => {
     });
   }
 
-  const id = findUser.id;
+  const id = findUser.User_id;
   const user = { id: id };
 
   const accessToken = generateAccessToken(user);
@@ -229,10 +317,10 @@ export function getToken(req, res) {
   });
 }
 
-export function Logout(req, res) {
-  refreshTokens = refreshTokens.filter((token) => token !== req.body.token);
-  res.sendStatus(204);
-}
+// export function Logout(req, res) {
+//   refreshTokens = refreshTokens.filter((token) => token !== req.body.token);
+//   res.sendStatus(204);
+// }
 
 function generateAccessToken(user) {
   return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
@@ -260,20 +348,31 @@ export const passwordChange = async (req, res) => {
 
   // const password = body.password;
   // const userName = body.userName;
+  const [all_users] = await pool.query(`(
+    SELECT * FROM mydb.users
 
+      )`);
   try {
     const body = req.body;
-    var findUser = users.filter((user) => user.id == req.user.id)[0];
+    var findUser = all_users.filter((user) => user.User_id == req.user.id)[0];
+
     const salt = await bcrypt.genSalt(10);
     var encryptedPassword = await bcrypt.hash(body.password, salt);
+    // return res.status(400).json(all_users)
     if (!findUser) {
+      
       return res.status(400).json({
         error: "User doesn't exist!",
+        
       });
     }
+    
     findUser.password = encryptedPassword;
+    const [updatepass] = await pool.query(`
+    UPDATE mydb.users SET password = '${findUser.password}' WHERE User_id = '${findUser.User_id}'
+    `);
     return res.status(200).json({
-      // success: "Successfully save info.",
+      success: "Successfully save info.",
       // findUser
       findUser,
     });
@@ -286,35 +385,70 @@ export const passwordChange = async (req, res) => {
 
 export const UserInfoChange = async (req, res) => {
   //   const id = req.params.id;
+  const [all_users] = await pool.query(`
+    SELECT * FROM mydb.information
+    
+
+      `);
+      
   try {
     const body = req.body;
-    var findUser = users.filter((user) => user.id == req.user.id)[0];
-
+    var findUser = all_users.filter((user) => user.user_id == req.user.id)[0];
+   
     if (!findUser) {
+      // const [add_info] = await pool.query(`
+      // insert into mydb.information (information_id,Fullname,address1,address2,city,state,zipcode,user_id) SELECT
+      // COUNT (*)+1,
+      //  '${body.Fullname}', 
+      //   '${body.address1}', 
+      //   '${body.address2}', 
+      //   '${body.city}', 
+      //   '${body.state}', 
+      //   '${body.zipcode}',
+      //   '${findUser.User_id}'
+      // FROM mydb.information
+      
+      // `);
       return res.status(400).json({
-        error: "User doesn't exist!",
+        error:"user doesn't exits"
       });
     }
 
     if (
-      body.FullName.length > 50 ||
-      body.Address1.length > 100 ||
-      body.Address2.length > 100 ||
+      body.Fullname.length > 50 ||
+      body.address1.length > 100 ||
+      body.address2.length > 100 ||
       body.city.length > 100 ||
-      body.Zipcode.length > 9 ||
-      body.Zipcode.length < 5
+      body.zipcode.length > 9 ||
+      body.zipcode.length < 5
     ) {
       return res.status(400).json({
         error: "Invalid input",
       });
     }
 
-    findUser.info.FullName = body.FullName;
-    findUser.info.Address1 = body.Address1;
-    findUser.info.Address2 = body.Address2;
-    findUser.info.city = body.city;
-    findUser.info.State = body.State;
-    findUser.info.Zipcode = body.Zipcode;
+    const [update_info] = await pool.query(`
+    UPDATE mydb.information SET    
+    Fullname ='${body.Fullname}' , 
+    address1 ='${body.address1}' , 
+    address2 ='${body.address2}' , 
+    city = '${body.city}' , 
+    state= '${body.state}' , 
+    zipcode = '${body.zipcode}'
+    
+    WHERE User_id = '${req.user.id}'
+    
+    `);
+`
+  
+    `
+    // WHERE User_id = '${findUser.User_id}'
+    // findUser.FullName = body.FullName;
+    // findUser.Address1 = body.Address1;
+    // findUser.Address2 = body.Address2;
+    // findUser.city = body.city;
+    // findUser.State = body.State;
+    // findUser.Zipcode = body.Zipcode;
 
     return res.status(200).json({
       success: "Successfully save info.",
@@ -323,7 +457,7 @@ export const UserInfoChange = async (req, res) => {
     });
   } catch (err) {
     return res.status(400).json({
-      error: err,
+      error: `${err} what error`,
     });
   }
 };
@@ -331,40 +465,48 @@ export const UserInfoChange = async (req, res) => {
 
 export const Userpostfuel = async (req, res) => {
   //   const id = req.params.id;
+  const [all_users] = await pool.query(`(
+    SELECT * FROM mydb.users
+      )`);
   try {
     const body = req.body;
-    var findUser = users.filter((user) => user.id == req.user.id)[0];
+    // var findUser = all_users.filter((user) => user.User_id == req.user.id)[0];
 
-    if (!findUser) {
-      return res.status(400).json({
-        error: "User doesn't exist!",
-      });
-    }
-
-    var orders = findUser.orders;
-    orders.push({
-      Gallons : body.Gallons,
-    DeliveryAddress : body.DeliveryAddress,
-    date : body.date,
-    Sugguestprice : body.Sugguestprice,
-    TotalAmount : body.TotalAmount,
-    })
-
-    // if (
-    //   body.FullName.length > 50 ||
-    //   body.Address1.length > 100 ||
-    //   body.Address2.length > 100 ||
-    //   body.city.length > 100 ||
-    //   body.Zipcode.length > 9 ||
-    //   body.Zipcode.length < 5
-    // ) {
+    // if (!findUser) {
     //   return res.status(400).json({
-    //     error: "Invalid input",
+    //     error: "User doesn't exist!",
     //   });
     // }
 
-    
-   
+        await pool.query(`
+        INSERT INTO mydb.orders ( 
+          Order_id,         
+          userId,
+          gallon,
+          address,
+          date,
+          suggestPrice,
+          totalCost
+                
+        ) SELECT COUNT(*)+1,                  
+          ?,
+          ?,
+          ?,
+          ?,
+          ?,
+          ?
+                  
+          FROM mydb.orders
+          `,[req.user.id,body.Gallons,body.DeliveryAddress,body.date,body.Sugguestprice,body.TotalAmount]);
+    // var orders = findUser.orders;
+    // orders.push({
+    //   Gallons : body.Gallons,
+    // DeliveryAddress : body.DeliveryAddress,
+    // date : body.date,
+    // Sugguestprice : body.Sugguestprice,
+    // TotalAmount : body.TotalAmount,
+    // })
+
 
     return res.status(200).json({
       success: "Successfully save info.",
@@ -378,13 +520,20 @@ export const Userpostfuel = async (req, res) => {
   }
 };
 
-export const getUsers = (req, res) => {
-  res.status(200).json(users);
+export const getUsers = async (req, res) => {
+  const [all_users] = await pool.query(`(
+    SELECT * FROM mydb.users
+      )`);
+  
+  res.status(200).json(all_users);
 };
 
-export function getUsersorder(req, res) {
+export async function getUsersorder(req, res) {
+  const [users_order] = await pool.query(`(
+    SELECT * FROM mydb.orders
+      )`);
   try {
-    var Userfind = users.filter((user) => user.id == req.user.id)[0];
+    var Userfind = users_order.filter((user) => user.userId == req.user.id);
 
     if (!Userfind) {
       return res.status(400).json({
@@ -392,71 +541,13 @@ export function getUsersorder(req, res) {
       });
     }
 
-    return res.status(200).json(Userfind.orders);
+    return res.status(200).json(Userfind);
   } catch (err) {
     return res.status(400).json({
       error: err,
     });
   }
 }
-
-
-export const getFuelInfo = async (req, res) => {
-  // const data = req.body;
-  // var username = data.username;
-
-  const body = req.body;
-  var gallonsRequested = body.gallonsRequested;
-  // var selectedAddress = data.selectedAddress;
-  var selectedDate = body.selectedDate;
-
-  if (!gallonsRequested) {
-    return res.status(400).json({
-      error: "Gallons Requested is Invalid!",
-    });
-  }
-
-  // if (!selectedAddress) {
-  //   return res.status(400).json({
-  //     error: "Selected Address is Invalid!",
-  //   });
-  // }
-
-  if (!selectedDate) {
-    return res.status(400).json({
-      error: "Selected Date is Invalid!",
-    });
-  }
-
-  var findUser = users.filter((user) => user.id == req.user.id)[0];
-
-  if (!findUser) {
-    res.status(400).json({
-      error: "Can't find user!",
-    });
-  }
-
-  var orders = findUser.orders;
-
-  orders.push({
-    id: 1,
-    name: "Regular",
-    volumn: gallonsRequested,
-    date: selectedDate,
-  });
-
-  //var suggestedPrice = data.suggestedPrice;
-  //var totalAmountDue = data.totalAmountDue;
-
-  
-
-  //data.suggestedPrice = data.calculation1();
-  //data.totalAmountDue = data.calculation2();
-
-  return res.status(200).json({
-    success: "$400",
-  });
-};
 
 export const getUserinfo = (req, res) => {
   try {

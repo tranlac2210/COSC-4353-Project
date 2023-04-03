@@ -5,9 +5,9 @@ import {
     modifyClientInfo, 
     getClientOrder, 
     signIn, 
-    signUp, 
+    // signUp, 
     getAdmins, 
-    passwordChange,
+    // passwordChange,
     getClient} from "./admin.controller.js"
 
 const router = express.Router();
@@ -26,13 +26,14 @@ router.put('/modifyClientInfo/:id', modifyClientInfo);
 
 router.get('/getClientOrder/:id', getClientOrder)
 
-router.post('/signup', signUp);
+// router.post('/signup', signUp); // We don't use this
 
 router.post('/signin', signIn);
 
-router.put('/passwordChange', passwordChange);
+// router.put('/passwordChange', passwordChange); // // We don't use this
 
 router.get('/getAdmins', getAdmins);
+
 
 
 
