@@ -267,6 +267,7 @@ describe('Admin', () => {
         });
       })
       describe('Check If Username Is Not Found.', () => {
+        const users = [    { userName: 'chuong5', password: '1234' },    { userName: 'phat', password: '1234' },]
         it('Test Case 1', async () => {
           const response = await request(app)
             .post(`/api/admin/signin`)
@@ -276,6 +277,7 @@ describe('Admin', () => {
       });
       })
       describe('Check If Password Is Incorrect', () => {
+        const users = [    { userName: 'chuong5', password: 'password1' },    { userName: 'phat', password: 'password2' },]
         it('Test Case 1', async () => {
           const response = await request(app).
             post(`/api/admin/signin`)
@@ -379,30 +381,65 @@ describe('Users', () => {
       users = [];
     });
     describe('Validate token for a new user', () => {
-      it('Test Case 1', async () => {
+      it('should return a 200 status code and an access token when valid user information is provided', async () => {
         const newUser = {
+          userName: 'testuser23',
+          password: 'testpassword23',
+          confirmedPassword: 'testpassword23',
+        };
+    
+        const response = await request(app)
+          .post('/api/user/signup')
+          .send(newUser);
+    
+        expect(response.statusCode).toEqual(200);
+        expect(response.body.accessToken).toBeDefined();
+      });
+
+      it('should return a 409 status code when the username already exists', async () => {
+        const existingUser = {
           userName: 'testuser',
           password: 'testpassword',
           confirmedPassword: 'testpassword',
         };
-
-        const salt = await bcrypt.genSalt(10);
-        const encryptedPassword = await bcrypt.hash(newUser.password, salt);
-        const newUserId = uuid();
-
-        const expectedUser = {
-          User_id: newUserId,
-          username: newUser.userName,
-          password: encryptedPassword,
-          info_id: 15,
-          active: 1,
-        };
-
+    
+        // Sign up the existing user first
+        await request(app)
+          .post('/api/user/signup')
+          .send(existingUser);
+    
+        // Attempt to sign up the same user again
         const response = await request(app)
           .post('/api/user/signup')
-          .send(newUser)
-          expect(response.statusCode).toEqual(200);
+          .send(existingUser);
+    
+        expect(response.statusCode).toEqual(409);
+        expect(response.body.error).toBeDefined();
       });
+    //   it('Test Case 1', async () => {
+    //     const newUser = {
+    //       userName: 'testuser',
+    //       password: 'testpassword',
+    //       confirmedPassword: 'testpassword',
+    //     };
+
+    //     const salt = await bcrypt.genSalt(10);
+    //     const encryptedPassword = await bcrypt.hash(newUser.password, salt);
+    //     const newUserId = uuid();
+
+    //     const expectedUser = {
+    //       User_id: newUserId,
+    //       username: newUser.userName,
+    //       password: encryptedPassword,
+    //       info_id: 15,
+    //       active: 1,
+    //     };
+
+    //     const response = await request(app)
+    //       .post('/api/user/signup')
+    //       .send(newUser)
+    //       expect(response.statusCode).toEqual(200);
+    //   });
     })
 
     describe('Check if invalid username or password', () => {
@@ -528,8 +565,13 @@ describe('Users', () => {
       it('Test Case 1', async () => {
         const response = await request(app)
           .post(`/api/user/UserInfoChange`)
-          .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ5Mjg4ZmUxLWNjNjEtNDQyMy1hZGQ2LTU4NWJmN2U3ZWZlYyIsImlhdCI6MTY4MDI1NTM2M30.jEpkjZSyfYZDQhOEnP2jdpxMThcJzLMFuvDIJhdvcLA', { username: 'chuong5', password: '1234' });
-          // .send({ username: 'chuong5', password: '1234' });
+          .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ5Mjg4ZmUxLWNjNjEtNDQyMy1hZGQ2LTU4NWJmN2U3ZWZlYyIsImlhdCI6MTY4MDI1NTM2M30.jEpkjZSyfYZDQhOEnP2jdpxMThcJzLMFuvDIJhdvcLA')
+          .send({  Fullname: "LAc Tran",
+          address1: "123445",
+          address2: "",
+          city: "Houston",
+          state: "TX",
+          zipcode: "77523" });
           expect(response.statusCode).toEqual(200);
       });
     })
