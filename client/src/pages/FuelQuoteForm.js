@@ -20,6 +20,7 @@ function FuelQuoteForm() {
   const [LocationFactor, setLocationFactor] = useState("");
   const [RateHistoryFactor, setRateHistoryFactor] = useState("");
   const [GallonsRequestedFactor, setGallonsRequestedFactor] = useState("");
+  const [clients, setClients] = useState([]);
   const currentPrice = 1.5;
 
   const id = new URLSearchParams(location.search).get("id");
@@ -67,28 +68,52 @@ function FuelQuoteForm() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    async function fetchData() {
+      let accessToken = Cookies.get("accessToken");
+      let webApiUrl = "http://localhost:9000/api/user/getUsersorder";
+      const res = await axios.get(webApiUrl, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+      if(res.data ==""){
+        setRateHistoryFactor(0)
+    
+  } else{  setRateHistoryFactor(0.01)
+    }
+      
+      setClients(res.data);
+      
+    }
+    fetchData();
+  }, [clients]);
+
   const handleRequestQuote = async (event) => {
     event.preventDefault();
-   
+    if (!gallonsRequested || !selectedDate) {
+      return;
+    }
    
     try {
       // Send a POST request to the login API endpoint
+      
       const currentPrice = 1.5; // constant price for simplicity
   const LocationFactor = addressString.includes('TX')? 0.02:0.04;
   // if (selectedAddress.includes('TX')){
   //       setLocationFactor(0.02)
   //     }
-  const rateHistoryFactor = 0.01;
+  // const rateHistoryFactor = 0.01;
   const gallonsRequestedFactor = gallonsRequested > 1000 ? 0.02 : 0.03;
   const companyProfitFactor = 0.1;
   const margin =
     currentPrice *
-    (LocationFactor - rateHistoryFactor + gallonsRequestedFactor + companyProfitFactor);
+    (LocationFactor - RateHistoryFactor + gallonsRequestedFactor + companyProfitFactor);
   const suggestedPrice = currentPrice + margin;
   const totalAmountDue = suggestedPrice * gallonsRequested;
   setPrice(suggestedPrice.toFixed(3));
   setAmountDue(totalAmountDue.toFixed(2));
+ 
 
+    
 
     } catch (er) {
       // If there's an error, set the error label
