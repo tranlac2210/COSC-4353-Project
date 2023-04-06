@@ -88,7 +88,7 @@ export const getClientOrder = async (req, res) => {
       error: "ID is invalid.",
     });
   } else {
-    res.status(200).json(users[0]);
+    res.status(200).json(users);
   }
 };
 
