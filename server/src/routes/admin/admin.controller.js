@@ -77,10 +77,10 @@ export const deactivateClient = async (req, res) => {
 
 export const getClientOrder = async (req, res) => {
   var id = req.params.id;
-  const [users] = await pool.query(`(
+  const [users] = await pool.query((`
     SELECT * FROM mydb.orders
-    WHERE userId = '${id}'
-      )`);
+    WHERE userId = '${id}' AND active = 1
+  `));
   // var [client] = users.find((user) => user.userId == id);
 
   if (users[0] == null) {
@@ -96,14 +96,6 @@ export const modifyClientInfo = async (req, res) => {
   try {
     const body = req.body;
     const id = req.params.id;
-
-    // var clientToBeUpdated = users.find((user) => user.id == id);
-
-    // if (clientToBeUpdated == null) {
-    //   return res.status(400).json({
-    //     error: "Something wrong happened. Please try again!",
-    //   });
-    // }
 
     if (
       body.Fullname.length > 50 ||
@@ -128,13 +120,6 @@ export const modifyClientInfo = async (req, res) => {
     zipcode = "${body.zipcode}" 
     WHERE User_id = '${id}'
     `);
-
-    // clientToBeUpdated.info.FullName = body.FullName;
-    // clientToBeUpdated.info.Address1 = body.Address1;
-    // clientToBeUpdated.info.Address2 = body.Address2;
-    // clientToBeUpdated.info.city = body.city;
-    // clientToBeUpdated.info.State = body.State;
-    // clientToBeUpdated.info.Zipcode = body.Zipcode;
 
     if (rows.affectedRows > 0) {
       return res.status(200).json({
