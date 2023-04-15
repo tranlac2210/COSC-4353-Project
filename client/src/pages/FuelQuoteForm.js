@@ -12,6 +12,9 @@ import { createAPIEndpoint, ENDPOINTS } from "../API";
 function FuelQuoteForm() {
   const location = useLocation();
   const [gallonsRequested, setGallonsRequested] = useState("");
+  const [pregallonsRequested, setpreGallonsRequested] = useState("");
+  const [preaddressString, setpreAddressString] = useState("");
+  const [preselectedDate, setpreSelectedDate] = useState("");
   const [selectedAddress, setAddress] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const [addressString, setAddressString] = useState("");
@@ -92,6 +95,9 @@ function FuelQuoteForm() {
     if (!gallonsRequested || !selectedDate) {
       return;
     }
+    if (pregallonsRequested==gallonsRequested && preaddressString==addressString && preselectedDate == selectedDate){
+      return
+    }
 
     try {
       // Send a POST request to the login API endpoint
@@ -114,7 +120,9 @@ function FuelQuoteForm() {
       const totalAmountDue = suggestedPrice * gallonsRequested;
       setPrice(suggestedPrice.toFixed(3));
       setAmountDue(totalAmountDue.toFixed(2));
-
+      setpreGallonsRequested(gallonsRequested);
+      setpreAddressString(addressString);
+      setpreSelectedDate(selectedDate);
       let accessToken = Cookies.get("accessToken");
 
       let webApiUrl = "http://localhost:9000/api/user/fuelQuote";
