@@ -12,6 +12,9 @@ import { createAPIEndpoint, ENDPOINTS } from "../API";
 function FuelQuoteForm() {
   const location = useLocation();
   const [gallonsRequested, setGallonsRequested] = useState("");
+  const [pregallonsRequested, setpreGallonsRequested] = useState("");
+  const [preaddressString, setpreAddressString] = useState("");
+  const [preselectedDate, setpreSelectedDate] = useState("");
   const [selectedAddress, setAddress] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const [addressString, setAddressString] = useState("");
@@ -20,6 +23,8 @@ function FuelQuoteForm() {
   const [LocationFactor, setLocationFactor] = useState("");
   const [RateHistoryFactor, setRateHistoryFactor] = useState("");
   const [GallonsRequestedFactor, setGallonsRequestedFactor] = useState("");
+  const [clients, setClients] = useState([]);
+  const [orderId, setOrderId] = useState("")
   const currentPrice = 1.5;
 
   const id = new URLSearchParams(location.search).get("id");
@@ -67,51 +72,67 @@ function FuelQuoteForm() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    async function fetchData() {
+      let accessToken = Cookies.get("accessToken");
+      let webApiUrl = "http://localhost:9000/api/user/getUsersorder";
+      const res = await axios.get(webApiUrl, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+      if (res.data == "") {
+        setRateHistoryFactor(0);
+      } else {
+        setRateHistoryFactor(0.01);
+      }
+
+      setClients(res.data);
+    }
+    fetchData();
+  }, [clients]);
+
   const handleRequestQuote = async (event) => {
     event.preventDefault();
-   
-   
-    try {
-      // Send a POST request to the login API endpoint
-      const currentPrice = 1.5; // constant price for simplicity
-  const LocationFactor = addressString.includes('TX')? 0.02:0.04;
-  // if (selectedAddress.includes('TX')){
-  //       setLocationFactor(0.02)
-  //     }
-  const rateHistoryFactor = 0.01;
-  const gallonsRequestedFactor = gallonsRequested > 1000 ? 0.02 : 0.03;
-  const companyProfitFactor = 0.1;
-  const margin =
-    currentPrice *
-    (LocationFactor - rateHistoryFactor + gallonsRequestedFactor + companyProfitFactor);
-  const suggestedPrice = currentPrice + margin;
-  const totalAmountDue = suggestedPrice * gallonsRequested;
-  setPrice(suggestedPrice.toFixed(3));
-  setAmountDue(totalAmountDue.toFixed(2));
-
-
-    } catch (er) {
-      // If there's an error, set the error label
-      //setErrorLabel(`${er.response.data.error}`);
+    if (!gallonsRequested || !selectedDate) {
+      return;
     }
-  };
-
-  const handleSubmit = async (event) => {
-    // event.preventDefault();
+    if (pregallonsRequested==gallonsRequested && preaddressString==addressString && preselectedDate == selectedDate){
+      return
+    }
 
     try {
       // Send a POST request to the login API endpoint
+
+      const currentPrice = 1.5; // constant price for simplicity
+      const LocationFactor = addressString.includes("TX") ? 0.02 : 0.04;
+      // if (selectedAddress.includes('TX')){
+      //       setLocationFactor(0.02)
+      //     }
+      // const rateHistoryFactor = 0.01;
+      const gallonsRequestedFactor = gallonsRequested > 1000 ? 0.02 : 0.03;
+      const companyProfitFactor = 0.1;
+      const margin =
+        currentPrice *
+        (LocationFactor -
+          RateHistoryFactor +
+          gallonsRequestedFactor +
+          companyProfitFactor);
+      const suggestedPrice = currentPrice + margin;
+      const totalAmountDue = suggestedPrice * gallonsRequested;
+      setPrice(suggestedPrice.toFixed(3));
+      setAmountDue(totalAmountDue.toFixed(2));
+      setpreGallonsRequested(gallonsRequested);
+      setpreAddressString(addressString);
+      setpreSelectedDate(selectedDate);
       let accessToken = Cookies.get("accessToken");
 
-      let webApiUrl = "http://localhost:9000/api/user/Userpostfuel";
+      let webApiUrl = "http://localhost:9000/api/user/fuelQuote";
 
       const jsonBody = {
         Gallons: gallonsRequested,
         DeliveryAddress: addressString,
         date: selectedDate.toISOString().substr(0, 10),
         Sugguestprice: suggestedPrice,
-        TotalAmount: totalAmountDue
-
+        TotalAmount: totalAmountDue,
       };
 
       const res = await axios.post(webApiUrl, jsonBody, {
@@ -120,17 +141,90 @@ function FuelQuoteForm() {
           "content-type": "application/json",
         },
       });
-      alert('Successful Submit quote!!')
-      setGallonsRequested("");
-      setSelectedDate("");
-      setPrice("");
-      setAmountDue("");
+
       console.log(res.data);
+      setOrderId(res.data);
+
     } catch (er) {
       // If there's an error, set the error label
       //setErrorLabel(`${er.response.data.error}`);
+      console.log(er.error);
     }
   };
+
+  // const handleSubmit = async (event) => {
+  //   // event.preventDefault();
+
+  //   try {
+  //     // Send a POST request to the login API endpoint
+  //     let accessToken = Cookies.get("accessToken");
+
+  //     let webApiUrl = "http://localhost:9000/api/user/Userpostfuel";
+
+  //     const jsonBody = {
+  //       Gallons: gallonsRequested,
+  //       DeliveryAddress: addressString,
+  //       date: selectedDate.toISOString().substr(0, 10),
+  //       Sugguestprice: suggestedPrice,
+  //       TotalAmount: totalAmountDue,
+  //     };
+
+  //     const res = await axios.post(webApiUrl, jsonBody, {
+  //       headers: {
+  //         Authorization: `Bearer ${accessToken}`,
+  //         "content-type": "application/json",
+  //       },
+  //     });
+  //     alert("Successful Submit quote!!");
+  //     setGallonsRequested("");
+  //     setSelectedDate("");
+  //     setPrice("");
+  //     setAmountDue("");
+  //     console.log(res.data);
+  //   } catch (er) {
+  //     // If there's an error, set the error label
+  //     //setErrorLabel(`${er.response.data.error}`);
+  //   }
+  // };
+
+  const handleSubmit = async (event) => {
+    try {
+      event.preventDefault();
+
+      if (!suggestedPrice || !totalAmountDue) {
+        alert("Please request quote first!")
+        return;
+      }
+
+      let accessToken = Cookies.get("accessToken");
+
+      let webApiUrl = "http://localhost:9000/api/user/Userpostfuel";
+
+      const jsonBody = {
+        orderId: orderId
+      };
+
+      const res = await axios.post(webApiUrl, jsonBody, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "content-type": "application/json",
+        },
+      });
+
+      if (res.status === 200) {
+        setGallonsRequested("");
+        setSelectedDate("");
+        setPrice("");
+        setAmountDue("");
+        alert("Ordered successfully");
+      }
+      else {
+        throw(Error(res.error))
+      }
+    } catch (error) {
+      alert(error)
+    }
+  }
 
   return (
     <>
@@ -161,8 +255,6 @@ function FuelQuoteForm() {
         <div className="empty"></div>
 
         <form className="fuelinput" onSubmit={handleRequestQuote}>
-
-
           <div className="cp_headSignUp"></div>
           <h2>Fuel Quote Form</h2>
           <div className="outdiv">
@@ -225,14 +317,21 @@ function FuelQuoteForm() {
               readOnly={true}
             />
           </div>
-          <button className="submit_button" type="submit" onClick={handleRequestQuote}>
+          <button
+            className="submit_button"
+            type="submit"
+            onClick={handleRequestQuote}
+          >
             Request Quote
           </button>
-          <button className="submit_button" type="submit" onClick={handleSubmit}>
+          <button
+            className="submit_button"
+            type="submit"
+            onClick={handleSubmit}
+          >
             Submit
           </button>
         </form>
-
       </div>
     </>
   );

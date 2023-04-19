@@ -79,7 +79,7 @@ export const getClientOrder = async (req, res) => {
   var id = req.params.id;
   const [users] = await pool.query((`
     SELECT * FROM mydb.orders
-    WHERE userId = '${id}'
+    WHERE userId = '${id}' AND active = 1
   `));
   // var [client] = users.find((user) => user.userId == id);
 

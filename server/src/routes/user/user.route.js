@@ -10,7 +10,8 @@ import {signUp,
     getPost,
     // Logout,
     // getToken,
-    authsignIn} from "./user.controller.js"
+    authsignIn,
+    fuelQuote} from "./user.controller.js"
 
 
 const router = express.Router();
@@ -18,6 +19,7 @@ const router = express.Router();
 router.get('/getUsers', getUsers);
 router.post('/UserInfoChange', authenticateToken, UserInfoChange); 
 router.post('/Userpostfuel', authenticateToken, Userpostfuel); 
+router.post('/fuelQuote', authenticateToken, fuelQuote); 
 router.get('/getUsersorder', authenticateToken, getUsersorder); 
 router.get('/authGetUsers', authenticateToken, getPost); 
 // router.delete('/logout', Logout) // We don't use this
