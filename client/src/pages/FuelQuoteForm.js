@@ -190,8 +190,12 @@ function FuelQuoteForm() {
 
   const handleSubmit = async (event) => {
     try {
+      
       event.preventDefault();
-
+      if(gallonsRequested==0){
+        alert("gallons can not be 0")
+        return;
+      }
       if (!suggestedPrice || !totalAmountDue) {
         alert("Please request quote first!")
         return;
@@ -265,7 +269,7 @@ function FuelQuoteForm() {
             <input
               className="input1"
               type="number"
-              min="0"
+              min={1}
               value={gallonsRequested}
               onChange={(event) => setGallonsRequested(event.target.value)}              
               required
