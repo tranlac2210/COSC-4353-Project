@@ -266,7 +266,12 @@ function FuelQuoteForm() {
               type="number"
               value={gallonsRequested}
               onChange={(event) => setGallonsRequested(event.target.value)}
+              min={0}
               required
+              onKeyPress={(event) => {
+    if (!/[0-9,'.']/.test(event.key)) {
+      event.preventDefault();    }
+  }}
             />
           </div>
           <div className="outdiv">
