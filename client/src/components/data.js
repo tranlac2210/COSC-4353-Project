@@ -13,9 +13,9 @@ const sublinks = [
     page: 'developers',
     links: [
       { label: 'Lac Tran', icon: <FaUserTie />, url: 'https://www.linkedin.com/in/lac-tran-a7798a20b/' },
-      { label: 'Charles Tran', icon: <FaUserTie />, url: '/products' },
-      { label: 'Chuong Tran', icon: <FaUserTie />, url: '/products' },
-      { label: 'Phat Tran', icon: <FaUserTie />, url: '/products' },
+      { label: 'Charles Tran', icon: <FaUserTie />, url: 'https://www.linkedin.com/in/lac-tran-a7798a20b/' },
+      { label: 'Chuong Tran', icon: <FaUserTie />, url: 'https://www.linkedin.com/in/lac-tran-a7798a20b/' },
+      { label: 'Phat Tran', icon: <FaUserTie />, url: 'https://www.linkedin.com/in/lac-tran-a7798a20b/' },
     ],
   },
   {

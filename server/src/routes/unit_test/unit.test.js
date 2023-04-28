@@ -179,12 +179,12 @@ describe('Admin', () => {
       describe('Valid ID', () => {
         it('Test Case 1', async () => {
           const response = await request(app)
-            .get(`/api/admin/getClientOrder/819fc3af-28f3-4dd9-8d99-f433525b130d`)
+            .get(`/api/admin/getClientOrder/0be325a1-163f-4fd3-89ef-0ba8eea803cc`)
             expect(response.statusCode).toEqual(200)
           })
         it('Test Case 2', async () => {
           const response = await request(app)
-            .get(`/api/admin/getClientOrder/49288fe1-cc61-4423-add6-585bf7e7efec`)
+            .get(`/api/admin/getClientOrder/0f233a55-487b-47d4-95ba-e6b968bb2ffc`)
             expect(response.statusCode).toEqual(200)
           })
         })
@@ -383,9 +383,9 @@ describe('Users', () => {
     describe('Validate token for a new user', () => {
       it('should return a 200 status code and an access token when valid user information is provided', async () => {
         const newUser = {
-          userName: 'testuser23',
-          password: 'testpassword23',
-          confirmedPassword: 'testpassword23',
+          userName: 'testuser199', // testuser200
+          password: 'testpassword199', // testpassword200
+          confirmedPassword: 'testpassword199', // testpassword200
         };
     
         const response = await request(app)
@@ -577,23 +577,23 @@ describe('Users', () => {
     })
   });
 
-  describe('Save Users Fuel', () => {
-    describe('with Access Token', () => {
-      it('Test Case 1', async () => {
-        const response = await request(app)
-          .post(`/api/user/Userpostfuel`)
-          .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ5Mjg4ZmUxLWNjNjEtNDQyMy1hZGQ2LTU4NWJmN2U3ZWZlYyIsImlhdCI6MTY4MDI1NTM2M30.jEpkjZSyfYZDQhOEnP2jdpxMThcJzLMFuvDIJhdvcLA');
-          expect(response.statusCode).toEqual(200);
-      });
-    })
-  });
+  // describe('Save Users Fuel', () => {
+  //   describe('with Access Token', () => {
+  //     it('Test Case 1', async () => {
+  //       const response = await request(app)
+  //         .post(`/api/user/Userpostfuel`)
+  //         .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZkM2I3ZGMxLWQwOWItNDg4ZC1iODZhLTAwMmFlZDNhYWIxMyIsImlhdCI6MTY4MTUwMDIzOX0.yNusmLHRalFPpB1azEthz5FomqDsd3wJXFSu8WILCHg');
+  //         expect(response.statusCode).toEqual(200);
+  //     });
+  //   })
+  // });
 
   describe('Collect Users Order', () => {
     describe('with Access Token', () => {
       it('Test Case 1', async () => {
         const response = await request(app)
           .get(`/api/user/getUsersorder`)
-          .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ5Mjg4ZmUxLWNjNjEtNDQyMy1hZGQ2LTU4NWJmN2U3ZWZlYyIsImlhdCI6MTY4MDI1NTM2M30.jEpkjZSyfYZDQhOEnP2jdpxMThcJzLMFuvDIJhdvcLA');
+          .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBiZTMyNWExLTE2M2YtNGZkMy04OWVmLTBiYThlZWE4MDNjYyIsImlhdCI6MTY4MTk2Mzk4M30.GTrURgIqbIiQepiqHfnH3erqVe9M01NO-CI3y-7I9UI');
           expect(response.statusCode).toEqual(200);
       });
     })
@@ -605,6 +605,17 @@ describe('Users', () => {
         const response = await request(app)
           .get(`/api/user/authGetUsers`)
           .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ5Mjg4ZmUxLWNjNjEtNDQyMy1hZGQ2LTU4NWJmN2U3ZWZlYyIsImlhdCI6MTY4MDI1NTM2M30.jEpkjZSyfYZDQhOEnP2jdpxMThcJzLMFuvDIJhdvcLA');
+          expect(response.statusCode).toEqual(200);
+      });
+    })
+  });
+
+  describe('Update Fuel Quotes', () => {
+    describe('with Access Token', () => {
+      it('Test Case 1', async () => {
+        const response = await request(app)
+          .post(`/api/user//fuelQuote`)
+          .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZkM2I3ZGMxLWQwOWItNDg4ZC1iODZhLTAwMmFlZDNhYWIxMyIsImlhdCI6MTY4MTUwMDIzOX0.yNusmLHRalFPpB1azEthz5FomqDsd3wJXFSu8WILCHg');
           expect(response.statusCode).toEqual(200);
       });
     })
