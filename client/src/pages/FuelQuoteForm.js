@@ -267,8 +267,7 @@ function FuelQuoteForm() {
               type="number"
               min="0"
               value={gallonsRequested}
-              onChange={(event) => setGallonsRequested(event.target.value)}
-              min={0}
+              onChange={(event) => setGallonsRequested(event.target.value)}              
               required
               onKeyPress={(event) => {
     if (!/[0-9,'.']/.test(event.key)) {
