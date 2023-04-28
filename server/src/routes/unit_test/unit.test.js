@@ -383,9 +383,11 @@ describe('Users', () => {
     describe('Validate token for a new user', () => {
       it('should return a 200 status code and an access token when valid user information is provided', async () => {
         const newUser = {
-          userName: 'testuser24',
-          password: 'testpassword24',
-          confirmedPassword: 'testpassword24',
+
+          userName: 'testuser199', // testuser200
+          password: 'testpassword199', // testpassword200
+          confirmedPassword: 'testpassword199', // testpassword200
+
         };
     
         const response = await request(app)
