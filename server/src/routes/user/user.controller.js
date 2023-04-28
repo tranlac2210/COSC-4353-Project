@@ -510,6 +510,12 @@ export async function getUsersorder(req, res) {
 export const fuelQuote = async (req, res) => {
   try {
     const body = req.body;
+
+    if (body.Gallons < 0) {
+      return res.status(400).json({
+        error: "Amount of gallon must be larger than 0"
+      })
+    }
     
     const [result] = await pool.query(
       `

@@ -145,10 +145,11 @@ function FuelQuoteForm() {
       console.log(res.data);
       setOrderId(res.data);
 
-    } catch (er) {
+    } catch (err) {
       // If there's an error, set the error label
       //setErrorLabel(`${er.response.data.error}`);
-      console.log(er.error);
+      console.log(err);
+      alert(err.response.data.error)
     }
   };
 
@@ -264,6 +265,7 @@ function FuelQuoteForm() {
             <input
               className="input1"
               type="number"
+              min="0"
               value={gallonsRequested}
               onChange={(event) => setGallonsRequested(event.target.value)}
               required
