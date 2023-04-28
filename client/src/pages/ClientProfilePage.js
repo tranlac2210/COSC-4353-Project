@@ -82,7 +82,8 @@ function ClientProfilePage() {
 
       console.log(res.data.success);
     } catch (error) {
-      alert(error)
+      console.log(error);
+      alert(error.response.data.error)
     }
   };
 
