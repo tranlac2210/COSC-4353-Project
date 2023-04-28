@@ -10,8 +10,8 @@ const Background = () => {
       <div className='background-center'>
         <article className='background-info'>
           <h1>
-            American Fuel for <br />
-            Global Markets
+            Fuel Price for <br />
+            Domestic Market
           </h1>
           <p>
             Millions of companies of all sizes—from startups to 
